@@ -1721,10 +1721,10 @@ if(empty($vars["phone"])){
                 echo "<pre>";
                 echo "</pre>";
 
-                if (!empty($check["message"])) {
-                    return false;
+                if ($check->status() == "OK") {
+                    return true;
                 }
-                return true;
+                return false;
 //		return $domains->available(array('domain' => "liquid.com"))->status() == "OK";
 	}
 
