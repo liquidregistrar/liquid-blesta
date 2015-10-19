@@ -32,7 +32,7 @@ class LogicboxesApi {
 	 * @var array An array representing the last request made
 	 */
 	private $last_request = array('url' => null, 'args' => null);
-	
+
 	/**
 	 * Sets the connection details
 	 *
@@ -45,7 +45,7 @@ class LogicboxesApi {
 		$this->key = $key;
 		$this->sandbox = $sandbox;
 	}
-	
+
 	/**
 	 * Submits a request to the API
 	 *
@@ -59,17 +59,17 @@ class LogicboxesApi {
 		$url = self::LIVE_URL;
 		if ($this->sandbox)
 			$url = self::SANDBOX_URL;
-		
+
 		$url .= $command . "." . self::RESPONSE_FORMAT;
-		
+
 		$args['auth-userid'] = $this->reseller_id;
 		$args['api-key'] = $this->key;
-		
+
 		$this->last_request = array(
 			'url' => $url,
 			'args' => $args
 		);
-		
+
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
@@ -83,10 +83,17 @@ class LogicboxesApi {
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->buildQuery($args));
 		}
 		$response = curl_exec($ch);
+                $curl_error = curl_error($ch);
+
+                # langsung cek respon
+                if (!$response) {
+                    echo $curl_error;
+//                    throw new LiquidRegistrarApiException($curl_error ? $curl_error : "Unable to request data from " . $request_url);
+                }
 		curl_close($ch);
 		return new LogicboxesResponse($response);
 	}
-	
+
 	/**
 	 * Returns the details of the last request made
 	 *
@@ -97,7 +104,7 @@ class LogicboxesApi {
 	public function lastRequest() {
 		return $this->last_request;
 	}
-	
+
 	/**
 	 * Loads a command class
 	 *
@@ -106,7 +113,7 @@ class LogicboxesApi {
 	public function loadCommand($command) {
 		require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . "commands" . DIRECTORY_SEPARATOR . $command . ".php";
 	}
-	
+
 	/**
 	 * Implementation of http_build_query() that treats numerical arrays as duplicate key values
 	 *
