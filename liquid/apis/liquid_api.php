@@ -75,7 +75,6 @@ class LiquidApi {
 			'args' => $args
 		);
 
-//		$ch = curl_init();
                 $request_url = $url;
                 if ($method == "GET") {
                     $request_url = $url. "?" . $this->buildQuery($args);
@@ -84,9 +83,7 @@ class LiquidApi {
                 if (($ch = curl_init($request_url)) === false) {
                     throw new LiquidRegistrarApiException("PHP extension curl must be loaded.");
                 }
-//                curl_setopt($ch, CURLOPT_HEADER, 1);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
                 // kalau ke sandbox di false, kalau ke live di true
 		if ($this->sandbox) {
                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -118,23 +115,11 @@ class LiquidApi {
                         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
                         break;
                 }
-//		if ($method == "GET") {
-//			curl_setopt($ch, CURLOPT_URL, $url . "?" . $this->buildQuery($args));
-//		}
-//		else {
-//			curl_setopt($ch, CURLOPT_URL, $url);
-//			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->buildQuery($args));
-//		}
 
                 curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
                 curl_setopt($ch, CURLOPT_USERPWD, "$user:$pass");
 
 		$response = curl_exec($ch);
-//                $curl_error = curl_error($ch);
-//    $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-//    $header      = substr($response, 0, $header_size);
-//    $body        = substr($response, $header_size);
-//    $code        = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
                 # langsung cek respon
                 if (!$response) {

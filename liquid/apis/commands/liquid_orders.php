@@ -7,12 +7,12 @@
  * @package liquid.commands
  */
 class LiquidOrders {
-	
+
 	/**
 	 * @var LiquidApi
 	 */
 	private $api;
-	
+
 	/**
 	 * Sets the API to use for communication
 	 *
@@ -21,7 +21,7 @@ class LiquidOrders {
 	public function __construct(LiquidApi $api) {
 		$this->api = $api;
 	}
-	
+
 	/**
 	 * Applies the Suspension on the specified Order.
 	 *
@@ -31,9 +31,9 @@ class LiquidOrders {
 	 * @return LiquidResponse
 	 */
 	public function suspend(array $vars) {
-		return $this->api->submit("orders/suspend", $vars);
+		return $this->api->submit("orders/". $vars["order-id"] ."/suspend", $vars, "PUT");
 	}
-	
+
 	/**
 	 * Removes the Suspension on the specified Order.
 	 *
@@ -42,7 +42,7 @@ class LiquidOrders {
 	 * @return LiquidResponse
 	 */
 	public function unsuspend(array $vars) {
-		return $this->api->submit("orders/unsuspend", $vars);
+		return $this->api->submit("orders/". $vars["order-id"] ."/suspend", $vars, "DELETE");
 	}
 }
 ?>

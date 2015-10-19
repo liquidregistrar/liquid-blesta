@@ -7,12 +7,12 @@
  * @package liquid.commands
  */
 class LiquidContacts {
-	
+
 	/**
 	 * @var LiquidApi
 	 */
 	private $api;
-	
+
 	/**
 	 * Sets the API to use for communication
 	 *
@@ -21,7 +21,7 @@ class LiquidContacts {
 	public function __construct(LiquidApi $api) {
 		$this->api = $api;
 	}
-	
+
 	/**
 	 * Adds a Contact to the domain using the details provided.
 	 *
@@ -93,9 +93,9 @@ class LiquidContacts {
 	 * @return LiquidResponse
 	 */
 	public function add(array $vars) {
-		return $this->api->submit("contacts/add", $vars);
+		return $this->api->submit("customers/".$vars["customer-id"]."/contacts", $vars, "POST");
 	}
-	
+
 	/**
 	 * Modifies the details of the specified Contact.
 	 *
@@ -118,9 +118,9 @@ class LiquidContacts {
 	 * @return LiquidResponse
 	 */
 	public function modify(array $vars) {
-		return $this->api->submit("contacts/modify", $vars);
+            return $this->api->submit("customers/".$vars["customer-id"]."/contacts", $vars, "PUT");
 	}
-	
+
 	/**
 	 * Gets the details for the specified Contact.
 	 *
@@ -129,9 +129,9 @@ class LiquidContacts {
 	 * @return LiquidResponse
 	 */
 	public function details(array $vars) {
-		return $this->api->submit("contacts/details", $vars, "GET");
+            return $this->api->submit("customers/".$vars["customer-id"]."/contacts/".$vars["contact-id"], $vars, "GET");
 	}
-	
+
 	/**
 	 * Gets the Contact Details of the Contacts that match the Search criteria.
 	 *
@@ -148,9 +148,9 @@ class LiquidContacts {
 	 * @return LiquidResponse
 	 */
 	public function search(array $vars) {
-		return $this->api->submit("contacts/search", $vars, "GET");
+		return $this->api->submit("customers/".$vars["customer-id"]."/contacts", $vars, "GET");
 	}
-	
+
 	/**
 	 * Gets the details of the Default Contacts for the Customer.
 	 *
@@ -160,9 +160,9 @@ class LiquidContacts {
 	 * @return LiquidResponse
 	 */
 	public function getDefault(array $vars) {
-		return $this->api->submit("contacts/default", $vars);
+		return $this->api->submit("customers/".$vars["customer-id"]."/contacts/default", $vars, "GET");
 	}
-	
+
 	/**
 	 * Associates mandatory extra details with the specified Contact to register .US, .COOP, .ASIA, .CA, .ES, .RU, .PRO and .NL domain names.
 	 *
@@ -221,7 +221,7 @@ class LiquidContacts {
 	public function setDetails(array $vars) {
 		return $this->api->submit("contacts/set-details", $vars);
 	}
-	
+
 	/**
 	 * Deletes the specified Contact.
 	 *
@@ -230,9 +230,9 @@ class LiquidContacts {
 	 * @return LiquidResponse
 	 */
 	public function delete(array $vars) {
-		return $this->api->submit("contacts/delete", $vars);
+		return $this->api->submit("customers/".$vars["customer-id"]."/contacts/".$vars["contact-id"], $vars, "DELETE");
 	}
-	
+
 	/**
 	 * Gets a list of system default .COOP Sponsors (Co-operative Reference) and associated Sponsor of the specified Customer.
 	 *
@@ -258,7 +258,7 @@ class LiquidContacts {
 	 * 		- .RU RU_CONTACT_INFO
 	 * 		- .US APP_PREF_NEXUS
 	 * @return LiquidResponse
-	 */	
+	 */
 	public function validateRegistrant(array $vars) {
 		return $this->api->submit("contacts/validate-registrant", $vars, "GET");
 	}

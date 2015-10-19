@@ -60,7 +60,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function suggestNames(array $vars) {
-		return $this->api->submit("domains/suggest-names", $vars, "GET");
+		return $this->api->submit("domains/suggestion", $vars, "GET");
 	}
 
 	/**
@@ -116,7 +116,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function register(array $vars) {
-		return $this->api->submit("domains/register", $vars);
+		return $this->api->submit("domains", $vars, "POST");
 	}
 
 	/**
@@ -148,7 +148,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function transfer(array $vars) {
-		return $this->api->submit("domains/transfer", $vars);
+		return $this->api->submit("domains/transfer", $vars, "POST");
 	}
 
 	/**
@@ -158,7 +158,7 @@ class LiquidDomains {
 	 * 	- domain-name Domain name for which you want to check if the transfer request is valid.
 	 */
 	public function validateTransfer(array $vars) {
-		return $this->api->submit("domains/validate-transfer", $vars);
+		return $this->api->submit("domains/transfer/validity", $vars, "GET");
 	}
 
 	/**
@@ -175,7 +175,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function renew(array $vars) {
-		return $this->api->submit("domains/renew", $vars);
+		return $this->api->submit("domains/renew", $vars, "POST");
 	}
 
 	/**
@@ -199,7 +199,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function search(array $vars) {
-		return $this->api->submit("domains/search", $vars, "GET");
+		return $this->api->submit("domains", $vars, "GET");
 	}
 
 	/**
@@ -210,7 +210,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function customerDefaultNs(array $vars) {
-		return $this->api->submit("domains/custom-default-ns", $vars, "GET");
+		return $this->api->submit("customers/".$vars["customer-id"]."/ns/default", $vars, "GET");
 	}
 
 	/**
@@ -221,7 +221,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function orderid(array $vars) {
-		return $this->api->submit("domains/orderid", $vars, "GET");
+		return $this->api->submit("domains/details-by-name", $vars, "GET");
 	}
 
 	/**
@@ -233,7 +233,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function details(array $vars) {
-		return $this->api->submit("domains/details", $vars, "GET");
+		return $this->api->submit("domains/".$vars["order-id"], $vars, "GET");
 	}
 
 	/**
@@ -257,7 +257,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function modifyNs(array $vars) {
-		return $this->api->submit("domains/modify-ns", $vars);
+		return $this->api->submit("domains/". $vars["order-id"] ."/ns", $vars, "PUT");
 	}
 
 	/**
@@ -270,7 +270,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function addCns(array $vars) {
-		return $this->api->submit("domains/add-cns", $vars);
+		return $this->api->submit("domains/". $vars["order-id"] ."/childns", $vars, "POST");
 	}
 
 	/**
@@ -283,7 +283,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function modifyCnsName(array $vars) {
-		return $this->api->submit("domains/modify-cns-name", $vars);
+		return $this->api->submit("domains/". $vars["order-id"] ."/childns/".$vars["old-cns"]."/".$vars["old-cns"], $vars, "PUT");
 	}
 
 	/**
@@ -297,7 +297,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function modifyCnsIp(array $vars) {
-		return $this->api->submit("domains/modify-cns-ip", $vars);
+		return $this->api->submit("domains/". $vars["order-id"] ."/childns/".$vars["old-cns"]."/".$vars["old-ip"], $vars, "PUT");
 	}
 
 	/**
@@ -310,7 +310,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function deleteCnsIp(array $vars) {
-		return $this->api->submit("domains/delete-cns-ip", $vars);
+		return $this->api->submit("domains/". $vars["order-id"] ."/childns/".$vars["old-cns"]."/".$vars["old-ip"], $vars, "DELETE");
 	}
 
 	/**
@@ -325,7 +325,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function modifyContact(array $vars) {
-		return $this->api->submit("domains/modify-contact", $vars);
+		return $this->api->submit("domains/". $vars["order-id"] ."/contacts", $vars, "PUT");
 	}
 
 	/**
@@ -338,7 +338,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function modifyPrivacyProtection(array $vars) {
-		return $this->api->submit("domains/modify-privacy-protection", $vars);
+		return $this->api->submit("domains/". $vars["order-id"] ."/privacy_protection", $vars, "PUT");
 	}
 
 	/**
@@ -350,7 +350,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function modifyAuthCode(array $vars) {
-		return $this->api->submit("domains/modify-auth-code", $vars);
+		return $this->api->submit("domains/". $vars["order-id"] ."/auth_code", $vars, "PUT");
 	}
 
 	/**
@@ -361,7 +361,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function enableTheftProtection(array $vars) {
-		return $this->api->submit("domains/enable-theft-protection", $vars);
+		return $this->api->submit("domains/". $vars["order-id"] ."/theft_protection", $vars, "PUT");
 	}
 
 	/**
@@ -372,7 +372,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function disableTheftProtection(array $vars) {
-		return $this->api->submit("domains/disable-theft-protection", $vars);
+		return $this->api->submit("domains/". $vars["order-id"] ."/theft_protection", $vars, "DELETE");
 	}
 
 	/**
@@ -383,7 +383,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function locks(array $vars) {
-		return $this->api->submit("domains/locks", $vars, "GET");
+		return $this->api->submit("domains/locked", $vars, "PUT");
 	}
 
 	/**
@@ -394,7 +394,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function resendRfa(array $vars) {
-		return $this->api->submit("domains/resend-rfa", $vars);
+		return $this->api->submit("domains/". $vars["order-id"] ."/raa_verification/resend", $vars, "POST");
 	}
 
 	/**
@@ -405,7 +405,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function cancelTransfer(array $vars) {
-		return $this->api->submit("domains/cancel-transfer", $vars);
+		return $this->api->submit("domains/". $vars["order-id"] ."/transfer/cancel", $vars, "POST");
 	}
 
 	/**
@@ -416,7 +416,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function delete(array $vars) {
-		return $this->api->submit("domains/delete", $vars);
+		return $this->api->submit("domains/".$vars["order-id"], $vars, "DELETE");
 	}
 
 	/**
@@ -431,7 +431,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function restore(array $vars) {
-		return $this->api->submit("domains/restore", $vars);
+		return $this->api->submit("domains/".$vars["order-id"] . "/restore", $vars, "POST");
 	}
 }
 ?>
