@@ -1664,9 +1664,12 @@ die;
 
 		$response = $result->response();
 
-                print_r($response);
-                die;
-		return in_array($response->{$domain}->status, array("unknown", "available"));
+                if (!empty($response[0]["$domain"]["status"]) AND $response[0]["$domain"]["status"] == "available") {
+                    return true;
+                }
+                return false;
+
+//		return in_array($response->{$domain}->status, array("unknown", "available"));
 	}
 
 	/**
