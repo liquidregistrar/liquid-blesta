@@ -7,12 +7,12 @@
  * @package liquid.commands
  */
 class LiquidDomains {
-	
+
 	/**
 	 * @var LiquidApi
 	 */
 	private $api;
-	
+
 	/**
 	 * Sets the API to use for communication
 	 *
@@ -21,7 +21,7 @@ class LiquidDomains {
 	public function __construct(LiquidApi $api) {
 		$this->api = $api;
 	}
-	
+
 	/**
 	 * Checks the availability of the specified domain name(s).
 	 *
@@ -34,7 +34,7 @@ class LiquidDomains {
 	public function available(array $vars) {
 		return $this->api->submit("domains/available", $vars, "GET");
 	}
-	
+
 	/**
 	 * Checks the availability of the specified Internationalized Domain Name(s) (IDN).
 	 *
@@ -45,7 +45,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function idnAvailable(array $vars) {
-		return $this->api->submit("domains/idn-available", $vars, "GET");
+		return $this->api->submit("domains/availability", $vars, "GET");
 	}
 
 	/**
@@ -58,11 +58,11 @@ class LiquidDomains {
 	 *	- hyphen-allowed Default value is false. Recommended value is true. If true is passed, generates suggestions with hyphens (Dashes) "-". (optional)
 	 *	- add-related Default value is false. Recommended value is true. If true is passed, generates suggestions with related keywords. (optional)
 	 * @return LiquidResponse
-	 */	
+	 */
 	public function suggestNames(array $vars) {
 		return $this->api->submit("domains/suggest-names", $vars, "GET");
 	}
-	
+
 	/**
 	 * Registers a domain name.
 	 *
@@ -118,7 +118,7 @@ class LiquidDomains {
 	public function register(array $vars) {
 		return $this->api->submit("domains/register", $vars);
 	}
-	
+
 	/**
 	 * Transfers a domain name.
 	 *
@@ -150,7 +150,7 @@ class LiquidDomains {
 	public function transfer(array $vars) {
 		return $this->api->submit("domains/transfer", $vars);
 	}
-	
+
 	/**
 	 * Checks if a transfer request is valid for the specified domain name.
 	 *
@@ -160,7 +160,7 @@ class LiquidDomains {
 	public function validateTransfer(array $vars) {
 		return $this->api->submit("domains/validate-transfer", $vars);
 	}
-	
+
 	/**
 	 * Renews the specified Domain Registration Order for specified number of years.
 	 *
@@ -177,7 +177,7 @@ class LiquidDomains {
 	public function renew(array $vars) {
 		return $this->api->submit("domains/renew", $vars);
 	}
-	
+
 	/**
 	 * Gets a list of Domain Registration Orders matching the search criteria, along with the details.
 	 *
@@ -201,7 +201,7 @@ class LiquidDomains {
 	public function search(array $vars) {
 		return $this->api->submit("domains/search", $vars, "GET");
 	}
-	
+
 	/**
 	 * Gets the default Name Servers of the specified Customer.
 	 *
@@ -212,7 +212,7 @@ class LiquidDomains {
 	public function customerDefaultNs(array $vars) {
 		return $this->api->submit("domains/custom-default-ns", $vars, "GET");
 	}
-	
+
 	/**
 	 * Gets the Order Id of a Registered domain name.
 	 *
@@ -223,7 +223,7 @@ class LiquidDomains {
 	public function orderid(array $vars) {
 		return $this->api->submit("domains/orderid", $vars, "GET");
 	}
-	
+
 	/**
 	 * Gets details of the Domain Registration Order associated with the specified Order Id.
 	 *
@@ -235,7 +235,7 @@ class LiquidDomains {
 	public function details(array $vars) {
 		return $this->api->submit("domains/details", $vars, "GET");
 	}
-	
+
 	/**
 	 * Gets details of the Domain Registration Order associated with the specified domain name.
 	 *
@@ -247,7 +247,7 @@ class LiquidDomains {
 	public function detailsByName(array $vars) {
 		return $this->api->submit("domains/details-by-name", $vars, "GET");
 	}
-	
+
 	/**
 	 * Modifies the Name Servers of the specified Domain Registration Order.
 	 *
@@ -259,7 +259,7 @@ class LiquidDomains {
 	public function modifyNs(array $vars) {
 		return $this->api->submit("domains/modify-ns", $vars);
 	}
-	
+
 	/**
 	 * Adds Child Name Servers for the specified Domain Registration Order.
 	 *
@@ -272,7 +272,7 @@ class LiquidDomains {
 	public function addCns(array $vars) {
 		return $this->api->submit("domains/add-cns", $vars);
 	}
-	
+
 	/**
 	 * Modifies the Host Name of the Child Name Server for the specified Domain Registration Order.
 	 *
@@ -285,7 +285,7 @@ class LiquidDomains {
 	public function modifyCnsName(array $vars) {
 		return $this->api->submit("domains/modify-cns-name", $vars);
 	}
-	
+
 	/**
 	 * Modifies the IP address associated with the specified Child Name Server of the specified Domain Registration Order.
 	 *
@@ -299,7 +299,7 @@ class LiquidDomains {
 	public function modifyCnsIp(array $vars) {
 		return $this->api->submit("domains/modify-cns-ip", $vars);
 	}
-	
+
 	/**
 	 * Deletes the IP address associated with the specified Child Name Server of the particular Domain Registration Order.
 	 *
@@ -312,7 +312,7 @@ class LiquidDomains {
 	public function deleteCnsIp(array $vars) {
 		return $this->api->submit("domains/delete-cns-ip", $vars);
 	}
-	
+
 	/**
 	 * Modifies the Contacts of the specified Domain Registration Order.
 	 *
@@ -327,7 +327,7 @@ class LiquidDomains {
 	public function modifyContact(array $vars) {
 		return $this->api->submit("domains/modify-contact", $vars);
 	}
-	
+
 	/**
 	 * Changes the Privacy Protection status of the specified Domain Registration Order.
 	 *
@@ -340,7 +340,7 @@ class LiquidDomains {
 	public function modifyPrivacyProtection(array $vars) {
 		return $this->api->submit("domains/modify-privacy-protection", $vars);
 	}
-	
+
 	/**
 	 * Modifies the Auth-Code of the specified Domain Registration Order.
 	 *
@@ -352,7 +352,7 @@ class LiquidDomains {
 	public function modifyAuthCode(array $vars) {
 		return $this->api->submit("domains/modify-auth-code", $vars);
 	}
-	
+
 	/**
 	 * Applies the Theft Protection Lock on the specified Order.
 	 *
@@ -363,7 +363,7 @@ class LiquidDomains {
 	public function enableTheftProtection(array $vars) {
 		return $this->api->submit("domains/enable-theft-protection", $vars);
 	}
-	
+
 	/**
 	 * Disables the Theft Protection Lock on the specified order.
 	 *
@@ -374,7 +374,7 @@ class LiquidDomains {
 	public function disableTheftProtection(array $vars) {
 		return $this->api->submit("domains/disable-theft-protection", $vars);
 	}
-	
+
 	/**
 	 * Gets the list of the Locks applied on the specified Domain Registration Order.
 	 *
@@ -385,7 +385,7 @@ class LiquidDomains {
 	public function locks(array $vars) {
 		return $this->api->submit("domains/locks", $vars, "GET");
 	}
-	
+
 	/**
 	 * Resends the Transfer Approval Mail for the specified Order.
 	 *
@@ -396,7 +396,7 @@ class LiquidDomains {
 	public function resendRfa(array $vars) {
 		return $this->api->submit("domains/resend-rfa", $vars);
 	}
-	
+
 	/**
 	 * Cancels the Transfer-In Order that is awaiting Admin approval.
 	 *
@@ -407,7 +407,7 @@ class LiquidDomains {
 	public function cancelTransfer(array $vars) {
 		return $this->api->submit("domains/cancel-transfer", $vars);
 	}
-	
+
 	/**
 	 * Deletes the specified Domain Registration Order.
 	 *
@@ -418,7 +418,7 @@ class LiquidDomains {
 	public function delete(array $vars) {
 		return $this->api->submit("domains/delete", $vars);
 	}
-	
+
 	/**
 	 * Restores the specified Domain Registration Order.
 	 *
