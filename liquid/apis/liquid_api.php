@@ -131,13 +131,17 @@ class LiquidApi {
 
 		$response = curl_exec($ch);
 //                $curl_error = curl_error($ch);
+    $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+    $header      = substr($response, 0, $header_size);
+    $body        = substr($response, $header_size);
+    $code        = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
                 # langsung cek respon
-                if (!$response) {
+                if (!$body) {
                     return false;
                 }
 		curl_close($ch);
-		return new LiquidResponse($response);
+		return new LiquidResponse($body);
 	}
 
 	/**
