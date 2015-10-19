@@ -32,7 +32,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function available(array $vars) {
-		return $this->api->submit("domains/available", $vars, "GET");
+		return $this->api->submit("domains/availability", $vars, "GET");
 	}
 
 	/**

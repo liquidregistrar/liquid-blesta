@@ -84,61 +84,62 @@ echo $request_url . "<br>";
                 if (($ch = curl_init($request_url)) === false) {
                     throw new LiquidRegistrarApiException("PHP extension curl must be loaded.");
                 }
-    curl_setopt($ch, CURLOPT_HEADER, 1);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    if (empty($this->sandbox)) { // kalau ke domainsas di false aja verify nya
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-    } else {
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    }
-    switch ($method) {
-        case 'get':
-            curl_setopt($ch, CURLOPT_HTTPGET, 1);
-            break;
-        case 'post':
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postfields));
-            break;
-        case 'put':
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postfields));
-            break;
-        case 'delete':
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postfields));
-            break;
-    }
-    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($ch, CURLOPT_USERPWD, "$user:$pass");
+                curl_setopt($ch, CURLOPT_HEADER, 1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+                // kalau ke sandbox di false, kalau ke live di true
+		if ($this->sandbox) {
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+                } else {
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+                    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, true);
+                }
+                $method = strtolower($method);
+                switch ($method) {
+                    case 'get':
+//			curl_setopt($ch, CURLOPT_URL, $url . "?" . $this->buildQuery($args));
+                        curl_setopt($ch, CURLOPT_HTTPGET, 1);
+                        break;
+                    case 'post':
+//			curl_setopt($ch, CURLOPT_URL, $url);
+                        curl_setopt($ch, CURLOPT_POST, true);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
+                        break;
+                    case 'put':
+//			curl_setopt($ch, CURLOPT_URL, $url);
+                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
+                        break;
+                    case 'delete':
+//			curl_setopt($ch, CURLOPT_URL, $url);
+                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+                        curl_setopt($ch, CURLOPT_POST, true);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
+                        break;
+                }
+//		if ($method == "GET") {
+//			curl_setopt($ch, CURLOPT_URL, $url . "?" . $this->buildQuery($args));
+//		}
+//		else {
+//			curl_setopt($ch, CURLOPT_URL, $url);
+//			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->buildQuery($args));
+//		}
 
-//    $response   = curl_exec($ch);
-//    $curl_error = curl_error($ch);
-if(curl_exec($ch) === false)
-{
-    echo 'Curl error: ' . curl_error($ch);
-}
-else
-{
-    echo 'Operation completed without any errors';
-}
-die;
-    # langsung cek respon
-    if (!$response) {
-        throw new LiquidRegistrarApiException($curl_error ? $curl_error : "Unable to request data from " . $request_url);
-    }
+                curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+                curl_setopt($ch, CURLOPT_USERPWD, "$user:$pass");
 
-    $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-    $header      = substr($response, 0, $header_size);
-    $body        = substr($response, $header_size);
-    $code        = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-    $return = array(
-        'header' => http_parse_headers($header),
-        'body'   => json_decode($body, true),
-        'code'   => $code,
-    );
-print_r($return);
+		$response = curl_exec($ch);
+                $curl_error = curl_error($ch);
+
+                # langsung cek respon
+                if (!$response) {
+                    echo $curl_error;
+//                    throw new LiquidRegistrarApiException($curl_error ? $curl_error : "Unable to request data from " . $request_url);
+                }
+		curl_close($ch);
+                print_r($response);
+                die;
 //		return new LiquidResponse($response);
 	}
 
