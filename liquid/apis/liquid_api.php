@@ -67,8 +67,8 @@ class LiquidApi {
 
 		$url .= $command . "." . self::RESPONSE_FORMAT;
 
-		$args['auth-userid'] = $this->reseller_id;
-		$args['api-key'] = $this->key;
+		$user = $this->reseller_id;
+		$pass = $this->key;
 
 		$this->last_request = array(
 			'url' => $url,
@@ -124,6 +124,10 @@ echo $request_url . "<br>";
 //			curl_setopt($ch, CURLOPT_URL, $url);
 //			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->buildQuery($args));
 //		}
+
+                curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+                curl_setopt($ch, CURLOPT_USERPWD, "$user:$pass");
+
 		$response = curl_exec($ch);
                 $curl_error = curl_error($ch);
 
