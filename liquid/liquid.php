@@ -1657,15 +1657,15 @@ die;
 		$api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
 		$api->loadCommand("liquid_domains");
 		$domains = new LiquidDomains($api);
-		$tld = $this->getTld($domain);
-		$sld = substr_replace($domain, '', -strlen($tld));
-		$result = $domains->available(array('domain-name' => $sld, 'tlds' => ltrim($tld, '.')));
+		$result = $domains->available(array('domain' => $domain));
 
 		if ($result->status() != "OK")
 			return false;
 
 		$response = $result->response();
 
+                print_r($response);
+                die;
 		return in_array($response->{$domain}->status, array("unknown", "available"));
 	}
 
