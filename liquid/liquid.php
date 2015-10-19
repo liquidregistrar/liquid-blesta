@@ -1720,7 +1720,7 @@ if(empty($vars["phone"])){
                 echo "</pre>";
                 echo "<pre>";
                 echo "</pre>";
-
+die;
                 if ($check->status() == "OK") {
                     return true;
                 }
