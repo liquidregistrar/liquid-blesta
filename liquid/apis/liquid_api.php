@@ -65,7 +65,7 @@ class LiquidApi {
 		if ($this->sandbox)
 			$url = self::SANDBOX_URL. $this->api_version . "/" ;
 
-		$url .= $command . "." . self::RESPONSE_FORMAT;
+		echo $url .= $command . "." . self::RESPONSE_FORMAT;
 
 		$args['auth-userid'] = $this->reseller_id;
 		$args['api-key'] = $this->key;
@@ -89,20 +89,24 @@ class LiquidApi {
                 $method = strtolower($method);
                 switch ($method) {
                     case 'get':
+			curl_setopt($ch, CURLOPT_URL, $url . "?" . $this->buildQuery($args));
                         curl_setopt($ch, CURLOPT_HTTPGET, 1);
                         break;
                     case 'post':
+			curl_setopt($ch, CURLOPT_URL, $url);
                         curl_setopt($ch, CURLOPT_POST, true);
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postfields));
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
                         break;
                     case 'put':
+			curl_setopt($ch, CURLOPT_URL, $url);
                         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postfields));
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
                         break;
                     case 'delete':
+			curl_setopt($ch, CURLOPT_URL, $url);
                         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
                         curl_setopt($ch, CURLOPT_POST, true);
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postfields));
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
                         break;
                 }
 //		if ($method == "GET") {
