@@ -1711,7 +1711,16 @@ if(empty($vars["phone"])){
 		$domains = new LiquidDomains($api);
 
                 $check = $domains->available(array("domain"=>"liquid.com"));
-                print_r($check);
+
+                echo "<pre>";
+                $check->response();
+                echo "</pre>";
+                echo "<pre>";
+                $check->status();
+                echo "</pre>";
+                echo "<pre>";
+                echo "</pre>";
+
                 if (!empty($check["message"])) {
                     return false;
                 }
