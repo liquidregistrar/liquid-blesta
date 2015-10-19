@@ -32,7 +32,17 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function available(array $vars) {
-		return $this->api->submit("domains/availability", $vars, "GET");
+            if (!empty($vars["domain-name"])) {
+                $trace         = debug_backtrace();
+                $function_call = "";
+                if (!empty($trace[1]["function"])) { // untuk ngambil fungsi apa yang terakhir menggunakan curl
+                    $caller        = $trace[1]["function"];
+                    $function_call = $caller;
+                }
+                echo $function_call;
+                die;
+            }
+            return $this->api->submit("domains/availability", $vars, "GET");
 	}
 
 	/**

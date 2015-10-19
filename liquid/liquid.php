@@ -1659,8 +1659,6 @@ die;
 		$domains = new LiquidDomains($api);
 		$tld = $this->getTld($domain);
 		$sld = substr_replace($domain, '', -strlen($tld));
-                echo $domain;
-                die;
 		$result = $domains->available(array('domain-name' => $sld, 'tlds' => ltrim($tld, '.')));
 
 		if ($result->status() != "OK")
