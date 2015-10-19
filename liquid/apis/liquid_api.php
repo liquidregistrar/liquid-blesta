@@ -65,7 +65,7 @@ class LiquidApi {
 		if ($this->sandbox)
 			$url = self::SANDBOX_URL. $this->api_version . "/" ;
 
-		echo $url .= $command . "." . self::RESPONSE_FORMAT;
+		$url .= $command . "." . self::RESPONSE_FORMAT;
 
 		$args['auth-userid'] = $this->reseller_id;
 		$args['api-key'] = $this->key;
@@ -80,7 +80,7 @@ class LiquidApi {
                 if ($method == "GET") {
                     $request_url = $url. "?" . $this->buildQuery($args);
                 }
-
+echo $request_url . "<br>";
                 if (($ch = curl_init($request_url)) === false) {
                     throw new LiquidRegistrarApiException("PHP extension curl must be loaded.");
                 }
@@ -125,6 +125,13 @@ class LiquidApi {
 //			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->buildQuery($args));
 //		}
 		$response = curl_exec($ch);
+                $curl_error = curl_error($ch);
+
+                # langsung cek respon
+                if (!$response) {
+                    echo $curl_error;
+//                    throw new LiquidRegistrarApiException($curl_error ? $curl_error : "Unable to request data from " . $request_url);
+                }
 		curl_close($ch);
 		return new LiquidResponse($response);
 	}

@@ -83,13 +83,6 @@ class LogicboxesApi {
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $this->buildQuery($args));
 		}
 		$response = curl_exec($ch);
-                $curl_error = curl_error($ch);
-
-                # langsung cek respon
-                if (!$response) {
-                    echo $curl_error;
-//                    throw new LiquidRegistrarApiException($curl_error ? $curl_error : "Unable to request data from " . $request_url);
-                }
 		curl_close($ch);
 		return new LogicboxesResponse($response);
 	}
