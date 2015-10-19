@@ -12,8 +12,8 @@ require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . "liquid_response.php";
  */
 class LiquidApi {
 
-	const SANDBOX_URL = "https://api.liqu.id/";
-	const LIVE_URL = "https://api.domainsas.com/";
+	const SANDBOX_URL = "https://api.domainsas.com/";
+	const LIVE_URL = "https://api.liqu.id/";
 	const RESPONSE_FORMAT = "json";
 
 	/**
@@ -60,8 +60,8 @@ class LiquidApi {
 	 * @return LiquidResponse The response object
 	 */
 	public function submit($command, array $args = array(), $method = "POST") {
-$this->sandbox = true;
-		$url = self::LIVE_URL . $this->api_version . "/" ;
+
+                $url = self::LIVE_URL . $this->api_version . "/" ;
 		if ($this->sandbox)
 			$url = self::SANDBOX_URL. $this->api_version . "/" ;
 
