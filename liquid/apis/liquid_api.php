@@ -84,8 +84,9 @@ echo $request_url . "<br>";
                 if (($ch = curl_init($request_url)) === false) {
                     throw new LiquidRegistrarApiException("PHP extension curl must be loaded.");
                 }
+                curl_setopt($ch, CURLOPT_HEADER, 1);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+//		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
                 // kalau ke sandbox di false, kalau ke live di true
 		if ($this->sandbox) {
                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -137,7 +138,7 @@ echo $request_url . "<br>";
 //                    throw new LiquidRegistrarApiException($curl_error ? $curl_error : "Unable to request data from " . $request_url);
                 }
 		curl_close($ch);
-		return new LiquidResponse($response);
+//		return new LiquidResponse($response);
 	}
 
 	/**
