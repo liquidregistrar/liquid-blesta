@@ -1705,6 +1705,8 @@ if(empty($vars["phone"])){
 	 * @return boolean True if the connection details are valid, false otherwise
 	 */
 	public function validateConnection($key, $reseller_id, $sandbox) {
+            echo "ABC";
+            die;
 		$api = $this->getApi($reseller_id, $key, $sandbox == "true");
 		$api->loadCommand("liquid_domains");
 		$domains = new LiquidDomains($api);
