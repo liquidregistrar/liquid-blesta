@@ -2,9 +2,9 @@
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . "liquid_response.php";
 
 /**
- * LogicBoxes API processor
+ * Liquid API processor
  *
- * Documentation on the LogicBoxes API: http://manage.liquid.com/kb/answer/744
+ * Documentation on the Liquid API: http://manage.liquid.com/kb/answer/744
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License

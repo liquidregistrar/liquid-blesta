@@ -1,6 +1,6 @@
 <?php
 /**
- * LogicBoxes Contact CA Management
+ * Liquid Contact CA Management
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License

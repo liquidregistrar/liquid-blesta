@@ -1,6 +1,6 @@
 <?php
 /**
- * LogicBoxes Order Management
+ * Liquid Order Management
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License

@@ -1,6 +1,6 @@
 <?php
 /**
- * LogicBoxes API response handler
+ * Liquid API response handler
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License
@@ -18,7 +18,7 @@ class LiquidResponse {
 	private $raw;
 
 	/**
-	 * Initializes the LogicBoxes Response
+	 * Initializes the Liquid Response
 	 *
 	 * @param string $response The raw XML response data from an API request
 	 */

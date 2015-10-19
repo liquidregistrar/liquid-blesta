@@ -1,6 +1,6 @@
 <?php
 // Basics
-$lang['Liquid.name'] = "LogicBoxes";
+$lang['Liquid.name'] = "Liquid";
 $lang['Liquid.module_row'] = "Account";
 $lang['Liquid.module_row_plural'] = "Accounts";
 
@@ -26,12 +26,12 @@ $lang['Liquid.row_meta.sandbox_true'] = "Yes";
 $lang['Liquid.row_meta.sandbox_false'] = "No";
 
 // Add row
-$lang['Liquid.add_row.box_title'] = "Add LogicBoxes Account";
+$lang['Liquid.add_row.box_title'] = "Add Liquid Account";
 $lang['Liquid.add_row.basic_title'] = "Basic Settings";
 $lang['Liquid.add_row.add_btn'] = "Add Account";
 
 // Edit row
-$lang['Liquid.edit_row.box_title'] = "Edit LogicBoxes Account";
+$lang['Liquid.edit_row.box_title'] = "Edit Liquid Account";
 $lang['Liquid.edit_row.basic_title'] = "Basic Settings";
 $lang['Liquid.edit_row.add_btn'] = "Update Account";
 
@@ -72,7 +72,7 @@ $lang['Liquid.tab_childname.field_add'] = "Add";
 $lang['Liquid.tab_childname.field_update'] = "Update";
 $lang['Liquid.tab_childname.field_delete'] = "Delete";
 $lang['Liquid.tab_childname.field_close'] = "Close";
-$lang['Liquid.tab_childname.field_ns'] = "Host Name "; 
+$lang['Liquid.tab_childname.field_ns'] = "Host Name ";
 $lang['Liquid.tab_childname.field_ip'] = "IP Address ";
 $lang['Liquid.tab_childname.field_success_update '] = "The Child Name Server has been successfully added.";
 $lang['Liquid.tab_childname.field_success_add'] = "The Child Name Server has been successfully added..";
@@ -83,7 +83,7 @@ $lang['Liquid.tab_childname.field_success_delete'] = "The Child Name Server has 
 $lang['Liquid.!error.registrar.valid'] = "Please enter a registrar name.";
 $lang['Liquid.!error.reseller_id.valid'] = "Please enter a reseller ID.";
 $lang['Liquid.!error.key.valid'] = "Please enter a key.";
-$lang['Liquid.!error.key.valid_connection'] = "The reseller ID and key combination appear to be invalid, or your LogicBoxes account may not be configured to allow API access.";
+$lang['Liquid.!error.key.valid_connection'] = "The reseller ID and key combination appear to be invalid, or your Liquid account may not be configured to allow API access.";
 
 
 // Domain Transfer Fields
