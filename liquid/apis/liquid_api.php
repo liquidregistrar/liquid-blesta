@@ -65,7 +65,7 @@ class LiquidApi {
 		if ($this->sandbox)
 			$url = self::SANDBOX_URL. $this->api_version . "/" ;
 
-		$url .= $command . "." . self::RESPONSE_FORMAT;
+		$url .= $command;
 
 		$user = $this->reseller_id;
 		$pass = $this->key;
