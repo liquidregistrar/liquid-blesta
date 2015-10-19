@@ -17,7 +17,13 @@ class LiquidResponse {
 	 */
 	private $raw;
 
-	/**
+        /**
+         * @var string untuk menampilkan pesan error
+         */
+        private $err_msg = "";
+
+
+        /**
 	 * Initializes the Liquid Response
 	 *
 	 * @param string $response The raw XML response data from an API request
@@ -42,11 +48,11 @@ class LiquidResponse {
 	 * @return string The status (OK = success, ERROR = error, null = invalid responses)
 	 */
 	public function status() {
-		if ($this->errors())
-			return "ERROR";
-		elseif ($this->raw)
-			return "OK";
-		return null;
+            if ($this->errors())
+                return "ERROR";
+            elseif ($this->raw)
+                return "OK";
+            return null;
 	}
 
 	/**
@@ -55,11 +61,16 @@ class LiquidResponse {
 	 * @return stdClass A stdClass object representing the errors in the response, false if invalid response
 	 */
 	public function errors() {
-		if (isset($this->response->status) && strtolower($this->response->status) == "error")
-			return $this->response;
-		elseif (isset($this->response->status) && strtolower($this->response->status) == "failed")
-			return (object)array('message' => $this->response->actionstatusdesc);
-		return false;
+            if (isset($this->response->status) && strtolower($this->response->status) == "error")
+                return $this->response;
+            elseif (isset($this->response->status) && strtolower($this->response->status) == "failed")
+                return (object)array('message' => $this->response->actionstatusdesc);
+            elseif (!empty ($this->response["message"])) {
+                $this->err_msg = $this->response["message"];
+                return $this->response;
+            }
+
+            return false;
 	}
 
 	/**
@@ -71,6 +82,15 @@ class LiquidResponse {
 		return $this->raw;
 	}
 
+        /**
+         * digunakan untuk mengambil pesan error kalau ada error
+         */
+        public function err_msg()
+        {
+            $this->errors();
+            return $this->err_msg;
+        }
+
 	/**
 	 * Decodes the response
 	 *
@@ -78,7 +98,7 @@ class LiquidResponse {
 	 * @return stdClass $data in a stdClass object form
 	 */
 	private function formatResponse($data) {
-		return json_decode($data, true);
+            return $return = json_decode($data, true);
 	}
 }
 ?>

@@ -1719,6 +1719,7 @@ if(empty($vars["phone"])){
                 print_r($check->status());
                 echo "</pre>";
                 echo "<pre>";
+                print_r($check->err_msg());
                 echo "</pre>";
 die;
                 if ($check->status() == "OK") {
