@@ -112,9 +112,17 @@ echo $request_url . "<br>";
     curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     curl_setopt($ch, CURLOPT_USERPWD, "$user:$pass");
 
-    $response   = curl_exec($ch);
-    $curl_error = curl_error($ch);
-
+//    $response   = curl_exec($ch);
+//    $curl_error = curl_error($ch);
+if(curl_exec($ch) === false)
+{
+    echo 'Curl error: ' . curl_error($ch);
+}
+else
+{
+    echo 'Operation completed without any errors';
+}
+die;
     # langsung cek respon
     if (!$response) {
         throw new LiquidRegistrarApiException($curl_error ? $curl_error : "Unable to request data from " . $request_url);
