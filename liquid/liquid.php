@@ -1564,6 +1564,9 @@ if(empty($vars["phone"])){
 		$vars = array('username' => $username, 'no-of-records' => 10, 'page-no' => 1);
 		$response = $customers->search($vars);
 
+                print_r($vars);
+                print_r($response->response());
+die;
 		$this->processResponse($api, $response);
 
 		if (isset($response->response()->{'1'}->{'customer.customerid'}))
