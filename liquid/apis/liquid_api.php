@@ -80,7 +80,7 @@ class LiquidApi {
                 if ($method == "GET") {
                     $request_url = $url. "?" . $this->buildQuery($args);
                 }
-echo $request_url . "<br>";
+
                 if (($ch = curl_init($request_url)) === false) {
                     throw new LiquidRegistrarApiException("PHP extension curl must be loaded.");
                 }
