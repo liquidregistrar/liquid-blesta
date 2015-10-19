@@ -1712,16 +1712,6 @@ if(empty($vars["phone"])){
 
                 $check = $domains->available(array("domain"=>"liquid.com"));
 
-                echo "<pre>";
-                print_r($check->response());
-                echo "</pre>";
-                echo "<pre>";
-                print_r($check->status());
-                echo "</pre>";
-                echo "<pre>";
-                print_r($check->err_msg());
-                echo "</pre>";
-die;
                 if ($check->status() == "OK") {
                     return true;
                 }
