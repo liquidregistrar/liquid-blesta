@@ -1705,12 +1705,14 @@ if(empty($vars["phone"])){
 	 * @return boolean True if the connection details are valid, false otherwise
 	 */
 	public function validateConnection($key, $reseller_id, $sandbox) {
-            echo "ABC";
-            die;
 		$api = $this->getApi($reseller_id, $key, $sandbox == "true");
 		$api->loadCommand("liquid_domains");
 		$domains = new LiquidDomains($api);
-		return $domains->available(array('domain-name' => "liquid", 'tlds' => array("com")))->status() == "OK";
+
+                $check = $domains->available(array("domain"=>"liquid.com"));
+                print_r($check);
+                die;
+		return $domains->available(array('domain' => "liquid.com"))->status() == "OK";
 	}
 
 	/**
