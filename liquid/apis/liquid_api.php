@@ -84,7 +84,7 @@ class LiquidApi {
                 if (($ch = curl_init($request_url)) === false) {
                     throw new LiquidRegistrarApiException("PHP extension curl must be loaded.");
                 }
-                curl_setopt($ch, CURLOPT_HEADER, 1);
+//                curl_setopt($ch, CURLOPT_HEADER, 1);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 //		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
                 // kalau ke sandbox di false, kalau ke live di true
