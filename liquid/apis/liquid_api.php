@@ -60,7 +60,7 @@ class LiquidApi {
 	 * @return LiquidResponse The response object
 	 */
 	public function submit($command, array $args = array(), $method = "POST") {
-
+$this->sandbox = true;
 		$url = self::LIVE_URL . $this->api_version . "/" ;
 		if ($this->sandbox)
 			$url = self::SANDBOX_URL. $this->api_version . "/" ;
