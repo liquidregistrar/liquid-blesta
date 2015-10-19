@@ -130,17 +130,14 @@ echo $request_url . "<br>";
                 curl_setopt($ch, CURLOPT_USERPWD, "$user:$pass");
 
 		$response = curl_exec($ch);
-                $curl_error = curl_error($ch);
+//                $curl_error = curl_error($ch);
 
                 # langsung cek respon
                 if (!$response) {
-                    echo $curl_error;
-//                    throw new LiquidRegistrarApiException($curl_error ? $curl_error : "Unable to request data from " . $request_url);
+                    return false;
                 }
 		curl_close($ch);
-                print_r($response);
-                die;
-//		return new LiquidResponse($response);
+		return new LiquidResponse($response);
 	}
 
 	/**

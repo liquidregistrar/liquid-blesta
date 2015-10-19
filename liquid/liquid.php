@@ -1690,6 +1690,7 @@ if(empty($vars["phone"])){
 				),
 				'valid_connection' => array(
 					'rule' => array(array($this, "validateConnection"), $vars['reseller_id'], isset($vars['sandbox']) ? $vars['sandbox'] : "false"),
+//					'message' => Language::_("Liquid.!error.key.valid_connection", true)
 					'message' => Language::_("Liquid.!error.key.valid_connection", true)
 				)
 			)
@@ -1710,9 +1711,11 @@ if(empty($vars["phone"])){
 		$domains = new LiquidDomains($api);
 
                 $check = $domains->available(array("domain"=>"liquid.com"));
-                print_r($check);
-                die;
-		return $domains->available(array('domain' => "liquid.com"))->status() == "OK";
+                if (!empty($check["message"])) {
+                    return false;
+                }
+                return true;
+//		return $domains->available(array('domain' => "liquid.com"))->status() == "OK";
 	}
 
 	/**
