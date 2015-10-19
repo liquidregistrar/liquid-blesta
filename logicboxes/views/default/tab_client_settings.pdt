@@ -1,0 +1,90 @@
+
+	<?php
+	$this->Form->create();
+	?>
+	<div class="row panel-fix">
+		<div class="col-md-12">
+		
+		
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><?php $this->_("Logicboxes.tab_settings.field_registrar_lock");?></h3>
+				</div>
+				<div class="panel-body">
+					<?php 
+					if ($this->Html->ifSet($vars->registrar_lock) == "false") {			
+					?>	
+					<p>					
+						<div class="alert alert-warning alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<strong>Warning!</strong> The Domain is Not Protected against transfers .
+						</div>
+					</p>					
+					<?php
+					}
+					?>				
+				
+					<div class="input-group has-success">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+						<input class="form-control" type="text" placeholder="<?php $this->_("Logicboxes.tab_settings.field_registrar_lock_yes");	?>" disabled>
+						<span class="input-group-addon">
+							<?php
+							$this->Form->fieldRadio("registrar_lock", "true", $this->Html->ifSet($vars->registrar_lock) == "true");
+							?>
+						</span>				
+					</div><!-- /input-group -->	
+					<div class="input-group has-warning">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-transfer"></span></span>
+						<input class="form-control" type="text" placeholder="<?php $this->_("Logicboxes.tab_settings.field_registrar_lock_no");	?>" disabled>
+						<span class="input-group-addon">
+							<?php
+							$this->Form->fieldRadio("registrar_lock", "false", $this->Html->ifSet($vars->registrar_lock) == "false");
+							?>
+						</span>				
+					</div><!-- /input-group -->
+				</div>
+			</div>
+			
+
+			
+			<div class="well well-sm">			
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<?php
+							$this->Form->fieldCheckbox("request_epp", "true", $this->Html->ifSet($vars->request_epp) == "true", array('id' => "request_epp"));
+							$this->_("Logicboxes.tab_settings.field_request_epp");
+							?>
+						</label>
+						<strong class="epp_code label-info" style="display: none;"><?php $this->Html->_($vars->epp_code);?></strong>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+		</div>
+	</div>
+	<button class="btn btn-default pull-right" type="submit">
+		<i class="fa fa-edit"></i> <?php $this->_("Logicboxes.tab_settings.field_submit");?>
+	</button>
+	<?php
+	$this->Form->end();
+	?>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			showEpp();
+			$("#request_epp").change(function() {
+				showEpp();
+			});
+			
+			function showEpp() {
+				if ($("#request_epp").is(":checked"))
+					$(".epp_code").show();
+				else
+					$(".epp_code").hide();
+			}
+		});
+	</script>
