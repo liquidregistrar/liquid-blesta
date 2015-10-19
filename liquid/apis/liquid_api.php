@@ -75,7 +75,15 @@ class LiquidApi {
 			'args' => $args
 		);
 
-		$ch = curl_init();
+//		$ch = curl_init();
+                $request_url = $url;
+                if ($method == "GET") {
+                    $request_url = $url. "?" . $this->buildQuery($args);
+                }
+
+                if (($ch = curl_init($request_url)) === false) {
+                    throw new LiquidRegistrarApiException("PHP extension curl must be loaded.");
+                }
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
                 // kalau ke sandbox di false, kalau ke live di true
@@ -89,21 +97,21 @@ class LiquidApi {
                 $method = strtolower($method);
                 switch ($method) {
                     case 'get':
-			curl_setopt($ch, CURLOPT_URL, $url . "?" . $this->buildQuery($args));
+//			curl_setopt($ch, CURLOPT_URL, $url . "?" . $this->buildQuery($args));
                         curl_setopt($ch, CURLOPT_HTTPGET, 1);
                         break;
                     case 'post':
-			curl_setopt($ch, CURLOPT_URL, $url);
+//			curl_setopt($ch, CURLOPT_URL, $url);
                         curl_setopt($ch, CURLOPT_POST, true);
                         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
                         break;
                     case 'put':
-			curl_setopt($ch, CURLOPT_URL, $url);
+//			curl_setopt($ch, CURLOPT_URL, $url);
                         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
                         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
                         break;
                     case 'delete':
-			curl_setopt($ch, CURLOPT_URL, $url);
+//			curl_setopt($ch, CURLOPT_URL, $url);
                         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
                         curl_setopt($ch, CURLOPT_POST, true);
                         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
