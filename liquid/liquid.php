@@ -1239,7 +1239,30 @@ class Liquid extends Module {
                                     $vars_["order-id"] = $fields->{'order-id'};
                                     $vars_["fields"] = $section;
                                     $res = $domains->details($vars_);
-                                    print_r($res->response());
+                                    foreach ($res as $key => $value) {
+                                        if ($key == "address_line_1") {
+                                            $key = "address1";
+                                        }
+                                        if ($key == "address_line_2") {
+                                            $key = "address2";
+                                        }
+                                        if ($key == "zipcode") {
+                                            $key = "zip";
+                                        }
+                                        if ($key == "tel_cc_no") {
+                                            $key = "telnocc";
+                                        }
+                                        if ($key == "tel_no") {
+                                            $key = "telno";
+                                        }
+                                        if ($key == "email") {
+                                            $key = "emailaddr";
+                                        }
+                                        if ($key == "contact_id") {
+                                            $key = "contactid";
+                                        }
+                                        $vars->{$section . "_" . $key} = $value;
+                                    }
 
 //                                    foreach ($data->$section as $name => $value) {
 //                                        if ($name == "address1")
@@ -1256,10 +1279,8 @@ class Liquid extends Module {
 //                                                $name = "email";
 //                                        elseif ($name == "contactid")
 //                                                $name = "contact-id";
-                                        $vars->{$section . "_" . "name"} = "namanya ".rand(0,9999);
 //                                    }
 				}
-                                die;
 			}
 		}
 		else {
