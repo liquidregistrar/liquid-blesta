@@ -35,7 +35,7 @@ class LiquidContacts {
 	 * 	- zipcode ZIP code
 	 * 	- phone-cc Telephone number country code
 	 * 	- phone Telephone number
-	 * 	- customer-id The Customer under whom you want to create the Contact
+	 * 	- customer_id The Customer under whom you want to create the Contact
 	 * 	- type The Contact Type. This can take following values:
 	 * 		Contact, CaContact, CnContact, CoContact, CoopContact, DeContact, EsContact, EuContact, NlContact, RuContact, UkContact
 	 * 	- address-line-2 Second line of address of the contact
@@ -93,7 +93,7 @@ class LiquidContacts {
 	 * @return LiquidResponse
 	 */
 	public function add(array $vars) {
-		return $this->api->submit("customers/".$vars["customer-id"]."/contacts", $vars, "POST");
+		return $this->api->submit("customers/".$vars["customer_id"]."/contacts", $vars, "POST");
 	}
 
 	/**
@@ -118,7 +118,7 @@ class LiquidContacts {
 	 * @return LiquidResponse
 	 */
 	public function modify(array $vars) {
-            return $this->api->submit("customers/".$vars["customer-id"]."/contacts", $vars, "PUT");
+            return $this->api->submit("customers/".$vars["customer_id"]."/contacts", $vars, "PUT");
 	}
 
 	/**
@@ -129,14 +129,14 @@ class LiquidContacts {
 	 * @return LiquidResponse
 	 */
 	public function details(array $vars) {
-            return $this->api->submit("customers/".$vars["customer-id"]."/contacts/".$vars["contact-id"], $vars, "GET");
+            return $this->api->submit("customers/".$vars["customer_id"]."/contacts/".$vars["contact-id"], $vars, "GET");
 	}
 
 	/**
 	 * Gets the Contact Details of the Contacts that match the Search criteria.
 	 *
 	 * @param array $vars An array of input params including:
-	 * 	- customer-id The Customer for which you want to get the Contact Details
+	 * 	- customer_id The Customer for which you want to get the Contact Details
 	 * 	- no-of-records Number of Records to be returned
 	 * 	- page-no Page Number for which records are required
 	 * 	- contact-id Array of Contact Ids for listing of specific Contacts
@@ -148,19 +148,19 @@ class LiquidContacts {
 	 * @return LiquidResponse
 	 */
 	public function search(array $vars) {
-		return $this->api->submit("customers/".$vars["customer-id"]."/contacts", $vars, "GET");
+		return $this->api->submit("customers/".$vars["customer_id"]."/contacts", $vars, "GET");
 	}
 
 	/**
 	 * Gets the details of the Default Contacts for the Customer.
 	 *
 	 * @param array $vars An array of input params including:
-	 * 	- customer-id The Customer for whom you want to get the Default Contacts
+	 * 	- customer_id The Customer for whom you want to get the Default Contacts
 	 * 	- type Type of default contact to be returned. It can be one or more of following contacts types : Contact, CoopContact, UkContact, EuContact, CnContact, CoContact, CaContact, DeContact, EsContact.
 	 * @return LiquidResponse
 	 */
 	public function getDefault(array $vars) {
-		return $this->api->submit("customers/".$vars["customer-id"]."/contacts/default", $vars, "GET");
+		return $this->api->submit("customers/".$vars["customer_id"]."/contacts/default", $vars, "GET");
 	}
 
 	/**
@@ -230,14 +230,14 @@ class LiquidContacts {
 	 * @return LiquidResponse
 	 */
 	public function delete(array $vars) {
-		return $this->api->submit("customers/".$vars["customer-id"]."/contacts/".$vars["contact-id"], $vars, "DELETE");
+		return $this->api->submit("customers/".$vars["customer_id"]."/contacts/".$vars["contact-id"], $vars, "DELETE");
 	}
 
 	/**
 	 * Gets a list of system default .COOP Sponsors (Co-operative Reference) and associated Sponsor of the specified Customer.
 	 *
 	 * @param array $vars An array of input params including:
-	 * 	- customer-id The Customer for whom you want to get the list of Sponsors
+	 * 	- customer_id The Customer for whom you want to get the list of Sponsors
 	 * @return LiquidResponse
 	 */
 	public function sponsors(array $vars) {
