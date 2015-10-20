@@ -1198,13 +1198,6 @@ class Liquid extends Module {
 	 * @return string The string representing the contents of this tab
 	 */
 	private function manageWhois($view, $package, $service, array $get=null, array $post=null, array $files=null) {
-                print_r($view);
-                print_r($package);
-                print_r($service);
-                print_r($get);
-                print_r($post);
-                print_r($files);
-                die;
 		$row = $this->getModuleRow($package->module_row);
 		$api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
 		$api->loadCommand("liquid_domains");
@@ -1241,7 +1234,7 @@ class Liquid extends Module {
 
 			if ($response->status() == "OK") {
 				$data= $response->response();
-
+                                print_r($data);
 				// Format fields
 				foreach ($sections as $section) {
 					foreach ($data->$section as $name => $value) {
