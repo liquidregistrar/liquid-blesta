@@ -1207,7 +1207,9 @@ class Liquid extends Module {
 
 		$contact_fields = Configure::get("Liquid.contact_fields");
 		$fields = $this->serviceFieldsToObject($service->fields);
-		$sections = array('registrant_contact', 'admin_contact', 'tech_contact', 'billing_contact');
+//		$sections = array('registrant_contact', 'admin_contact', 'tech_contact', 'billing_contact');
+		$sections = array('registrantcontact', 'admincontact', 'techcontact', 'billingcontact');
+
 		$show_content = true;
 
 		if (!empty($post)) {
