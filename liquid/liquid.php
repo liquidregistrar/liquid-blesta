@@ -1255,27 +1255,27 @@ class Liquid extends Module {
                                     $vars_["fields"] = $section_;
                                     $res = $domains->details($vars_);
                                     foreach ($res->response() as $key => $value) {
-                                        if ($key == "address_line_1") {
-                                            $key = "address1";
-                                        }
-                                        if ($key == "address_line_2") {
-                                            $key = "address2";
-                                        }
-                                        if ($key == "zipcode") {
-                                            $key = "zip";
-                                        }
-                                        if ($key == "tel_cc_no") {
-                                            $key = "telnocc";
-                                        }
-                                        if ($key == "tel_no") {
-                                            $key = "telno";
-                                        }
-                                        if ($key == "email") {
-                                            $key = "emailaddr";
-                                        }
-                                        if ($key == "contact_id") {
-                                            $key = "contactid";
-                                        }
+//                                        if ($key == "address_line_1") {
+//                                            $key = "address1";
+//                                        }
+//                                        if ($key == "address_line_2") {
+//                                            $key = "address2";
+//                                        }
+//                                        if ($key == "zipcode") {
+//                                            $key = "zip";
+//                                        }
+//                                        if ($key == "tel_cc_no") {
+//                                            $key = "telnocc";
+//                                        }
+//                                        if ($key == "tel_no") {
+//                                            $key = "telno";
+//                                        }
+//                                        if ($key == "email") {
+//                                            $key = "emailaddr";
+//                                        }
+//                                        if ($key == "contact_id") {
+//                                            $key = "contactid";
+//                                        }
 //                                        echo $key . " = ". $value ."<br>";
 
                                         $vars->{$section . "_" . $key} = $value;
