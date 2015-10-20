@@ -179,10 +179,11 @@ class Liquid extends Module {
 			$customer_fields = Configure::get("Liquid.customer_fields");
 			$domain_field_basics = array(
                                 'years' => true,
+                                'domain_name' => true,
                                 'ns' => true,
                                 'customer_id' => true,
                                 'registrant_contact_id' => true,
-                                'admin_contact_id' => true, 
+                                'admin_contact_id' => true,
                                 'tech_contact_id' => true,
                                 'billing_contact_id' => true,
                                 'invoice_option' => true,
