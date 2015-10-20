@@ -1840,7 +1840,7 @@ die;
 	 * Gets the Order Id of a Registered domain name.
 	 *
 	 * @param array $vars An array of input params including:
-	 * 	- domain-name The Registered domain name whose Order Id you want to know.
+	 * 	- domain_name The Registered domain name whose Order Id you want to know.
 	 * @return LiquidResponse
 	 */
 	public function getorderid($module_row_id , $domain) {
@@ -1851,15 +1851,18 @@ die;
 		$domains = new LiquidDomains($api);
 
 
-		$response = $domains->orderid(array('domain-name' => $domain));
+		$response = $domains->orderid(array('domain_name' => $domain));
 		$this->processResponse($api, $response);
 
 		if ($this->Input->errors())
 			return;
 
 		$order_id = null;
-		if ($response->response())
-			$order_id = $response->response();
+                $domains = $response->response();
+                $order_id = $domains["domain_id"];
+
+//		if ($response->response())
+//			$order_id = $response->response();
 
 		return $order_id;
 	}
