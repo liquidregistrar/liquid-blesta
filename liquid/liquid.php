@@ -1230,7 +1230,7 @@ class Liquid extends Module {
 			$vars = (object)$post;
 		}
 		elseif (property_exists($fields, "order-id")) {
-			$response = $domains->details(array('order-id' => $fields->{'order-id'}, 'options' => array("RegistrantContactDetails", "AdminContactDetails", "TechContactDetails", "BillingContactDetails")));
+			$response = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields' => array("registrant_contact", "admin_contact", "tech_contact", "billing_contact")));
 				$data= $response->response();
                                 print_r($data);
 die;
