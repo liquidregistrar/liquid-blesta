@@ -1207,7 +1207,7 @@ class Liquid extends Module {
 
 		$contact_fields = Configure::get("Liquid.contact_fields");
 		$fields = $this->serviceFieldsToObject($service->fields);
-		$sections = array('registrantcontact', 'admincontact', 'techcontact', 'billingcontact');
+		$sections = array('registrant_contact', 'admin_contact', 'tech_contact', 'billing_contact');
 		$show_content = true;
 
 		if (!empty($post)) {
@@ -1236,6 +1236,11 @@ class Liquid extends Module {
 
 				// Format fields
 				foreach ($sections as $section) {
+                                    $vars_["order-id"] = $fields->{'order-id'};
+                                    $vars_["fields"] = $section;
+                                    $res = $domains->details($vars_);
+                                    print_r($res->response());
+
 //                                    foreach ($data->$section as $name => $value) {
 //                                        if ($name == "address1")
 //                                                $name = "address-line-1";
@@ -1254,6 +1259,7 @@ class Liquid extends Module {
                                         $vars->{$section . "_" . "name"} = "namanya ".rand(0,9999);
 //                                    }
 				}
+                                die;
 			}
 		}
 		else {
