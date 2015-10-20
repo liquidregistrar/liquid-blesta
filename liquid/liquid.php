@@ -1836,6 +1836,12 @@ if(empty($vars["phone"])){
 		if (!isset($this->Contacts))
 			Loader::loadModels($this, array("Contacts"));
 
+		if (!isset($this->Countries))
+			Loader::loadModels($this, array("Countries"));
+
+                $check = $this->Countries->getList("name");
+                print_r($check);
+
 		return $this->Contacts->intlNumber($number, $country, ".");
 	}
 
