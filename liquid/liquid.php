@@ -1231,29 +1231,28 @@ class Liquid extends Module {
 		}
 		elseif (property_exists($fields, "order-id")) {
 			$response = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields' => array("registrant_contact", "admin_contact", "tech_contact", "billing_contact")));
-				$data= $response->response();
-                                print_r($data);
-die;
 			if ($response->status() == "OK") {
+				$data= $response->response();
+
 				// Format fields
 				foreach ($sections as $section) {
-					foreach ($data->$section as $name => $value) {
-						if ($name == "address1")
-							$name = "address-line-1";
-						elseif ($name == "address2")
-							$name = "address-line-2";
-						elseif ($name == "zip")
-							$name = "zipcode";
-						elseif ($name == "telnocc")
-							$name = "phone-cc";
-						elseif ($name == "telno")
-							$name = "phone";
-						elseif ($name == "emailaddr")
-							$name = "email";
-						elseif ($name == "contactid")
-							$name = "contact-id";
-						$vars->{$section . "_" . $name} = $value;
-					}
+//                                    foreach ($data->$section as $name => $value) {
+//                                        if ($name == "address1")
+//                                                $name = "address-line-1";
+//                                        elseif ($name == "address2")
+//                                                $name = "address-line-2";
+//                                        elseif ($name == "zip")
+//                                                $name = "zipcode";
+//                                        elseif ($name == "telnocc")
+//                                                $name = "phone-cc";
+//                                        elseif ($name == "telno")
+//                                                $name = "phone";
+//                                        elseif ($name == "emailaddr")
+//                                                $name = "email";
+//                                        elseif ($name == "contactid")
+//                                                $name = "contact-id";
+                                        $vars->{$section . "_" . "name"} = "namanya ".rand(0,9999);
+//                                    }
 				}
 			}
 		}
