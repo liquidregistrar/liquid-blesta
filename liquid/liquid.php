@@ -1858,8 +1858,13 @@ die;
 			return;
 
 		$order_id = null;
-                $domains = $response->response();
-                $order_id = $domains["domain_id"];
+                $data_domains = $response->response();
+                if (!empty($data_domains["domain_id"])) {
+                    $order_id = $data_domains["domain_id"];
+                }
+
+                echo $order_id;
+                die;
 
 //		if ($response->response())
 //			$order_id = $response->response();
