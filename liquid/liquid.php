@@ -206,15 +206,11 @@ class Liquid extends Module {
                                 if ( !isset( $this->Contacts ) )
                                     Loader::loadModels( $this, array( "Contacts" ) );
 
+				$contact_id = null;
 				$client = $this->Clients->get($vars['client_id']);
                                 $contact_numbers = $this->Contacts->getNumbers( $client->contact_id );
 				$customer_id = $this->getCustomerId($package->module_row, $client->email);
-				$contact_id = null;
                                 $client->numbers = $contact_numbers;
-
-                                print_r($client);
-                                die;
-
 
 				foreach (array_merge($contact_fields, $customer_fields) as $key => $field) {
 					if ($key == "name")
@@ -258,6 +254,9 @@ class Liquid extends Module {
 					$vars['attr_address-r'] = $vars['address-line-1'];
 					$vars['attr_person-r'] = $vars['name'];
 				}
+
+                                print_r($vars);
+                                die;
 
 				// Create customer if necessary
 				if (!$customer_id)
