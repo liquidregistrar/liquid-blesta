@@ -231,6 +231,17 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function orderid(array $vars) {
+//                if (!empty($vars["domain-name"])) {
+                    $trace         = debug_backtrace();
+                    $function_call = "";
+                    if (!empty($trace[1]["function"])) { // untuk ngambil fungsi apa yang terakhir menggunakan curl
+                        $caller        = $trace[1]["function"];
+                        $function_call = $caller;
+                    }
+                    echo $function_call;
+                    die;
+//                }
+
 		return $this->api->submit("domains/details-by-name", $vars, "GET");
 	}
 
