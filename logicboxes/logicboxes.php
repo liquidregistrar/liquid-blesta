@@ -1736,13 +1736,11 @@ class Logicboxes extends Module {
 
 		// Set errors, if any
 		if ($response->status() != "OK") {
-			if (isset($response->errors()->message))
-				$errors = $response->errors()->message;
-			elseif (isset($response->errors()->error))
-				$errors = $response->errors()->error;
-                        print_r($errors);
-                        die;
-			$this->Input->setErrors(array('errors' => (array)$errors));
+                    if (isset($response->errors()->message))
+                            $errors = $response->errors()->message;
+                    elseif (isset($response->errors()->error))
+                            $errors = $response->errors()->error;
+                    $this->Input->setErrors(array('errors' => (array)$errors));
 		}
 	}
 

@@ -1753,10 +1753,16 @@ if(empty($vars["phone"])){
 
 		// Set errors, if any
 		if ($response->status() != "OK") {
-//                    if (isset($response->errors()->message))
-//                            $errors = $response->errors()->message;
-//                    elseif (isset($response->errors()->error))
-//                            $errors = $response->errors()->error;
+                    if (isset($response->errors()->message))
+                            $errors = $response->errors()->message;
+                    elseif (isset($response->errors()->error))
+                            $errors = $response->errors()->error;
+
+//                        if (empty($errors)) {
+//
+//                        }
+                    var_dump($errors);
+                    die;
                     $this->Input->setErrors(array('errors' => (array)$errors));
 		}
 	}
