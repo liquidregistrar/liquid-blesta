@@ -300,8 +300,8 @@ class Liquid extends Module {
 				$vars['tech_contact_id'] = $this->formatContact($contact_id, $tld, "tech");
 				$contact_id = $this->createContact($package->module_row, array_intersect_key($vars, array_merge($contact_fields, $domain_contact_fields)));
 				$vars['billing_contact_id'] = $this->formatContact($contact_id, $tld, "billing");
-				$vars['invoice-option'] = "NoInvoice";
-				$vars['protect-privacy'] = "false";
+				$vars['invoice_option'] = "no_invoice";
+				$vars['purchase_privacy_protection'] = "false";
 
 				// Handle special contact assignment case for .ASIA
 				if ($tld == ".asia")
