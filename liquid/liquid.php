@@ -237,19 +237,23 @@ class Liquid extends Module {
                                                     $v_telp = (array) $v_telp;
                                                     if ($v_telp["type"] == "phone" AND $v_telp["location"] == "home") {
                                                         $part = explode(".", $this->formatPhone($v_telp["number"], $client->country));
-                                                        print_r($part);
+                                                        if (empty($part[1])) {
+                                                            $tel_cc = "";
+                                                            $tel = $part[0];
+                                                            if ($client->country == "ID") {
+                                                                $tel_cc = "62";
+                                                            }
+                                                        } else {
+                                                            $tel_cc = ltrim($part[0], "+");
+                                                            $tel = $part[1];
+                                                        }
+
+                                                        $vars[$key] = $tel_cc;
+							$vars['tel_no'] = $tel;
                                                     }
                                                 }
                                             }
 
-//                                            if (!empty($client->numbers)) {
-//
-//                                            }
-//						$part = explode(".", $this->formatPhone(isset($client->numbers[0]) ? $client->numbers[0]->number : null, $client->country));
-//						if (count($part) == 2) {
-//							$vars[$key] = ltrim($part[0], "+");
-//							$vars['tel_no'] = $part[1] != "" ? $part[1] : "1111111";
-//						}
 					}
 					elseif ($key == "username")
 						$vars[$key] = $client->email;
@@ -1836,9 +1840,7 @@ if(empty($vars["phone"])){
 		if (!isset($this->Contacts))
 			Loader::loadModels($this, array("Contacts"));
 
-                $country = "US";
-
-		echo $return = $this->Contacts->intlNumber($number, $country, ".");
+		$return = $this->Contacts->intlNumber($number, $country, ".");
                 return $return;
 	}
 
