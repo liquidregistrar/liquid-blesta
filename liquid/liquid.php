@@ -272,9 +272,6 @@ class Liquid extends Module {
 					$vars['attr_person-r'] = $vars['name'];
 				}
 
-                                print_r($vars);
-                                die;
-
 				// Create customer if necessary
 				if (!$customer_id)
 					$customer_id = $this->createCustomer($package->module_row, array_intersect_key($vars, array_merge($contact_fields, $customer_fields)));
@@ -1557,20 +1554,19 @@ if(empty($vars["phone"])){
 		$contacts = new LiquidContacts($api);
 
 		$vars = array_merge($vars, $this->createMap($vars));
-//if(empty($vars["phone-cc"])){
-//        $vars["phone-cc"] = "62";
-//}
-//if(empty($vars["phone"])){
-//        $vars["phone"] = "00000000000";
-//}
 
 		$response = $contacts->add($vars);
 
 		$this->processResponse($api, $response);
 
-		if (!$this->Input->errors() && $response->response() > 0)
-			return $response->response();
-		return null;
+                if ($response->status() != "OK") {
+                    return null;
+                }
+
+                $contact = $response->response();
+                print_r($contact);
+                die;
+//                return
 	}
 
 	/**
