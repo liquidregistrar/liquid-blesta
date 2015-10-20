@@ -229,14 +229,27 @@ class Liquid extends Module {
 						$vars[$key] = $client->state;
 					elseif ($key == "zipcode")
 						$vars[$key] = $client->zip;
-					elseif ($key == "country")
+					elseif ($key == "country_code")
 						$vars[$key] = $client->country;
 					elseif ($key == "tel_cc_no") {
-						$part = explode(".", $this->formatPhone(isset($client->numbers[0]) ? $client->numbers[0]->number : null, $client->country));
-						if (count($part) == 2) {
-							$vars[$key] = ltrim($part[0], "+");
-							$vars['tel_no'] = $part[1] != "" ? $part[1] : "1111111";
-						}
+                                            if (isset($client->numbers) AND is_array($client->numbers)) {
+                                                foreach ($client->numbers as $v_telp) {
+                                                    $v_telp = (array) $v_telp;
+                                                    if ($v_telp["type"] == "phone" AND $v_telp["location"] == "home") {
+                                                        $part = explode(".", $this->formatPhone($v_telp["number"], $client->country));
+                                                        print_r($part);
+                                                    }
+                                                }
+                                            }
+
+//                                            if (!empty($client->numbers)) {
+//
+//                                            }
+//						$part = explode(".", $this->formatPhone(isset($client->numbers[0]) ? $client->numbers[0]->number : null, $client->country));
+//						if (count($part) == 2) {
+//							$vars[$key] = ltrim($part[0], "+");
+//							$vars['tel_no'] = $part[1] != "" ? $part[1] : "1111111";
+//						}
 					}
 					elseif ($key == "username")
 						$vars[$key] = $client->email;

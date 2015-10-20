@@ -119,7 +119,7 @@ Configure::set("Liquid.contact_fields", array(
 		'label' => Language::_("Liquid.contact.zipcode", true),
 		'type' => "text"
 	),
-	'country' => array(
+	'country_code' => array(
 		'label' => Language::_("Liquid.contact.country", true),
 		'type' => "text"
 	),
