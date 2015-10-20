@@ -1239,7 +1239,7 @@ class Liquid extends Module {
                                     $vars_["order-id"] = $fields->{'order-id'};
                                     $vars_["fields"] = $section;
                                     $res = $domains->details($vars_);
-                                    foreach ($res as $key => $value) {
+                                    foreach ($res->response() as $key => $value) {
                                         if ($key == "address_line_1") {
                                             $key = "address1";
                                         }
