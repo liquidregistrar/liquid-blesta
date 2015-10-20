@@ -201,12 +201,17 @@ class Liquid extends Module {
 
 				// Set all whois info from client ($vars['client_id'])
 				if (!isset($this->Clients))
-					Loader::loadModels($this, array("Clients"));
+                                    Loader::loadModels($this, array("Clients"));
+
+                                if ( !isset( $this->Contacts ) )
+                                    Loader::loadModels( $this, array( "Contacts" ) );
 
 				$client = $this->Clients->get($vars['client_id']);
+                                $contact_numbers = $this->Contacts->getNumbers( $client->contact_id );
 				$customer_id = $this->getCustomerId($package->module_row, $client->email);
 				$contact_id = null;
 
+                                print_r($contact_numbers);
                                 print_r($client);
                                 die;
 
