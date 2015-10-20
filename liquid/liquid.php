@@ -1231,10 +1231,10 @@ class Liquid extends Module {
 		}
 		elseif (property_exists($fields, "order-id")) {
 			$response = $domains->details(array('order-id' => $fields->{'order-id'}, 'options' => array("RegistrantContactDetails", "AdminContactDetails", "TechContactDetails", "BillingContactDetails")));
-
-			if ($response->status() == "OK") {
 				$data= $response->response();
                                 print_r($data);
+die;
+			if ($response->status() == "OK") {
 				// Format fields
 				foreach ($sections as $section) {
 					foreach ($data->$section as $name => $value) {
