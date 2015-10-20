@@ -321,11 +321,13 @@ class Liquid extends Module {
 				// Handle registration
 				else {
 					// Set nameservers
-					$vars['ns'] = array();
+					$vars['ns_'] = array();
 					for ($i=1; $i<=5; $i++) {
 						if (isset($vars["ns" . $i]) && $vars["ns" . $i] != "")
-							$vars['ns'][] = $vars["ns" . $i];
+							$vars['ns_'][] = $vars["ns" . $i];
 					}
+
+                                        $vars['ns'] = implode(",", $vars["ns_"]);
 
 					$response = $domains->register(array_intersect_key($vars, $domain_fields));
 				}
