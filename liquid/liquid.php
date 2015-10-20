@@ -1238,37 +1238,50 @@ class Liquid extends Module {
 
 				// Format fields
 				foreach ($sections as $section) {
-//                                    $vars_["order-id"] = $fields->{'order-id'};
-//                                    $vars_["fields"] = $section;
-//                                    $res = $domains->details($vars_);
-//                                    foreach ($res->response() as $key => $value) {
-//                                        if ($key == "address_line_1") {
-//                                            $key = "address1";
-//                                        }
-//                                        if ($key == "address_line_2") {
-//                                            $key = "address2";
-//                                        }
-//                                        if ($key == "zipcode") {
-//                                            $key = "zip";
-//                                        }
-//                                        if ($key == "tel_cc_no") {
-//                                            $key = "telnocc";
-//                                        }
-//                                        if ($key == "tel_no") {
-//                                            $key = "telno";
-//                                        }
-//                                        if ($key == "email") {
-//                                            $key = "emailaddr";
-//                                        }
-//                                        if ($key == "contact_id") {
-//                                            $key = "contactid";
-//                                        }
-////                                        echo $key . " = ". $value ."<br>";
-//
-//                                        $vars->{$section . "_" . $key} = $value;
-//                                    }
+                                    if ($section == "registrantcontact") {
+                                        $section_ = "registrant_contact";
+                                    }
+                                    if ($section == "admincontact") {
+                                        $section_ = "admin_contact";
+                                    }
+                                    if ($section == "techcontact") {
+                                        $section_ = "tech_contact";
+                                    }
+                                    if ($section == "billingcontact") {
+                                        $section_ = "billing_contact";
+                                    }
 
-                                    $vars->{$section . "_" . "name"} = "namanya ".rand(0,9999);
+                                    $vars_["order-id"] = $fields->{'order-id'};
+                                    $vars_["fields"] = $section_;
+                                    $res = $domains->details($vars_);
+                                    foreach ($res->response() as $key => $value) {
+                                        if ($key == "address_line_1") {
+                                            $key = "address1";
+                                        }
+                                        if ($key == "address_line_2") {
+                                            $key = "address2";
+                                        }
+                                        if ($key == "zipcode") {
+                                            $key = "zip";
+                                        }
+                                        if ($key == "tel_cc_no") {
+                                            $key = "telnocc";
+                                        }
+                                        if ($key == "tel_no") {
+                                            $key = "telno";
+                                        }
+                                        if ($key == "email") {
+                                            $key = "emailaddr";
+                                        }
+                                        if ($key == "contact_id") {
+                                            $key = "contactid";
+                                        }
+//                                        echo $key . " = ". $value ."<br>";
+
+                                        $vars->{$section . "_" . $key} = $value;
+                                    }
+
+//                                    $vars->{$section . "_" . "name"} = "namanya ".rand(0,9999);
 
 //                                    foreach ($data->$section as $name => $value) {
 //                                        if ($name == "address1")
