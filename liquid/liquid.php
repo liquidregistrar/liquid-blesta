@@ -1753,16 +1753,13 @@ if(empty($vars["phone"])){
 
 		// Set errors, if any
 		if ($response->status() != "OK") {
-                    if (isset($response->errors()->message))
-                            $errors = $response->errors()->message;
-                    elseif (isset($response->errors()->error))
-                            $errors = $response->errors()->error;
+                    $res_error = $response->errors();
+                    if (isset($res_error["message"])) {
+                        $errors = $res_error["message"];
+                    } else {
+                        $errors = "Errors is empty, please call liquid Customer Service";
+                    }
 
-//                        if (empty($errors)) {
-//
-//                        }
-                    var_dump($errors);
-                    die;
                     $this->Input->setErrors(array('errors' => (array)$errors));
 		}
 	}

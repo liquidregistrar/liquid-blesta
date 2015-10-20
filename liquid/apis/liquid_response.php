@@ -68,6 +68,8 @@ class LiquidResponse {
             elseif (!empty ($this->response["message"])) {
                 $this->err_msg = $this->response["message"];
                 return $this->response;
+            } elseif (empty ($this->response)) {
+                return "Unable to request data from liquid server";
             }
 
             return false;
