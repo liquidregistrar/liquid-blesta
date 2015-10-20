@@ -1535,14 +1535,6 @@ class Liquid extends Module {
 		$api->loadCommand("liquid_customers");
 		$customers = new LiquidCustomers($api);
 
-//print_r($vars);
-//die;
-if(empty($vars["phone-cc"])){
-	$vars["phone-cc"] = "62";
-}
-if(empty($vars["phone"])){
-	$vars["phone"] = "00000000000";
-}
 		$response = $customers->signup($vars);
 
 		$this->processResponse($api, $response);
@@ -1904,12 +1896,6 @@ if(empty($vars["phone"])){
                 if (!empty($data_domains["domain_id"])) {
                     $order_id = $data_domains["domain_id"];
                 }
-
-                echo $order_id;
-                die;
-
-//		if ($response->response())
-//			$order_id = $response->response();
 
 		return $order_id;
 	}
