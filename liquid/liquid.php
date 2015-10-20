@@ -1561,7 +1561,7 @@ if(empty($vars["phone"])){
 		$api->loadCommand("liquid_customers");
 		$customers = new LiquidCustomers($api);
 
-		$vars = array('username' => $username, 'no-of-records' => 10, 'page-no' => 1);
+		$vars = array('email' => $username, 'no-of-records' => 10, 'page-no' => 1);
 		$response = $customers->search($vars);
 
                 print_r($vars);
