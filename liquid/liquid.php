@@ -1559,15 +1559,13 @@ if(empty($vars["phone"])){
 
 		$this->processResponse($api, $response);
 
-                $contact = $response->response();
-                print_r($contact);
-                die;
-
                 if ($response->status() != "OK") {
                     return null;
                 }
 
-//                return
+                $contact = $response->response();
+
+                return $contact["contact_id"];
 	}
 
 	/**
