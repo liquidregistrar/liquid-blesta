@@ -207,6 +207,9 @@ class Liquid extends Module {
 				$customer_id = $this->getCustomerId($package->module_row, $client->email);
 				$contact_id = null;
 
+                                print_r($client);
+                                die;
+
 				foreach (array_merge($contact_fields, $customer_fields) as $key => $field) {
 					if ($key == "name")
 						$vars[$key] = $client->first_name . " " . $client->last_name;
@@ -214,9 +217,9 @@ class Liquid extends Module {
 						$vars[$key] = $client->company != "" ? $client->company : "Not Applicable";
 					elseif ($key == "email")
 						$vars[$key] = $client->email;
-					elseif ($key == "address-line-1")
+					elseif ($key == "address_line_1")
 						$vars[$key] = $client->address1;
-					elseif ($key == "address-line-2")
+					elseif ($key == "address_line_2")
 						$vars[$key] = $client->address2;
 					elseif ($key == "city")
 						$vars[$key] = $client->city;
@@ -226,18 +229,18 @@ class Liquid extends Module {
 						$vars[$key] = $client->zip;
 					elseif ($key == "country")
 						$vars[$key] = $client->country;
-					elseif ($key == "phone-cc") {
+					elseif ($key == "tel_cc_no") {
 						$part = explode(".", $this->formatPhone(isset($client->numbers[0]) ? $client->numbers[0]->number : null, $client->country));
 						if (count($part) == 2) {
 							$vars[$key] = ltrim($part[0], "+");
-							$vars['phone'] = $part[1] != "" ? $part[1] : "1111111";
+							$vars['tel_no'] = $part[1] != "" ? $part[1] : "1111111";
 						}
 					}
 					elseif ($key == "username")
 						$vars[$key] = $client->email;
-					elseif ($key == "passwd")
+					elseif ($key == "password")
 						$vars[$key] = substr(md5(mt_rand()), 0, 15);
-					elseif ($key == "lang-pref")
+					elseif ($key == "lang_pref")
 						$vars[$key] = substr($client->settings['language'], 0, 2);
 				}
 
@@ -256,7 +259,7 @@ class Liquid extends Module {
 
 				$vars['type'] = $contact_type;
 
-				$vars['customer-id'] = $customer_id;
+				$vars['customer_id'] = $customer_id;
 				$contact_id = $this->createContact($package->module_row, array_intersect_key($vars, array_merge($contact_fields, $domain_contact_fields)));
 				$vars['reg-contact-id'] = $contact_id;
 				$contact_id = $this->createContact($package->module_row, array_intersect_key($vars, array_merge($contact_fields, $domain_contact_fields)));
@@ -1532,12 +1535,12 @@ if(empty($vars["phone"])){
 		$contacts = new LiquidContacts($api);
 
 		$vars = array_merge($vars, $this->createMap($vars));
-if(empty($vars["phone-cc"])){
-        $vars["phone-cc"] = "62";
-}
-if(empty($vars["phone"])){
-        $vars["phone"] = "00000000000";
-}
+//if(empty($vars["phone-cc"])){
+//        $vars["phone-cc"] = "62";
+//}
+//if(empty($vars["phone"])){
+//        $vars["phone"] = "00000000000";
+//}
 
 		$response = $contacts->add($vars);
 

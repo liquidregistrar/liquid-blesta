@@ -79,7 +79,7 @@ Configure::set("Liquid.nameserver_fields", array(
 
 // Contact fields
 Configure::set("Liquid.contact_fields", array(
-	'customer-id' => array(
+	'customer_id' => array(
 		'label' => Language::_("Liquid.contact.customer-id", true),
 		'type' => "text"
 	),
@@ -99,11 +99,11 @@ Configure::set("Liquid.contact_fields", array(
 		'label' => Language::_("Liquid.contact.email", true),
 		'type' => "text"
 	),
-	'address-line-1' => array(
+	'address_line_1' => array(
 		'label' => Language::_("Liquid.contact.address-line-1", true),
 		'type' => "text"
 	),
-	'address-line-2' => array(
+	'address_line_2' => array(
 		'label' => Language::_("Liquid.contact.address-line-2", true),
 		'type' => "text"
 	),
@@ -123,19 +123,19 @@ Configure::set("Liquid.contact_fields", array(
 		'label' => Language::_("Liquid.contact.country", true),
 		'type' => "text"
 	),
-	'phone-cc' => array(
+	'tel_cc_no' => array(
 		'label' => Language::_("Liquid.contact.phone-cc", true),
 		'type' => "text"
 	),
-	'phone' => array(
+	'tel_no' => array(
 		'label' => Language::_("Liquid.contact.phone", true),
 		'type' => "text"
 	),
-	'fax-cc' => array(
+	'fax_cc_no' => array(
 		'label' => Language::_("Liquid.contact.fax-cc", true),
 		'type' => "text"
 	),
-	'fax' => array(
+	'fax_no' => array(
 		'label' => Language::_("Liquid.contact.fax", true),
 		'type' => "text"
 	)
@@ -147,7 +147,7 @@ Configure::set("Liquid.customer_fields", array(
 		'label' => Language::_("Liquid.customer.username", true),
 		'type' => "text"
 	),
-	'passwd' => array(
+	'password' => array(
 		'label' => Language::_("Liquid.customer.passwd", true),
 		'type' => "text"
 	),
