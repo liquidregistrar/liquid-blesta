@@ -1261,6 +1261,8 @@ class Liquid extends Module {
                                         if ($key == "contact_id") {
                                             $key = "contactid";
                                         }
+                                        echo $key . " = ". $value ."<br>";
+
                                         $vars->{$section . "_" . $key} = $value;
                                     }
 
@@ -1281,6 +1283,7 @@ class Liquid extends Module {
 //                                                $name = "contact-id";
 //                                    }
 				}
+                                die;
 			}
 		}
 		else {
