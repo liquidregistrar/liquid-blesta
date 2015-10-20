@@ -244,12 +244,12 @@ class Liquid extends Module {
                                                                 $tel_cc = "62";
                                                             }
                                                         } else {
-                                                            $tel_cc = ltrim($part[0], "+");
+                                                            $tel_cc = $part[0];
                                                             $tel = $part[1];
                                                         }
 
-                                                        $vars[$key] = $tel_cc;
-							$vars['tel_no'] = $tel;
+                                                        $vars[$key]     = ltrim($tel_cc, "+");
+							$vars['tel_no'] = ltrim($tel, "0");
                                                     }
                                                 }
                                             }
