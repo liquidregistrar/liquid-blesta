@@ -169,13 +169,25 @@ class Liquid extends Module {
 		$tld = null;
 		$input_fields = array();
 
-		if (isset($vars['domain-name']))
-			$tld = $this->getTld($vars['domain-name'], true);
+		if (isset($vars['domain-name'])) {
+                    $vars['domain_name'] = $vars['domain-name'];
+                    $tld = $this->getTld($vars['domain-name'], true);
+                }
 
 		if ($package->meta->type == "domain") {
 			$contact_fields = Configure::get("Liquid.contact_fields");
 			$customer_fields = Configure::get("Liquid.customer_fields");
-			$domain_field_basics = array('years' => true, 'ns' => true, 'customer-id' => true, 'reg-contact-id' => true, 'admin-contact-id' => true, 'tech-contact-id' => true, 'billing-contact-id' => true, 'invoice-option' => true, 'protect-privacy' => true);
+			$domain_field_basics = array(
+                                'years' => true,
+                                'ns' => true,
+                                'customer_id' => true,
+                                'registrant_contact_id' => true,
+                                'admin_contact_id' => true, 
+                                'tech_contact_id' => true,
+                                'billing_contact_id' => true,
+                                'invoice_option' => true,
+                                'purchase_privacy_protection' => true
+                            );
 			$transfer_fields = array_merge(Configure::get("Liquid.transfer_fields"), $domain_field_basics);
 			$domain_fields = array_merge(Configure::get("Liquid.domain_fields"), $domain_field_basics);
 			$domain_contact_fields = (array)Configure::get("Liquid.contact_fields" . $tld);
@@ -280,13 +292,13 @@ class Liquid extends Module {
 
 				$vars['customer_id'] = $customer_id;
 				$contact_id = $this->createContact($package->module_row, array_intersect_key($vars, array_merge($contact_fields, $domain_contact_fields)));
-				$vars['reg-contact-id'] = $contact_id;
+				$vars['registrant_contact_id'] = $contact_id;
 				$contact_id = $this->createContact($package->module_row, array_intersect_key($vars, array_merge($contact_fields, $domain_contact_fields)));
-				$vars['admin-contact-id'] = $this->formatContact($contact_id, $tld, "admin");
+				$vars['admin_contact_id'] = $this->formatContact($contact_id, $tld, "admin");
 				$contact_id = $this->createContact($package->module_row, array_intersect_key($vars, array_merge($contact_fields, $domain_contact_fields)));
-				$vars['tech-contact-id'] = $this->formatContact($contact_id, $tld, "tech");
+				$vars['tech_contact_id'] = $this->formatContact($contact_id, $tld, "tech");
 				$contact_id = $this->createContact($package->module_row, array_intersect_key($vars, array_merge($contact_fields, $domain_contact_fields)));
-				$vars['billing-contact-id'] = $this->formatContact($contact_id, $tld, "billing");
+				$vars['billing_contact_id'] = $this->formatContact($contact_id, $tld, "billing");
 				$vars['invoice-option'] = "NoInvoice";
 				$vars['protect-privacy'] = "false";
 
