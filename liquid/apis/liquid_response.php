@@ -67,7 +67,7 @@ class LiquidResponse {
                 return (object)array('message' => $this->response->actionstatusdesc);
             elseif (!empty ($this->response["message"])) {
                 $this->err_msg = $this->response["message"];
-                return $this->response;
+                return $this->err_msg;
             }
 
             return false;
