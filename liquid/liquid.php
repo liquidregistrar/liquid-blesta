@@ -1555,8 +1555,6 @@ if(empty($vars["phone"])){
 
 		$vars = array_merge($vars, $this->createMap($vars));
 
-                print_r($vars);
-                die;
 		$response = $contacts->add($vars);
 
 		$this->processResponse($api, $response);
