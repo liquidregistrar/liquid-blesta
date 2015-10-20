@@ -210,10 +210,11 @@ class Liquid extends Module {
                                 $contact_numbers = $this->Contacts->getNumbers( $client->contact_id );
 				$customer_id = $this->getCustomerId($package->module_row, $client->email);
 				$contact_id = null;
+                                $client->numbers = $contact_numbers;
 
-                                print_r($contact_numbers);
                                 print_r($client);
                                 die;
+
 
 				foreach (array_merge($contact_fields, $customer_fields) as $key => $field) {
 					if ($key == "name")
