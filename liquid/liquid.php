@@ -1363,7 +1363,9 @@ class Liquid extends Module {
 				$vars = (object)$post;
 			}
 			else {
-				$response = $domains->details(array('order-id' => $fields->{'order-id'}, 'options' => "NsDetails"))->response();
+				$response = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields' => "ns"))->response();
+                                print_r($response->response());
+                                die;
 
 				$vars->ns = array();
 				for ($i=0; $i<5 ;$i++) {
