@@ -1438,11 +1438,11 @@ class Liquid extends Module {
 
                             if ($response) {
                                 $vars->registrar_lock = "false";
-                                if ($response[0]["theft_protection"] == "true") {
+                                if ($response["theft_protection"] == "true") {
                                     $vars->registrar_lock = "true";
                                 }
 
-                                $vars->epp_code = $response[0]["auth_code"];
+                                $vars->epp_code = $response["auth_code"];
                             }
 			}
 		}
@@ -1553,6 +1553,8 @@ class Liquid extends Module {
 		// Load the helpers required for this view
 		Loader::loadHelpers($this, array("Form", "Html"));
 
+                print_r($vars);
+                die;
 
 		$this->view->set("vars", $vars);
 		$this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
