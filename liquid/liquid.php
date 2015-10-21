@@ -1039,7 +1039,7 @@ class Liquid extends Module {
 			return array(
 				'tabWhois' => Language::_("Liquid.tab_whois.title", true),
 				'tabNameservers' => Language::_("Liquid.tab_nameservers.title", true),
-				// 'tabChildname' => Language::_("Liquid.tab_childname.title", true),
+				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
 				'tabSettings' => Language::_("Liquid.tab_settings.title", true),
 			);
 		}
@@ -1434,14 +1434,15 @@ class Liquid extends Module {
 			}
 			else {
 
-				$response = $domains->details(array('order-id' => $fields->{'order-id'}, 'options' => array("OrderDetails")))->response();
+				$response = $domains->details(array('domain_id' => $fields->{'order-id'}, 'options' => array("all")))->response();
 
 				if ($response) {
 					$vars->registrar_lock = "false";
-					if (in_array("transferlock", $response->orderstatus))
-						$vars->registrar_lock = "true";
+                                        if ($response["theft_protection"] == "true") {
+                                            $vars->registrar_lock = "true";
+                                        }
 
-					$vars->epp_code = $response->domsecret;
+					$vars->epp_code = $response["auth_code"];
 				}
 			}
 		}
