@@ -1364,13 +1364,11 @@ class Liquid extends Module {
 			}
 			else {
 				$response = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields' => "ns"))->response();
-                                print_r($response->response());
-                                die;
 
 				$vars->ns = array();
 				for ($i=0; $i<5 ;$i++) {
-					if (isset($response->{"ns" . ($i+1)}))
-						$vars->ns[] = $response->{"ns" . ($i+1)};
+					if (isset($response["ns" . ($i+1)]))
+						$vars->ns[] = $response["ns" . ($i+1)];
 				}
 			}
 		}
