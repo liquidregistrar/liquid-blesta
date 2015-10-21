@@ -209,6 +209,8 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function search(array $vars) {
+            print_r($vars);
+            die;
 		return $this->api->submit("domains", $vars, "GET");
 	}
 
