@@ -1203,8 +1203,8 @@ class Liquid extends Module {
 		$api->loadCommand("liquid_domains");
 		$domains = new LiquidDomains($api);
 
-		if (!isset($this->States))
-			Loader::loadModels($this, array("States"));
+		if (!isset($this->Countries))
+			Loader::loadModels($this, array("Countries"));
 
 		$vars = new stdClass();
 
@@ -1216,6 +1216,13 @@ class Liquid extends Module {
 		$show_content = true;
 
 		if (!empty($post)) {
+
+                    $countries = $this->Countries->getList();
+                    foreach ($countries as $v_countries) {
+                        $country[$v_countries->name]    = $v_countries->alpha2;
+                        $country[$v_countries->alpha2]  = $v_countries->name;
+                    }
+
                     $dom_detail = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields'=>"domain_details"));
                     $data_dom_detail = $dom_detail->response();
                     $customer_id = $data_dom_detail["customer_id"];
@@ -1229,7 +1236,7 @@ class Liquid extends Module {
                             if (strpos($key, $section . "_") !== false && $value != "")
                                 $contact[str_replace($section . "_", "", $key)] = $value;
                         }
-
+                        $contact["country_code"] = $country[$contact["country_code"]];
                         $contact["contact_id"] = $contact["contact-id"];
                         $response = $contacts->modify($contact, $customer_id);
                         $this->processResponse($api, $response);
