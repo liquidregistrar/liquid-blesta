@@ -1415,36 +1415,34 @@ class Liquid extends Module {
 
 		if (property_exists($fields, "order-id")) {
 			if (!empty($post)) {
-                            print_r($post);
-                            die;
-				if (isset($post['registrar_lock'])) {
-					if ($post['registrar_lock'] == "true") {
-						$response = $domains->enableTheftProtection(array(
-							'order-id' => $fields->{'order-id'},
-						));
-					}
-					else {
-						$response = $domains->disableTheftProtection(array(
-							'order-id' => $fields->{'order-id'},
-						));
-					}
-					$this->processResponse($api, $response);
-				}
+                            if (isset($post['registrar_lock'])) {
+                                if ($post['registrar_lock'] == "true") {
+                                    $response = $domains->enableTheftProtection(array(
+                                        'order-id' => $fields->{'order-id'},
+                                    ));
+                                }
+                                else {
+                                    $response = $domains->disableTheftProtection(array(
+                                        'order-id' => $fields->{'order-id'},
+                                    ));
+                                }
+                                $this->processResponse($api, $response);
+                            }
 
-				$vars = (object)$post;
+                            $vars = (object)$post;
 			}
 			else {
 
-				$response = $domains->details(array('domain_id' => $fields->{'order-id'}, 'fields' => "All"))->response();
+                            $response = $domains->details(array('domain_id' => $fields->{'order-id'}, 'fields' => "All"))->response();
 
-				if ($response) {
-					$vars->registrar_lock = "false";
-                                        if ($response[0]["theft_protection"] == "true") {
-                                            $vars->registrar_lock = "true";
-                                        }
+                            if ($response) {
+                                $vars->registrar_lock = "false";
+                                if ($response[0]["theft_protection"] == "true") {
+                                    $vars->registrar_lock = "true";
+                                }
 
-					$vars->epp_code = $response[0]["auth_code"];
-				}
+                                $vars->epp_code = $response[0]["auth_code"];
+                            }
 			}
 		}
 		else {
