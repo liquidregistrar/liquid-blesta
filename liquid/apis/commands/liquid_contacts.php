@@ -119,9 +119,9 @@ class LiquidContacts {
 	 */
 	public function modify(array $vars, $customer_id = null) {
             if (is_null($customer_id)) {
-                return $this->api->submit("customers/".$vars["customer_id"]."/contacts", $vars, "PUT");
+                return $this->api->submit("customers/".$vars["customer_id"]."/contacts/".$vars["contact-id"], $vars, "PUT");
             } else {
-                return $this->api->submit("customers/".$customer_id."/contacts", $vars, "PUT");
+                return $this->api->submit("customers/".$customer_id."/contacts/".$vars["contact-id"], $vars, "PUT");
             }
 	}
 
