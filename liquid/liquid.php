@@ -1216,6 +1216,10 @@ class Liquid extends Module {
 		$show_content = true;
 
 		if (!empty($post)) {
+                    $dom_detail = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields'=>"domain_details"));
+                    $data_dom_detail = $dom_detail->response();
+                    $customer_id = $data_dom_detail["customer_id"];
+
                     $api->loadCommand("liquid_contacts");
                     $contacts = new LiquidContacts($api);
 
@@ -1226,7 +1230,8 @@ class Liquid extends Module {
                                 $contact[str_replace($section . "_", "", $key)] = $value;
                         }
 
-                        $response = $contacts->modify($contact);
+                        $contact["contact_id"] = $contact["contact-id"];
+                        $response = $contacts->modify($contact, $customer_id);
                         $this->processResponse($api, $response);
                         if ($this->Input->errors())
                             break;
@@ -1268,7 +1273,11 @@ class Liquid extends Module {
 //                                            }
 //                                        }
                                         if ($key == "country_code") {
-                                            $value = $data_res["country"]; 
+                                            $value = $data_res["country"];
+                                        }
+                                        if ($key == "contact_id") {
+                                            $key = "contact-id";
+                                            $value = $data_res["contact_id"];
                                         }
                                         $vars->{$section . "_" . $key} = $value;
                                     }
