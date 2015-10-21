@@ -1434,16 +1434,15 @@ class Liquid extends Module {
 			}
 			else {
 
-				$response = $domains->details(array('domain_id' => $fields->{'order-id'}, 'fields' => "all"))->response();
-print_r($response);
-die;
+				$response = $domains->details(array('domain_id' => $fields->{'order-id'}, 'fields' => "All"))->response();
+
 				if ($response) {
 					$vars->registrar_lock = "false";
-                                        if ($response["theft_protection"] == "true") {
+                                        if ($response[0]["theft_protection"] == "true") {
                                             $vars->registrar_lock = "true";
                                         }
 
-					$vars->epp_code = $response["auth_code"];
+					$vars->epp_code = $response[0]["auth_code"];
 				}
 			}
 		}
