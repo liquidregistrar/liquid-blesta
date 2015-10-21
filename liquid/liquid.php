@@ -1415,7 +1415,8 @@ class Liquid extends Module {
 
 		if (property_exists($fields, "order-id")) {
 			if (!empty($post)) {
-
+                            print_r($post);
+                            die;
 				if (isset($post['registrar_lock'])) {
 					if ($post['registrar_lock'] == "true") {
 						$response = $domains->enableTheftProtection(array(
