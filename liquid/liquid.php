@@ -1257,9 +1257,10 @@ class Liquid extends Module {
                                     $vars_["order-id"] = $fields->{'order-id'};
                                     $vars_["fields"] = $section_;
                                     $res = $domains->details($vars_);
-                                    foreach ($res->response() as $key => $value) {
+                                    $data_res = $res->response();
+                                    foreach ($data_res as $key => $value) {
                                         if ($key == "state") {
-                                            $data_state = $this->States->get("", $value);
+                                            $data_state = $this->States->getList($data_res[$key]["country"]);
                                             print_r($data_state);
                                             die;
                                         }
