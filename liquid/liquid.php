@@ -1540,8 +1540,6 @@ class Liquid extends Module {
 			}
 			$res_vars = $domains->details(array('domain_id' => $fields->{'order-id'}, 'fields' => "All"));
                         $vars = $res_vars->response();
-                        print_r($vars);
-                        die;
 		}
 		else {
 			// No order-id; info is not available
