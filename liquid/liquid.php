@@ -1356,8 +1356,10 @@ class Liquid extends Module {
 					if ($nameserver != "")
 						$ns[] = $nameserver;
 				}
+
+                                $ns_ = implode(",", $ns);
 				$post['order-id'] = $fields->{'order-id'};
-				$response = $domains->modifyNs(array('order-id' => $fields->{'order-id'}, 'ns' => $ns));
+				$response = $domains->modifyNs(array('domain_id' => $fields->{'order-id'}, 'ns' => $ns_));
 				$this->processResponse($api, $response);
 
 				$vars = (object)$post;
