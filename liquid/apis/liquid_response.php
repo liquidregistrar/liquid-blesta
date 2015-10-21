@@ -70,6 +70,8 @@ class LiquidResponse {
                 return $this->response;
             } elseif (empty ($this->response)) {
                 return "Unable to request data from liquid server";
+            } elseif (!json_decode($this->response)) {
+                return "Unable to request data from liquid serverx";
             }
 
             return false;
