@@ -1538,7 +1538,10 @@ class Liquid extends Module {
 			else {
 				// $vars = $domains->details(array('order-id' => $fields->{'order-id'}, 'options' => "All"))->response();
 			}
-			$vars = $domains->details(array('domain_id' => $fields->{'order-id'}, 'options' => "All"))->response();
+			$res_vars = $domains->details(array('domain_id' => $fields->{'order-id'}, 'fields' => "All"));
+                        $vars = $res_vars->response();
+                        print_r($vars);
+                        die;
 		}
 		else {
 			// No order-id; info is not available
