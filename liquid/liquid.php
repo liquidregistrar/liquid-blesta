@@ -1259,10 +1259,16 @@ class Liquid extends Module {
                                     $res = $domains->details($vars_);
                                     $data_res = $res->response();
                                     foreach ($data_res as $key => $value) {
-                                        if ($key == "state") {
-                                            $data_state = $this->States->getList($data_res[$key]["country"]);
-                                            print_r($data_state);
-                                            die;
+//                                        if ($key == "state") {
+//                                            $data_state = $this->States->getList($data_res["country"]);
+//                                            foreach ($data_state as $v_state) {
+//                                                if ($v_state["code"] == $value) {
+//                                                    $vars->{$section . "_" . $key} = $v_state["name"];
+//                                                }
+//                                            }
+//                                        }
+                                        if ($key == "country_code") {
+                                            $value = $data_res["country"]; 
                                         }
                                         $vars->{$section . "_" . $key} = $value;
                                     }
