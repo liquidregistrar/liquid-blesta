@@ -4,7 +4,8 @@
 		<?php
 		$count = 1 ;
 		foreach ($vars["cns"] as $name => $value) {
-
+                    print_r($value);
+                    die;
 			for ($i=0; $i<count($value); $i++) {
 			$this->Form->create();
 				?>
