@@ -209,9 +209,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function search(array $vars) {
-            print_r($vars);
-            die;
-		return $this->api->submit("domains", $vars, "GET");
+            return $this->api->submit("domains", $vars, "GET");
 	}
 
 	/**
@@ -256,7 +254,10 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function details(array $vars) {
-		return $this->api->submit("domains/".$vars["order-id"], $vars, "GET");
+            if (!empty($vars["domain_id"])) {
+                return $this->api->submit("domains/".$vars["domain_id"], $vars, "GET");
+            }
+            return $this->api->submit("domains/".$vars["order-id"], $vars, "GET");
 	}
 
 	/**
