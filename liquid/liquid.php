@@ -1203,6 +1203,9 @@ class Liquid extends Module {
 		$api->loadCommand("liquid_domains");
 		$domains = new LiquidDomains($api);
 
+		if (!isset($this->States))
+			Loader::loadModels($this, array("States"));
+
 		$vars = new stdClass();
 
 		$contact_fields = Configure::get("Liquid.contact_fields");
@@ -1213,28 +1216,28 @@ class Liquid extends Module {
 		$show_content = true;
 
 		if (!empty($post)) {
-			$api->loadCommand("liquid_contacts");
-			$contacts = new LiquidContacts($api);
+                    $api->loadCommand("liquid_contacts");
+                    $contacts = new LiquidContacts($api);
 
-			foreach ($sections as $section) {
-				$contact = array();
-				foreach ($post as $key => $value) {
-					if (strpos($key, $section . "_") !== false && $value != "")
-						$contact[str_replace($section . "_", "", $key)] = $value;
-				}
+                    foreach ($sections as $section) {
+                        $contact = array();
+                        foreach ($post as $key => $value) {
+                            if (strpos($key, $section . "_") !== false && $value != "")
+                                $contact[str_replace($section . "_", "", $key)] = $value;
+                        }
 
-				$response = $contacts->modify($contact);
-				$this->processResponse($api, $response);
-				if ($this->Input->errors())
-					break;
-			}
+                        $response = $contacts->modify($contact);
+                        $this->processResponse($api, $response);
+                        if ($this->Input->errors())
+                            break;
+                    }
 
-			$vars = (object)$post;
+                    $vars = (object)$post;
 		}
 		elseif (property_exists($fields, "order-id")) {
 			$response = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields' => array("registrant_contact", "admin_contact", "tech_contact", "billing_contact")));
 			if ($response->status() == "OK") {
-				$data= $response->response();
+				$data = $response->response();
 
 				// Format fields
 				foreach ($sections as $section) {
@@ -1255,50 +1258,13 @@ class Liquid extends Module {
                                     $vars_["fields"] = $section_;
                                     $res = $domains->details($vars_);
                                     foreach ($res->response() as $key => $value) {
-//                                        if ($key == "address_line_1") {
-//                                            $key = "address1";
-//                                        }
-//                                        if ($key == "address_line_2") {
-//                                            $key = "address2";
-//                                        }
-//                                        if ($key == "zipcode") {
-//                                            $key = "zip";
-//                                        }
-//                                        if ($key == "tel_cc_no") {
-//                                            $key = "telnocc";
-//                                        }
-//                                        if ($key == "tel_no") {
-//                                            $key = "telno";
-//                                        }
-//                                        if ($key == "email") {
-//                                            $key = "emailaddr";
-//                                        }
-//                                        if ($key == "contact_id") {
-//                                            $key = "contactid";
-//                                        }
-//                                        echo $key . " = ". $value ."<br>";
-
+                                        if ($key == "state") {
+                                            $data_state = $this->States->get("", $value);
+                                            print_r($data_state);
+                                            die;
+                                        }
                                         $vars->{$section . "_" . $key} = $value;
                                     }
-
-//                                    $vars->{$section . "_" . "name"} = "namanya ".rand(0,9999);
-
-//                                    foreach ($data->$section as $name => $value) {
-//                                        if ($name == "address1")
-//                                                $name = "address-line-1";
-//                                        elseif ($name == "address2")
-//                                                $name = "address-line-2";
-//                                        elseif ($name == "zip")
-//                                                $name = "zipcode";
-//                                        elseif ($name == "telnocc")
-//                                                $name = "phone-cc";
-//                                        elseif ($name == "telno")
-//                                                $name = "phone";
-//                                        elseif ($name == "emailaddr")
-//                                                $name = "email";
-//                                        elseif ($name == "contactid")
-//                                                $name = "contact-id";
-//                                    }
 				}
 			}
 		}

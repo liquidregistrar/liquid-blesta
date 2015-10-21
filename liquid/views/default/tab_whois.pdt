@@ -1,4 +1,4 @@
-	
+
 	<?php
 	$this->Form->create();
 	foreach ($fields as $field) {
@@ -6,7 +6,7 @@
 			call_user_func_array(array($this->Form, $field->type), $field->params);
 	}
 	?>
-	
+
 	<?php
 	$i=0;
 	foreach ($sections as $key) {
@@ -18,6 +18,9 @@
 		<ul>
 			<?php
 			foreach ($fields as $field) {
+                            if (strtolower($field->params["name"]) == "customer id") {
+                                continue;
+                            }
 				if ($field->type != "label" || substr($field->params['for'], 0, strlen($key)) != $key)
 					continue;
 			?>
@@ -25,19 +28,19 @@
 				<?php
 				// Draw the primary label/field
 				call_user_func_array(array($this->Form, $field->type), $field->params);
-				
+
 				// Draw each form field associated with this label
 				$tooltips = array();
 				foreach ($field->fields as $input) {
-					
+
 					// Collect all tooltips to be displayed at the end
 					if ($input->type == "tooltip") {
 						$tooltips[] = $input;
 						continue;
 					}
-					
+
 					call_user_func_array(array($this->Form, $input->type), $input->params);
-					
+
 					// Draw the form field's secondary label if checkbox or radio item
 					if (($input->type == "fieldCheckbox" || $input->type == "fieldRadio") && isset($input->label)) {
 						if (isset($input->label->params['attributes']['class'])) {
@@ -48,11 +51,11 @@
 						}
 						else
 							$input->label->params['attributes']['class'] = "inline";
-							
+
 						call_user_func_array(array($this->Form, "label"), $input->label->params);
 					}
 				}
-				
+
 				foreach ($tooltips as $tooltip) {
 				?>
 				<span class="tooltip">
