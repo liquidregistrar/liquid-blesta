@@ -1434,8 +1434,9 @@ class Liquid extends Module {
 			}
 			else {
 
-				$response = $domains->details(array('domain_id' => $fields->{'order-id'}, 'options' => array("all")))->response();
-
+				$response = $domains->details(array('domain_id' => $fields->{'order-id'}, 'fields' => "all"))->response();
+print_r($response);
+die;
 				if ($response) {
 					$vars->registrar_lock = "false";
                                         if ($response["theft_protection"] == "true") {
