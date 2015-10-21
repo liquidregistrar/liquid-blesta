@@ -278,9 +278,9 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function modifyNs(array $vars) {
-//            if (isset($vars["domain_id"])) {
-//		return $this->api->submit("domains/". $vars["domain_id"] ."/ns", $vars, "PUT");
-//            }
+            if (isset($vars["domain_id"])) {
+		return $this->api->submit("domains/". $vars["domain_id"] ."/ns", $vars, "PUT");
+            }
             return $this->api->submit("domains/". $vars["order-id"] ."/ns", $vars, "PUT");
 	}
 
