@@ -26,6 +26,10 @@
                 <div class="tab-pane<?php echo $index == 0 ? " active" : "";?>" id="<?php $this->Html->_($key);?>">
                     <?php
                     foreach ($fields as $field) {
+                        if (strtolower($field->params["name"]) == "customer id") {
+                            continue;
+                        }
+
                         if ($field->type != "label" || substr($field->params['for'], 0, strlen($key)) != $key)
                             continue;
                     ?>

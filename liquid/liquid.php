@@ -1039,7 +1039,8 @@ class Liquid extends Module {
 			return array(
 				'tabWhois' => Language::_("Liquid.tab_whois.title", true),
 				'tabNameservers' => Language::_("Liquid.tab_nameservers.title", true),
-				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
+//				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
+//				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
 				'tabSettings' => Language::_("Liquid.tab_settings.title", true),
 			);
 		}
@@ -1537,7 +1538,7 @@ class Liquid extends Module {
 			else {
 				// $vars = $domains->details(array('order-id' => $fields->{'order-id'}, 'options' => "All"))->response();
 			}
-			$vars = $domains->details(array('order-id' => $fields->{'order-id'}, 'options' => "All"))->response();
+			$vars = $domains->details(array('domain_id' => $fields->{'order-id'}, 'options' => "All"))->response();
 		}
 		else {
 			// No order-id; info is not available
