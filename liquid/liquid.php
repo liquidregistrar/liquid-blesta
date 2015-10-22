@@ -1502,9 +1502,14 @@ class Liquid extends Module {
 //                                    $response = $domains->modifyCnsName(array('order-id' => $fields->{'order-id'},'old-cns' => $post['old-cns'], 'new-cns' => $post['cns']));
 //                                    $this->processResponse($api, $response);
 //                                    echo "1a";
-                                    $response2 = $domains->modifyCnsIp(array('order-id' => $fields->{'order-id'},'hostname' => $post['cns'], 'old-ip' => $post['old-ip'], 'ip_address' => $post['ip']));
+                                    $postArray["order-id"] = $fields->{'order-id'};
+                                    $postArray["hostname"] = $post['cns'];
+                                    $postArray["old-ip"] = $post['old-ip'];
+                                    $postArray["ip_address"] = $post['ip'];
+                                    $postArray["old-cns"] = $post['old-cns'];
+                                    $response2 = $domains->modifyCnsIp($postArray);
                                     $this->processResponse($api, $response2);
-                                    echo "update cns";
+//                                    echo "update cns";
                                 }
                                 elseif ($post['cns'] != $post['old-cns'] && $post['ip'] = $post['old-ip']) {
                                     $response = $domains->modifyCnsName(array('order-id' => $fields->{'order-id'},'old-cns' => $post['old-cns'], 'new-cns' => $post['cns']));
