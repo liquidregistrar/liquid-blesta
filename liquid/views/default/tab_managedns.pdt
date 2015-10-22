@@ -19,7 +19,7 @@ die;
     </tr>
     <?php
         $i = 0;
-        foreach ($tab_data["dns"]["A"] => $value) {
+        foreach ($tab_data["dns"]["A"] as $value) {
     ?>
     <tr class="<?php if($i % 2 == 0) { echo "odd_row" } ?> module_list">
         <td><?php echo $value["hostname"] ?></td>
