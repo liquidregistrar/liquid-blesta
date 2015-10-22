@@ -1,6 +1,6 @@
 <?php
 
-print_r($vars);
+print_r($vars2);
 die;
 
 ?>
