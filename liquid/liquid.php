@@ -1553,9 +1553,6 @@ class Liquid extends Module {
 		// Load the helpers required for this view
 		Loader::loadHelpers($this, array("Form", "Html"));
 
-                print_r($vars);
-                die;
-
 		$this->view->set("vars", $vars);
 		$this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
 		return $this->view->fetch();
