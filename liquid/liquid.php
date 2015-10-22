@@ -1492,8 +1492,6 @@ class Liquid extends Module {
             $data_dns = $dns->retrieve($ret_data)->response();
             $vars->dns = $data_dns;
 
-            print_r($vars);
-            die;
             $view = ($show_content ? $view : "tab_unavailable");
             $this->view = new View($view, "default");
 
