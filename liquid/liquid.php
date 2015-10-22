@@ -1479,15 +1479,17 @@ class Liquid extends Module {
 
         private function manageDNS($view, $package, $service, array $get=null, array $post=null, array $files=null) {
             $vars = new stdClass();
-print_r($service);
-die;
+
             $row = $this->getModuleRow($package->module_row);
             $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
             $api->loadCommand("liquid_dns_manage");
-            $dns = new LiquidDomains($api);
+            $dns = new LiquidDnsManage($api);
             $fields = $this->serviceFieldsToObject($service->fields);
             $show_content = true;
 
+
+            print_r($fields);
+            die;
 
 //            $data_dns = $dns->retrieve()
 //            $vars->dns = $dns
