@@ -22,7 +22,7 @@
                                                     <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
                                                             <i class="fa fa-edit"></i> <?php $this->_("Liquid.tab_childname.field_update");?>
                                                     </button>
-                                                    <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" >
+                                                    <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
                                                             <i class="fa fa-ban"></i> <?php $this->_("Liquid.tab_childname.field_delete");?>
                                                     </button>
 						</span>
