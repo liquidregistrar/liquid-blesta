@@ -20,13 +20,13 @@
             <td><?php echo $count; ?></td>
             <td>
                 <?php
-                    $this->Form->fieldText("cns", $value["hostname"], array('id' => "cns" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ns", true, $i+1)));
+                    $this->Form->fieldText("cns", $value["hostname"], array('id' => "cns" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ns", true, $i+1)));
                     $this->Form->fieldHidden("old-cns", $value["hostname"]);
                 ?>
             </td>
             <td>
                 <?php
-                    $this->Form->fieldText("ip", $value["ip"], array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+                    $this->Form->fieldText("ip", $value["ip"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
                     $this->Form->fieldHidden("old-ip", $value["ip"]);
                 ?>
             </td>
