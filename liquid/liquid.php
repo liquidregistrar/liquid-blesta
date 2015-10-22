@@ -1498,7 +1498,7 @@ class Liquid extends Module {
                             break;
 
                             case 'update':
-                                if ($post['cns'] != $post['old-cns'] && $post['ip'] != $post['old-ip']) {
+                                if ($post['cns'] != $post['old-cns'] || $post['ip'] != $post['old-ip']) {
 //                                    $response = $domains->modifyCnsName(array('order-id' => $fields->{'order-id'},'old-cns' => $post['old-cns'], 'new-cns' => $post['cns']));
 //                                    $this->processResponse($api, $response);
 //                                    echo "1a";
@@ -1513,16 +1513,16 @@ class Liquid extends Module {
                                     $this->processResponse($api, $response2);
 //                                    echo "update cns";
                                 }
-                                elseif ($post['cns'] != $post['old-cns'] && $post['ip'] = $post['old-ip']) {
-                                    $response = $domains->modifyCnsName(array('order-id' => $fields->{'order-id'},'old-cns' => $post['old-cns'], 'new-cns' => $post['cns']));
-                                    $this->processResponse($api, $response);
-                                    echo "2";
-                                }
-                                elseif ($post['cns'] = $post['old-cns'] && $post['ip'] != $post['old-ip']) {
-                                    $response = $domains->modifyCnsIp(array('order-id' => $fields->{'order-id'},'cns' => $post['old-cns'], 'old-ip' => $post['old-ip'], 'new-ip' => $post['ip']));
-                                    $this->processResponse($api, $response);
-                                    echo "3";
-                                }
+//                                elseif ($post['cns'] != $post['old-cns'] && $post['ip'] = $post['old-ip']) {
+//                                    $response = $domains->modifyCnsName(array('order-id' => $fields->{'order-id'},'old-cns' => $post['old-cns'], 'new-cns' => $post['cns']));
+//                                    $this->processResponse($api, $response);
+//                                    echo "2";
+//                                }
+//                                elseif ($post['cns'] = $post['old-cns'] && $post['ip'] != $post['old-ip']) {
+//                                    $response = $domains->modifyCnsIp(array('order-id' => $fields->{'order-id'},'cns' => $post['old-cns'], 'old-ip' => $post['old-ip'], 'new-ip' => $post['ip']));
+//                                    $this->processResponse($api, $response);
+//                                    echo "3";
+//                                }
                             break;
 
                             default:
