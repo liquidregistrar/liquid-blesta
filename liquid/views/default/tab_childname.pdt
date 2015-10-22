@@ -1,20 +1,49 @@
 
-<?php
-$count = 1 ;
-foreach ($vars["cns"] as $name => $value) {
-$this->Form->create();
-?>
-<div class="pad">
-    <ul>
-        <?php echo $count; ?>
-    </ul>
-</div>
-<button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
-<i class="fa fa-edit"></i> <?php $this->_("Liquid.tab_childname.field_update");?>
-</button>
-<hr>
-<?php
-$this->Form->end();
-$count++;
-}
-?>
+
+<table class="table table-hovered">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Hostname</th>
+            <th>IP Address</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <?php
+        $count = 1 ;
+        foreach ($vars["cns"] as $name => $value) {
+        $this->Form->create();
+        ?>
+        <tr>
+            <td><?php echo $count; ?></td>
+            <td>
+                <?php
+                    $this->Form->fieldText("cns", $value["hostname"], array('id' => "cns" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ns", true, $i+1)));
+                    $this->Form->fieldHidden("old-cns", $value["hostname"]);
+                ?>
+            </td>
+            <td>
+                <?php
+                    $this->Form->fieldText("ip", $value["ip"], array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+                    $this->Form->fieldHidden("old-ip", $value["ip"]);
+                ?>
+            </td>
+            <td>
+                <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
+                    <?php $this->_("Liquid.tab_childname.field_update");?>
+                </button>
+                <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                    <?php $this->_("Liquid.tab_childname.field_delete");?>
+                </button>
+            </td>
+        </tr>
+        <?php
+        $this->Form->end();
+        $count++;
+        }
+        ?>
+
+    </tbody>
+</table>
