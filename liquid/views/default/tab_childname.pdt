@@ -51,24 +51,25 @@
     </tbody>
 </table>
 
-
+<br>
 <div class="title_row first">
     <h3><?php $this->_("Liquid.tab_childname.field_add");?> <?php $this->_("Liquid.tab_childname.title");?></h3>
 </div>
 
 <?php
 $this->Form->create();
-?>
-<?php
-$this->Form->fieldText("cns", "", array('id' => "cns" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ns", true )));
-$this->Form->fieldText("ip", "", array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true)));
-?>
-<button class="btn btn-default" type="button" data-dismiss="modal">
-<i class="fa fa-ban fa-fw"></i> <?php $this->_("Liquid.tab_childname.field_close");?>
-</button>
-<button class="btn btn-primary" type="submit" name="submit" value="add"  >
-<i class="fa fa-plus-square"></i> <?php $this->_("Liquid.tab_childname.field_add");?>
-</button>
-<?php
+    ?>
+    Hostname :
+    <?php
+    $this->Form->fieldText("cns", "", array('id' => "cns" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ns", true )));
+    ?><br>
+    IP Address :
+    <?php
+    $this->Form->fieldText("ip", "", array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true)));
+    ?>
+    <button class="btn btn-primary" type="submit" name="submit" value="add"  >
+    <i class="fa fa-plus-square"></i> <?php $this->_("Liquid.tab_childname.field_add");?>
+    </button>
+    <?php
 $this->Form->end();
 ?>
