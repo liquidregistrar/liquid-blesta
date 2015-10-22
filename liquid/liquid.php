@@ -1487,7 +1487,8 @@ class Liquid extends Module {
 		if (property_exists($fields, "order-id")) {
 
 			if (!empty($post)) {
-
+                            print_r($post);
+                            die;
 				switch($post['submit'])
 				{
 					case 'add':
