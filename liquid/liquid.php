@@ -1487,12 +1487,13 @@ class Liquid extends Module {
             $fields = $this->serviceFieldsToObject($service->fields);
             $show_content = true;
 
+            $domain_id = $fields->{'order-id'};
 
-            print_r($fields);
+            $data_dns = $dns->retrieve($domain_id)->response();
+            $vars->dns = $data_dns;
+
+            print_r($vars);
             die;
-
-//            $data_dns = $dns->retrieve()
-//            $vars->dns = $dns
             $view = ($show_content ? $view : "tab_unavailable");
             $this->view = new View($view, "default");
 
