@@ -342,7 +342,7 @@ class LiquidDomains {
 	 */
 	public function deleteCnsIp(array $vars) {
             if (!empty($vars["domain_id"])) {
-                return $this->api->submit("domains/". $vars["domain_id"] ."/childns/".$vars["old-cns"]."/".$vars["old-ip"], $vars, "DELETE");
+                return $this->api->submit("domains/". $vars["domain_id"] ."/childns/".$vars["hostname"]."/".$vars["ip_address"], $vars, "DELETE");
             }
             return $this->api->submit("domains/". $vars["order-id"] ."/childns/".$vars["old-cns"]."/".$vars["old-ip"], $vars, "DELETE");
 	}
