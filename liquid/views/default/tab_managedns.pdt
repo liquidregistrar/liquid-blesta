@@ -29,7 +29,7 @@
     ?>
     <tr class="<?php if($i % 2 == 0)  echo "odd_row"  ?> module_list">
         <td><?php echo $value["hostname"] ?></td>
-        <td><b>A</b></td>
+        <td><b>AAAA</b></td>
         <td><?php echo $value["ip"] ?></td>
         <td></td>
     </tr>
@@ -40,7 +40,7 @@
     ?>
     <tr class="<?php if($i % 2 == 0)  echo "odd_row"  ?> module_list">
         <td><?php echo $value["hostname"] ?></td>
-        <td><b>A</b></td>
+        <td><b>CNAME</b></td>
         <td><?php echo $value["val"] ?></td>
         <td></td>
     </tr>
@@ -51,7 +51,7 @@
     ?>
     <tr class="<?php if($i % 2 == 0)  echo "odd_row" ?> module_list">
         <td><?php echo $value["zone"] ?></td>
-        <td><b>A</b></td>
+        <td><b>MX</b></td>
         <td><?php echo $value["val"] ?></td>
         <td></td>
     </tr>
@@ -62,7 +62,7 @@
     ?>
     <tr class="<?php if($i % 2 == 0)  echo "odd_row" ?> module_list">
         <td><?php echo $value["hostname"] ?></td>
-        <td><b>A</b></td>
+        <td><b>TXT</b></td>
         <td><?php echo $value["val"] ?></td>
         <td></td>
     </tr>
