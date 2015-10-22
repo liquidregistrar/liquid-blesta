@@ -1498,7 +1498,9 @@ class Liquid extends Module {
             // Load the helpers required for this view
             Loader::loadHelpers($this, array("Form", "Html"));
 
-            $this->view->set("vars2", array("tes"=>true));
+            $tab_data = array();
+        $this->view->set("tab_data", $tab_data);
+
             $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
             return $this->view->fetch();
         }
