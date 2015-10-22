@@ -1507,6 +1507,8 @@ class Liquid extends Module {
                                     $postArray["old-ip"] = $post['old-ip'];
                                     $postArray["ip_address"] = $post['ip'];
                                     $postArray["old-cns"] = $post['old-cns'];
+                                    print_r($postArray);
+                                    die;
                                     $response2 = $domains->modifyCnsIp($postArray);
                                     $this->processResponse($api, $response2);
 //                                    echo "update cns";
