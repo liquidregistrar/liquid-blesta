@@ -1497,7 +1497,12 @@ class Liquid extends Module {
                                 $this->processResponse($api, $response);
                             break;
                             case 'delete':
-                                $response = $domains->deleteCnsIp(array('order-id' => $fields->{'order-id'},'cns' => $post['cns'], 'ip' => $post['ip']));
+                                $postArray = array(
+                                        'domain_id' => $fields->{'order-id'},
+                                        'hostname'  => $post['cns'],
+                                        'ip_address'=> $post['ip']
+                                    );
+                                $response = $domains->deleteCnsIp($postArray);
                                 $this->processResponse($api, $response);
                             break;
 
