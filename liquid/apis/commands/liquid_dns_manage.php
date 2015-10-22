@@ -7,12 +7,12 @@
  * @package liquid.commands
  */
 class LiquidDnsManage {
-	
+
 	/**
 	 * @var LiquidApi
 	 */
 	private $api;
-	
+
 	/**
 	 * Sets the API to use for communication
 	 *
@@ -21,7 +21,7 @@ class LiquidDnsManage {
 	public function __construct(LiquidApi $api) {
 		$this->api = $api;
 	}
-	
+
 	/**
 	 * Adds an IPv4 Address (A) record.
 	 *
@@ -33,9 +33,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function addIpv4Record(array $vars) {
-		return $this->api->submit("dns/manage/add-ipv4-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/ip", $vars, "POST");
 	}
-	
+
 	/**
 	 * Adds an IPv6 Address (AAAA) record.
 	 *
@@ -47,9 +50,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function addIpv6Record(array $vars) {
-		return $this->api->submit("dns/manage/add-ipv6-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/ipv6", $vars, "POST");
 	}
-	
+
 	/**
 	 * Adds a Canonical (CNAME) record.
 	 *
@@ -61,9 +67,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function addCnameRecord(array $vars) {
-		return $this->api->submit("dns/manage/add-cname-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/cname", $vars, "POST");
 	}
-	
+
 	/**
 	 * Adds a Mail Exchanger (MX) record.
 	 *
@@ -76,9 +85,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function addMxRecord(array $vars) {
-		return $this->api->submit("dns/manage/add-mx-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/mx", $vars, "POST");
 	}
-	
+
 	/**
 	 * Adds a Name Server (NS) record.
 	 *
@@ -90,9 +102,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function addNsRecord(array $vars) {
-		return $this->api->submit("dns/manage/add-ns-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/ns", $vars, "POST");
 	}
-	
+
 	/**
 	 * Adds a Text (TXT) record.
 	 *
@@ -104,9 +119,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function addTxtRecord(array $vars) {
-		return $this->api->submit("dns/manage/add-txt-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/txt", $vars, "POST");
 	}
-	
+
 	/**
 	 * Adds a Service (SRV) record.
 	 *
@@ -121,9 +139,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function addSrvRecord(array $vars) {
-		return $this->api->submit("dns/manage/add-srv-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/srv", $vars, "POST");
 	}
-	
+
 	/**
 	 * Modifies an IPv4 Address (A) record.
 	 *
@@ -136,9 +157,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function updateIpv4Record(array $vars) {
-		return $this->api->submit("dns/manage/update-ipv4-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/ip/".$vars["old_hostname"]."/".$vars["old_value"], $vars, "PUT");
 	}
-	
+
 	/**
 	 * Modifies an IPv6 (AAAA) record.
 	 *
@@ -151,9 +175,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function updateIpv6Record(array $vars) {
-		return $this->api->submit("dns/manage/update-ipv6-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/ipv6/".$vars["old_hostname"]."/".$vars["old_value"], $vars, "PUT");
 	}
-	
+
 	/**
 	 * Modifies a Canonical (CNAME) record.
 	 *
@@ -166,9 +193,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function updateCnameRecord(array $vars) {
-		return $this->api->submit("dns/manage/update-cname-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/cname/".$vars["old_hostname"]."/".$vars["old_value"], $vars, "PUT");
 	}
-	
+
 	/**
 	 * Modifies a Mail Exchanger (MX) record.
 	 *
@@ -182,9 +212,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function updateMxRecord(array $vars) {
-		return $this->api->submit("dns/manage/update-mx-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/mx/".$vars["old_hostname"]."/".$vars["old_value"], $vars, "PUT");
 	}
-	
+
 	/**
 	 * Modifies a Name Server (NS) record.
 	 *
@@ -197,9 +230,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function updateNsRecord(array $vars) {
-		return $this->api->submit("dns/manage/update-ns-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/ns/".$vars["old_hostname"]."/".$vars["old_value"], $vars, "PUT");
 	}
-	
+
 	/**
 	 * Modifies a Text (TXT) record.
 	 *
@@ -212,9 +248,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function updateTxtRecord(array $vars) {
-		return $this->api->submit("dns/manage/update-txt-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/txt/".$vars["old_hostname"]."/".$vars["old_value"], $vars, "PUT");
 	}
-	
+
 	/**
 	 * Modifies a Service (SRV) record.
 	 *
@@ -230,9 +269,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function updateSrvRecord(array $vars) {
-		return $this->api->submit("dns/manage/update-srv-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/srv/".$vars["old_hostname"]."/".$vars["old_value"], $vars, "PUT");
 	}
-	
+
 	/**
 	 * Modifies a Start of Authority (SOA) record.
 	 *
@@ -246,9 +288,9 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function updateSoaRecord(array $vars) {
-		return $this->api->submit("dns/manage/update-soa-record", $vars);
+		return $this->api->submit("domains/update-soa-record", $vars);
 	}
-	
+
 	/**
 	 * Searches records based on the specified criteria.
 	 *
@@ -261,10 +303,10 @@ class LiquidDnsManage {
 	 * 	- value Value of the record
 	 * @return LiquidResponse
 	 */
-	public function searchRecords(array $vars) {
-		return $this->api->submit("dns/manage/search-records", $vars);
-	}
-	
+//	public function searchRecords(array $vars) {
+//		return $this->api->submit("domains/search-records", $vars);
+//	}
+
 	/**
 	 * Deletes an IPv4 Address (A) record.
 	 *
@@ -275,9 +317,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function deleteIpv4Record(array $vars) {
-		return $this->api->submit("dns/manage/delete-ipv4-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/ip/".$vars["hostname"]."/".$vars["value"], $vars, "DELETE");
 	}
-	
+
 	/**
 	 * Deletes an IPv6 Address (AAAA) record.
 	 *
@@ -288,9 +333,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function deleteIpv6Record(array $vars) {
-		return $this->api->submit("dns/manage/delete-ipv6-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/ipv6/".$vars["hostname"]."/".$vars["value"], $vars, "DELETE");
 	}
-	
+
 	/**
 	 * Deletes a Canonical (CNAME) record.
 	 *
@@ -301,9 +349,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function deleteCnameRecord(array $vars) {
-		return $this->api->submit("dns/manage/delete-cname-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/cname/".$vars["hostname"]."/".$vars["value"], $vars, "DELETE");
 	}
-	
+
 	/**
 	 * Deletes a Mail Exchanger (MX) record.
 	 *
@@ -314,9 +365,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function deleteMxRecord(array $vars) {
-		return $this->api->submit("dns/manage/delete-mx-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/mx/".$vars["hostname"]."/".$vars["value"], $vars, "DELETE");
 	}
-	
+
 	/**
 	 * Deletes a Name Server (NS) record.
 	 *
@@ -327,9 +381,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function deleteNsRecord(array $vars) {
-		return $this->api->submit("dns/manage/delete-ns-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/ns/".$vars["hostname"]."/".$vars["value"], $vars, "DELETE");
 	}
-	
+
 	/**
 	 * Deletes a Text (TXT) record.
 	 *
@@ -340,9 +397,12 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function deleteTxtRecord(array $vars) {
-		return $this->api->submit("dns/manage/delete-txt-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/txt/".$vars["hostname"]."/".$vars["value"], $vars, "DELETE");
 	}
-	
+
 	/**
 	 * Deletes a Service (SRV) record.
 	 *
@@ -355,7 +415,10 @@ class LiquidDnsManage {
 	 * @return LiquidResponse
 	 */
 	public function deleteSrvRecord(array $vars) {
-		return $this->api->submit("dns/manage/delete-srv-record", $vars);
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/dns/srv/".$vars["hostname"]."/".$vars["value"], $vars, "DELETE");
 	}
 }
 ?>

@@ -78,6 +78,8 @@ $lang['Liquid.tab_childname.field_success_update '] = "The Child Name Server has
 $lang['Liquid.tab_childname.field_success_add'] = "The Child Name Server has been successfully added..";
 $lang['Liquid.tab_childname.field_success_delete'] = "The Child Name Server has been successfully deleted.";
 
+$lang['Liquid.tab_managedns.title'] = "Manage DNS";
+
 
 // Errors
 $lang['Liquid.!error.registrar.valid'] = "Please enter a registrar name.";

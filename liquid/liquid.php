@@ -1041,6 +1041,7 @@ class Liquid extends Module {
 				'tabNameservers' => Language::_("Liquid.tab_nameservers.title", true),
 //				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
 				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
+				'tabManagedns' => Language::_("Liquid.tab_managedns.title", true),
 				'tabSettings' => Language::_("Liquid.tab_settings.title", true),
 			);
 		}
@@ -1158,6 +1159,20 @@ class Liquid extends Module {
 	public function tabClientSettings($package, $service, array $get=null, array $post=null, array $files=null) {
 		return $this->manageSettings("tab_client_settings", $package, $service, $get, $post, $files);
 	}
+
+        /**
+         *
+	 * @param stdClass $package A stdClass object representing the current package
+	 * @param stdClass $service A stdClass object representing the current service
+	 * @param array $get Any GET parameters
+	 * @param array $post Any POST parameters
+	 * @param array $files Any FILES parameters
+	 * @return string The string representing the contents of this tab
+         */
+        public function tabManagedns($package, $service, array $get=null, array $post=null, array $files=null)
+        {
+            return $this->manageDNS("tab_managedns", $package, $service, $get, $post, $files);
+        }
 
 	/**
 	 * Admin Childname Server tab
@@ -1461,6 +1476,14 @@ class Liquid extends Module {
 		$this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
 		return $this->view->fetch();
 	}
+
+        private function manageDNS($view, $package, $service, array $get=null, array $post=null, array $files=null) {
+            $vars = new stdClass();
+
+            $this->view->set("vars", $vars);
+            $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
+            return $this->view->fetch();
+        }
 
 	/**
 	 * Handle Manage Child Name server  information
