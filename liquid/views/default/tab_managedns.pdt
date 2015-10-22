@@ -1,5 +1,7 @@
 <?php
+print_r($vars);
 echo "bca";
+print_r($vars);
 die;
 
 ?><div class="title_row first">

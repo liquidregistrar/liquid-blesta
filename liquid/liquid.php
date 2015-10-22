@@ -1478,7 +1478,7 @@ class Liquid extends Module {
 	}
 
         private function manageDNS($view, $package, $service, array $get=null, array $post=null, array $files=null) {
-            $vars = new stdClass();
+//            $vars = new stdClass();
 
             $row = $this->getModuleRow($package->module_row);
             $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
@@ -1487,10 +1487,10 @@ class Liquid extends Module {
             $fields = $this->serviceFieldsToObject($service->fields);
             $show_content = true;
 
-//            $domain_id = $fields->{'order-id'};
-//            $ret_data["domain_id"] = $domain_id;
-//            $data_dns = $dns->retrieve($ret_data)->response();
-//            $vars->dns = $data_dns;
+            $domain_id = $fields->{'order-id'};
+            $ret_data["domain_id"] = $domain_id;
+            $data_dns = $dns->retrieve($ret_data)->response();
+            $vars["dns"] = $data_dns;
 
             $view = ($show_content ? $view : "tab_unavailable");
             $this->view = new View($view, "default");
@@ -1499,7 +1499,7 @@ class Liquid extends Module {
             Loader::loadHelpers($this, array("Form", "Html"));
 
             $tab_data = array();
-        $this->view->set("tab_data", $tab_data);
+            $this->view->set("tab_data", $vars);
 
             $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
             return $this->view->fetch();
