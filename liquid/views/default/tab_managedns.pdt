@@ -1,4 +1,9 @@
+<?php
 
+print_r($vars);
+die;
+
+?>
 <div class="title_row first">
     <h3><?php echo Language::_("Liquid.tab_managedns.title", true); ?></h3>
 </div>
@@ -12,6 +17,58 @@
         <td><span><?php echo Language::_("Liquid.tab_managedns.field_priority", true); ?></span></td>
         <td><span><?php echo Language::_("Liquid.tab_managedns.field_priority_note", true); ?></span></td>
     </tr>
-    
+    <?php
+        $i = 0;
+        foreach ($vars->dns["A"] => $value) {
+    ?>
+    <tr class="<?php if($i % 2 == 0) { echo "odd_row" } ?> module_list">
+        <td><?php echo $value["hostname"] ?></td>
+        <td><b>A</b></td>
+        <td><?php echo $value["ip"] ?></td>
+    </tr>
+    <?php
+            $i++;
+        }
+        foreach ($vars->dns["AAA"] => $value) {
+    ?>
+    <tr class="<?php if($i % 2 == 0) { echo "odd_row" } ?> module_list">
+        <td><?php echo $value["hostname"] ?></td>
+        <td><b>A</b></td>
+        <td><?php echo $value["ip"] ?></td>
+    </tr>
+    <?php
+            $i++;
+        }
+        foreach ($vars->dns["CNAME"] => $value) {
+    ?>
+    <tr class="<?php if($i % 2 == 0) { echo "odd_row" } ?> module_list">
+        <td><?php echo $value["hostname"] ?></td>
+        <td><b>A</b></td>
+        <td><?php echo $value["val"] ?></td>
+    </tr>
+    <?php
+            $i++;
+        }
+        foreach ($vars->dns["MX"] => $value) {
+    ?>
+    <tr class="<?php if($i % 2 == 0) { echo "odd_row" } ?> module_list">
+        <td><?php echo $value["hostname"] ?></td>
+        <td><b>A</b></td>
+        <td><?php echo $value["val"] ?></td>
+    </tr>
+    <?php
+            $i++;
+        }
+        foreach ($vars->dns["TXT"] => $value) {
+    ?>
+    <tr class="<?php if($i % 2 == 0) { echo "odd_row" } ?> module_list">
+        <td><?php echo $value["hostname"] ?></td>
+        <td><b>A</b></td>
+        <td><?php echo $value["val"] ?></td>
+    </tr>
+    <?php
+            $i++;
+        }
+    ?>
     </tbody>
 </table>
