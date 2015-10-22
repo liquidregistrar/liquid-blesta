@@ -1485,67 +1485,63 @@ class Liquid extends Module {
 		$show_content = true;
 
 		if (property_exists($fields, "order-id")) {
+                    if (!empty($post)) {
+                        switch($post['submit'])
+                        {
+                            case 'add':
+                                $response = $domains->addCns(array('order-id' => $fields->{'order-id'},'cns' => $post['cns'], 'ip' => $post['ip']));
+                                $this->processResponse($api, $response);
+                            break;
+                            case 'delete':
+                                $response = $domains->deleteCnsIp(array('order-id' => $fields->{'order-id'},'cns' => $post['cns'], 'ip' => $post['ip']));
+                                $this->processResponse($api, $response);
+                            break;
 
-			if (!empty($post)) {
-                            print_r($post);
-                            die;
-				switch($post['submit'])
-				{
-					case 'add':
-						$response = $domains->addCns(array('order-id' => $fields->{'order-id'},'cns' => $post['cns'], 'ip' => $post['ip']));
-						$this->processResponse($api, $response);
-					break;
-					case 'delete':
-						$response = $domains->deleteCnsIp(array('order-id' => $fields->{'order-id'},'cns' => $post['cns'], 'ip' => $post['ip']));
-						$this->processResponse($api, $response);
-					break;
+                            case 'update':
+                                if ($post['cns'] != $post['old-cns'] && $post['ip'] != $post['old-ip']) {
+//                                    $response = $domains->modifyCnsName(array('order-id' => $fields->{'order-id'},'old-cns' => $post['old-cns'], 'new-cns' => $post['cns']));
+//                                    $this->processResponse($api, $response);
+//                                    echo "1a";
+                                    $response2 = $domains->modifyCnsIp(array('order-id' => $fields->{'order-id'},'hostname' => $post['cns'], 'old-ip' => $post['old-ip'], 'ip_address' => $post['ip']));
+                                    $this->processResponse($api, $response2);
+                                    echo "update cns";
+                                }
+                                elseif ($post['cns'] != $post['old-cns'] && $post['ip'] = $post['old-ip']) {
+                                    $response = $domains->modifyCnsName(array('order-id' => $fields->{'order-id'},'old-cns' => $post['old-cns'], 'new-cns' => $post['cns']));
+                                    $this->processResponse($api, $response);
+                                    echo "2";
+                                }
+                                elseif ($post['cns'] = $post['old-cns'] && $post['ip'] != $post['old-ip']) {
+                                    $response = $domains->modifyCnsIp(array('order-id' => $fields->{'order-id'},'cns' => $post['old-cns'], 'old-ip' => $post['old-ip'], 'new-ip' => $post['ip']));
+                                    $this->processResponse($api, $response);
+                                    echo "3";
+                                }
+                            break;
 
-					case 'update':
-						if ($post['cns'] != $post['old-cns'] && $post['ip'] != $post['old-ip']) {
-							$response = $domains->modifyCnsName(array('order-id' => $fields->{'order-id'},'old-cns' => $post['old-cns'], 'new-cns' => $post['cns']));
-							$this->processResponse($api, $response);
-							echo "1a";
-							$response2 = $domains->modifyCnsIp(array('order-id' => $fields->{'order-id'},'cns' => $post['cns'], 'old-ip' => $post['old-ip'], 'new-ip' => $post['ip']));
-							$this->processResponse($api, $response2);
-							echo "1b";
-						}
-						elseif ($post['cns'] != $post['old-cns'] && $post['ip'] = $post['old-ip']) {
-							$response = $domains->modifyCnsName(array('order-id' => $fields->{'order-id'},'old-cns' => $post['old-cns'], 'new-cns' => $post['cns']));
-							$this->processResponse($api, $response);
-							echo "2";
-						}
-						elseif ($post['cns'] = $post['old-cns'] && $post['ip'] != $post['old-ip']) {
-							$response = $domains->modifyCnsIp(array('order-id' => $fields->{'order-id'},'cns' => $post['old-cns'], 'old-ip' => $post['old-ip'], 'new-ip' => $post['ip']));
-							$this->processResponse($api, $response);
-							echo "3";
-						}
-					break;
+                            default:
 
-					default:
+                            break;
+                        }
+                        // $ns = array();
+                        // foreach ($post['ns'] as $i => $nameserver) {
+                                // if ($nameserver != "")
+                                        // $ns[] = $nameserver;
+                        // }
+                        // $post['order-id'] = $fields->{'order-id'};
+                        // $response = $domains->modifyNs(array('order-id' => $fields->{'order-id'}, 'ns' => $ns));
+                        // $this->processResponse($api, $response);
 
-					break;
-				}
-				// $ns = array();
-				// foreach ($post['ns'] as $i => $nameserver) {
-					// if ($nameserver != "")
-						// $ns[] = $nameserver;
-				// }
-				// $post['order-id'] = $fields->{'order-id'};
-				// $response = $domains->modifyNs(array('order-id' => $fields->{'order-id'}, 'ns' => $ns));
-				// $this->processResponse($api, $response);
-
-
-			}
-			else {
-				// $vars = $domains->details(array('order-id' => $fields->{'order-id'}, 'options' => "All"))->response();
-			}
-			$res_vars = $domains->details(array('domain_id' => $fields->{'order-id'}, 'fields' => "All"));
-                        $vars = $res_vars->response();
+                    }
+                    else {
+                        // $vars = $domains->details(array('order-id' => $fields->{'order-id'}, 'options' => "All"))->response();
+                    }
+                    $res_vars = $domains->details(array('domain_id' => $fields->{'order-id'}, 'fields' => "All"));
+                    $vars = $res_vars->response();
 		}
 		else {
-			// No order-id; info is not available
-			// $show_content = false;
-			$this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
+                    // No order-id; info is not available
+                    // $show_content = false;
+                    $this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
 		}
 
 		$view = ($show_content ? $view : "tab_unavailable");

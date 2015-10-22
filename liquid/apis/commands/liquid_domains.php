@@ -310,7 +310,7 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function modifyCnsName(array $vars) {
-		return $this->api->submit("domains/". $vars["order-id"] ."/childns/".$vars["old-cns"]."/".$vars["old-cns"], $vars, "PUT");
+		return $this->api->submit("domains/". $vars["order-id"] ."/childns/".$vars["old-cns"]."/".$vars["old-ip"], $vars, "PUT");
 	}
 
 	/**
