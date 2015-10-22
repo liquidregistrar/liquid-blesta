@@ -2,3 +2,16 @@
 <div class="title_row first">
     <h3><?php echo Language::_("Liquid.tab_managedns.title", true); ?></h3>
 </div>
+
+<table class="table">
+    <tbody>
+    <tr class="heading_row">
+        <td><span><?php echo Language::_("Liquid.tab_managedns.field_hostname", true); ?></span></td>
+        <td><span><?php echo Language::_("Liquid.tab_managedns.field_recordtype", true); ?></span></td>
+        <td><span><?php echo Language::_("Liquid.tab_managedns.field_value", true); ?></span></td>
+        <td><span><?php echo Language::_("Liquid.tab_managedns.field_priority", true); ?></span></td>
+        <td><span><?php echo Language::_("Liquid.tab_managedns.field_priority_note", true); ?></span></td>
+    </tr>
+    
+    </tbody>
+</table>
