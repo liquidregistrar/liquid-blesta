@@ -1479,6 +1479,13 @@ class Liquid extends Module {
 
         private function manageDNS($view, $package, $service, array $get=null, array $post=null, array $files=null) {
             $vars = new stdClass();
+            $show_content = true;
+
+            $view = ($show_content ? $view : "tab_unavailable");
+            $this->view = new View($view, "default");
+
+            // Load the helpers required for this view
+            Loader::loadHelpers($this, array("Form", "Html"));
 
             $this->view->set("vars", $vars);
             $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
