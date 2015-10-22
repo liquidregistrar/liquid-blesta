@@ -1,0 +1,20 @@
+
+<?php
+$count = 1 ;
+foreach ($vars["cns"] as $name => $value) {
+$this->Form->create();
+?>
+<div class="pad">
+    <ul>
+        <?php echo $count; ?>
+    </ul>
+</div>
+<button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
+<i class="fa fa-edit"></i> <?php $this->_("Liquid.tab_childname.field_update");?>
+</button>
+<hr>
+<?php
+$this->Form->end();
+$count++;
+}
+?>

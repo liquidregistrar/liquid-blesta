@@ -1040,7 +1040,7 @@ class Liquid extends Module {
 				'tabWhois' => Language::_("Liquid.tab_whois.title", true),
 				'tabNameservers' => Language::_("Liquid.tab_nameservers.title", true),
 //				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
-//				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
+				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
 				'tabSettings' => Language::_("Liquid.tab_settings.title", true),
 			);
 		}
