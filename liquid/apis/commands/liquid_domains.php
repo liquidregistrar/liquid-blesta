@@ -297,7 +297,10 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function addCns(array $vars) {
-		return $this->api->submit("domains/". $vars["order-id"] ."/childns", $vars, "POST");
+            if (!empty($vars["domain_id"])) {
+                return $this->api->submit("domains/". $vars["domain_id"] ."/childns", $vars, "POST");
+            }
+            return $this->api->submit("domains/". $vars["order-id"] ."/childns", $vars, "POST");
 	}
 
 	/**
@@ -310,7 +313,8 @@ class LiquidDomains {
 	 * @return LiquidResponse
 	 */
 	public function modifyCnsName(array $vars) {
-		return $this->api->submit("domains/". $vars["order-id"] ."/childns/".$vars["old-cns"]."/".$vars["old-ip"], $vars, "PUT");
+            return $this->modifyCnsIp($vars);
+//		return $this->api->submit("domains/". $vars["order-id"] ."/childns/".$vars["old-cns"]."/".$vars["old-ip"], $vars, "PUT");
 	}
 
 	/**
