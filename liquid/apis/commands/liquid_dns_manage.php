@@ -22,6 +22,17 @@ class LiquidDnsManage {
 		$this->api = $api;
 	}
 
+        /**
+         * returve semua data dns
+         * @param array $vars (fields, domain_id)
+	 * @return LiquidResponse
+         */
+        public function retrieve(array $vars)
+        {
+            $vars["fields"] = "dns";
+            return $this->api->submit("domains/" . $vars["domain_id"], $vars, "GET");
+        }
+
 	/**
 	 * Adds an IPv4 Address (A) record.
 	 *
