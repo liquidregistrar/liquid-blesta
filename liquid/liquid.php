@@ -1488,8 +1488,8 @@ class Liquid extends Module {
             $show_content = true;
 
             $domain_id = $fields->{'order-id'};
-            $vars->{"domain_id"} = $domain_id;
-            $data_dns = $dns->retrieve($vars)->response();
+            $ret_data["domain_id"] = $domain_id;
+            $data_dns = $dns->retrieve($ret_data)->response();
             $vars->dns = $data_dns;
 
             print_r($vars);
