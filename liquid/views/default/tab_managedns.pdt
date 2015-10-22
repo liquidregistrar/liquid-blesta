@@ -1,1 +1,4 @@
-asdasdass
+
+<div class="title_row first">
+    <h3><?php echo Language::_("Liquid.tab_managedns.title", true); ?></h3>
+</div>
