@@ -1,7 +1,7 @@
 <?php
-print_r($vars);
+print_r($tab_data);
 echo "bca";
-print_r($vars);
+print_r($tab_data);
 die;
 
 ?><div class="title_row first">
