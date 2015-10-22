@@ -9,7 +9,7 @@
         <td><span><?php echo Language::_("Liquid.tab_managedns.field_recordtype", true); ?></span></td>
         <td><span><?php echo Language::_("Liquid.tab_managedns.field_value", true); ?></span></td>
         <td><span><?php echo Language::_("Liquid.tab_managedns.field_priority", true); ?></span></td>
-        <td><span><?php echo Language::_("Liquid.tab_managedns.field_priority_note", true); ?></span></td>
+        <td>&nbsp;</td>
     </tr>
     <?php
         $i = 0;
@@ -19,6 +19,8 @@
         <td><?php echo $value["hostname"] ?></td>
         <td><b>A</b></td>
         <td><?php echo $value["ip"] ?></td>
+        <td></td>
+        <td></td>
     </tr>
     <?php
             $i++;
@@ -29,6 +31,7 @@
         <td><?php echo $value["hostname"] ?></td>
         <td><b>A</b></td>
         <td><?php echo $value["ip"] ?></td>
+        <td></td>
     </tr>
     <?php
             $i++;
@@ -39,6 +42,7 @@
         <td><?php echo $value["hostname"] ?></td>
         <td><b>A</b></td>
         <td><?php echo $value["val"] ?></td>
+        <td></td>
     </tr>
     <?php
             $i++;
@@ -46,9 +50,10 @@
         foreach ($vars["dns"]["MX"] as $value) {
     ?>
     <tr class="<?php if($i % 2 == 0)  echo "odd_row" ?> module_list">
-        <td><?php echo $value["hostname"] ?></td>
+        <td><?php echo $value["zone"] ?></td>
         <td><b>A</b></td>
         <td><?php echo $value["val"] ?></td>
+        <td></td>
     </tr>
     <?php
             $i++;
@@ -59,6 +64,7 @@
         <td><?php echo $value["hostname"] ?></td>
         <td><b>A</b></td>
         <td><?php echo $value["val"] ?></td>
+        <td></td>
     </tr>
     <?php
             $i++;
@@ -66,3 +72,4 @@
     ?>
     </tbody>
 </table>
+*<?php echo Language::_("Liquid.tab_managedns.field_priority_note", true); ?>
