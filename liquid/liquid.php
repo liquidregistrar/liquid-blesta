@@ -1512,11 +1512,12 @@ class Liquid extends Module {
                         $this->processResponse($api, $response);
                     }
                     if ($post["type"] == "MX") {
+                        $post_var["priority"] = $post["priority"];
                         $response = $dns->updateMxRecord($post_var);
                         $this->processResponse($api, $response);
                     }
                     if ($post["type"] == "TXT") {
-                        $response = $dns->updateMxRecord($post_var);
+                        $response = $dns->updateTxtRecord($post_var);
                         $this->processResponse($api, $response);
                     }
                 }

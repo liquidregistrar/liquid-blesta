@@ -118,7 +118,9 @@
             $this->Form->fieldHidden("old-value", $value["val"]);
         ?>
         </td>
-        <td></td>
+        <td>
+            <?php $this->Form->fieldText("priority", $value["priority"], array('id' => "priority" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1))); ?>
+        </td>
         <td>
             <?php
             $this->Form->fieldHidden("old-hostname", $value["zone"]);
