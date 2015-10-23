@@ -331,7 +331,7 @@ class LiquidDnsManage {
             if (!empty($vars["order-id"])) {
                 $vars["domain_id"] = $vars["order-id"];
             }
-            return $this->api->submit("domains/$vars[domain_id]/dns/ip/".$vars["hostname"]."/".$vars["value"], $vars, "DELETE");
+            return $this->api->submit("domains/$vars[domain_id]/dns/ip/".$vars["hostname"]."/".$vars["old-ip"], $vars, "DELETE");
 	}
 
 	/**
@@ -347,7 +347,7 @@ class LiquidDnsManage {
             if (!empty($vars["order-id"])) {
                 $vars["domain_id"] = $vars["order-id"];
             }
-            return $this->api->submit("domains/$vars[domain_id]/dns/ipv6/".$vars["hostname"]."/".$vars["value"], $vars, "DELETE");
+            return $this->api->submit("domains/$vars[domain_id]/dns/ipv6/".$vars["hostname"]."/".$vars["old-ip"], $vars, "DELETE");
 	}
 
 	/**
@@ -363,7 +363,7 @@ class LiquidDnsManage {
             if (!empty($vars["order-id"])) {
                 $vars["domain_id"] = $vars["order-id"];
             }
-            return $this->api->submit("domains/$vars[domain_id]/dns/cname/".$vars["hostname"]."/".$vars["value"], $vars, "DELETE");
+            return $this->api->submit("domains/$vars[domain_id]/dns/cname/".$vars["hostname"]."/".$vars["old_value"], $vars, "DELETE");
 	}
 
 	/**
@@ -379,7 +379,7 @@ class LiquidDnsManage {
             if (!empty($vars["order-id"])) {
                 $vars["domain_id"] = $vars["order-id"];
             }
-            return $this->api->submit("domains/$vars[domain_id]/dns/mx/".$vars["hostname"]."/".$vars["value"], $vars, "DELETE");
+            return $this->api->submit("domains/$vars[domain_id]/dns/mx/".$vars["hostname"]."/".$vars["old_value"], $vars, "DELETE");
 	}
 
 	/**
@@ -411,7 +411,7 @@ class LiquidDnsManage {
             if (!empty($vars["order-id"])) {
                 $vars["domain_id"] = $vars["order-id"];
             }
-            return $this->api->submit("domains/$vars[domain_id]/dns/txt/".$vars["hostname"]."/".$vars["value"], $vars, "DELETE");
+            return $this->api->submit("domains/$vars[domain_id]/dns/txt/".$vars["hostname"]."/".$vars["old_value"], $vars, "DELETE");
 	}
 
 	/**

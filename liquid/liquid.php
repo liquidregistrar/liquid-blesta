@@ -1489,12 +1489,13 @@ class Liquid extends Module {
             $domain_id = $fields->{'order-id'};
 
             if (!empty($post)) {
+                $post_var["domain_id"] = $domain_id;
+                $post_var["old_hostname"] = $post["old-hostname"];
+                $post_var["hostname"] = $post["old-hostname"];
+                $post_var["old_value"] = $post["old-value"];
+                $post_var["value"] = $post["value"];
+
                 if ($post["submit"] == "update") {
-                    $post_var["domain_id"] = $domain_id;
-                    $post_var["old_hostname"] = $post["old-hostname"];
-                    $post_var["hostname"] = $post["old-hostname"];
-                    $post_var["old_value"] = $post["old-value"];
-                    $post_var["value"] = $post["value"];
                     if ($post["type"] == "A") {
                         $post_var["old-ip"] = $post_var["old-value"];
                         $post_var["ip"] = $post_var["value"];
@@ -1518,6 +1519,34 @@ class Liquid extends Module {
                     }
                     if ($post["type"] == "TXT") {
                         $response = $dns->updateTxtRecord($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                }
+
+                if ($postp["submit"] == "delete") {
+                    if ($post["type"] == "A") {
+                        $post_var["old-ip"] = $post_var["old-value"];
+                        $post_var["ip"] = $post_var["value"];
+                        $response = $dns->deleteIpv4Record($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                    if ($post["type"] == "AAAA") {
+                        $post_var["old-ip"] = $post_var["old-value"];
+                        $post_var["ip"] = $post_var["value"];
+                        $response = $dns->deleteIpv6Record($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                    if ($post["type"] == "CNAME") {
+                        $response = $dns->deleteCnameRecord($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                    if ($post["type"] == "MX") {
+                        $post_var["priority"] = $post["priority"];
+                        $response = $dns->deleteMxRecord($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                    if ($post["type"] == "TXT") {
+                        $response = $dns->deleteTxtRecord($post_var);
                         $this->processResponse($api, $response);
                     }
                 }

@@ -119,7 +119,7 @@
         ?>
         </td>
         <td>
-            <?php $this->Form->fieldText("priority", $value["priority"], array('id' => "priority" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1))); ?>
+            <?php $this->Form->fieldText("priority", $value["priority"], array('id' => "priority" , 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1))); ?>
         </td>
         <td>
             <?php
