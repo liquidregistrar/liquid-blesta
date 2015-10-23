@@ -14,15 +14,30 @@
     <?php
         $i = 0;
         foreach ($vars["dns"]["A"] as $value) {
+        $this->Form->create();
     ?>
     <tr class="<?php if($i % 2 == 0)  echo "odd_row"  ?> module_list">
         <td><?php echo $value["hostname"] ?></td>
         <td><b>A</b></td>
-        <td><?php echo $value["ip"] ?></td>
+        <td><?php // echo $value["ip"] ?>
+        <?php
+            $this->Form->fieldText("ip", $value["ip"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+            $this->Form->fieldHidden("old-ip", $value["ip"]);
+        ?>
+        </td>
         <td></td>
-        <td></td>
+        <td>
+            <?php $this->Form->fieldHidden("old-hostname", $value["hostname"]); ?>
+            <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
+                <?php $this->_("Liquid.tab_childname.field_update");?>
+            </button>
+            <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                <?php $this->_("Liquid.tab_childname.field_delete");?>
+            </button>
+        </td>
     </tr>
     <?php
+        $this->Form->end();
             $i++;
         }
         foreach ($vars["dns"]["AAA"] as $value) {
