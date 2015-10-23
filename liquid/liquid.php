@@ -1478,7 +1478,6 @@ class Liquid extends Module {
 	}
 
         private function manageDNS($view, $package, $service, array $get=null, array $post=null, array $files=null) {
-//            $vars = new stdClass();
 
             $row = $this->getModuleRow($package->module_row);
             $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
@@ -1488,6 +1487,12 @@ class Liquid extends Module {
             $show_content = true;
 
             $domain_id = $fields->{'order-id'};
+
+            if (!empty($post)) {
+                print_r($post);
+                die;
+            }
+
             $ret_data["domain_id"] = $domain_id;
             $data_dns = $dns->retrieve($ret_data)->response();
             $vars["dns"] = $data_dns;
