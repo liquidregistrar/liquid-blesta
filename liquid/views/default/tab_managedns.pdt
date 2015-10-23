@@ -44,6 +44,7 @@
             $i++;
         }
         foreach ($vars["dns"]["AAA"] as $value) {
+        $this->Form->create();
     ?>
     <tr class="<?php if($i % 2 == 0)  echo "odd_row"  ?> module_list">
         <td><?php echo $value["hostname"] ?></td>
@@ -70,9 +71,11 @@
         </td>
     </tr>
     <?php
+        $this->Form->end();
             $i++;
         }
         foreach ($vars["dns"]["CNAME"] as $value) {
+        $this->Form->create();
     ?>
     <tr class="<?php if($i % 2 == 0)  echo "odd_row"  ?> module_list">
         <td><?php echo $value["hostname"] ?></td>
@@ -99,9 +102,11 @@
         </td>
     </tr>
     <?php
+        $this->Form->end();
             $i++;
         }
         foreach ($vars["dns"]["MX"] as $value) {
+        $this->Form->create();
     ?>
     <tr class="<?php if($i % 2 == 0)  echo "odd_row" ?> module_list">
         <td><?php echo $value["zone"] ?></td>
@@ -128,9 +133,11 @@
         </td>
     </tr>
     <?php
+        $this->Form->end();
             $i++;
         }
         foreach ($vars["dns"]["TXT"] as $value) {
+        $this->Form->create();
     ?>
     <tr class="<?php if($i % 2 == 0)  echo "odd_row" ?> module_list">
         <td><?php echo $value["hostname"] ?></td>
@@ -157,6 +164,7 @@
         </td>
     </tr>
     <?php
+        $this->Form->end();
             $i++;
         }
     ?>
