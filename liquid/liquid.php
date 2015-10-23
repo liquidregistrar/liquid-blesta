@@ -1497,7 +1497,7 @@ class Liquid extends Module {
 
                 if ($post["submit"] == "update") {
                     if ($post["type"] == "A") {
-                        $post_var["old-ip"] = $post_var["old-value"];
+                        $post_var["old-ip"] = $post_var["old_value"];
                         $post_var["ip"] = $post_var["value"];
                         $response = $dns->updateIpv4Record($post_var);
                         $this->processResponse($api, $response);
@@ -1523,9 +1523,9 @@ class Liquid extends Module {
                     }
                 }
 
-                if ($postp["submit"] == "delete") {
+                if ($post["submit"] == "delete") {
                     if ($post["type"] == "A") {
-                        $post_var["old-ip"] = $post_var["old-value"];
+                        $post_var["old-ip"] = $post_var["old_value"];
                         $post_var["ip"] = $post_var["value"];
                         $response = $dns->deleteIpv4Record($post_var);
                         $this->processResponse($api, $response);
