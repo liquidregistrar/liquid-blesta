@@ -21,13 +21,16 @@
         <td><b>A</b></td>
         <td><?php // echo $value["ip"] ?>
         <?php
-            $this->Form->fieldText("ip", $value["ip"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
-            $this->Form->fieldHidden("old-ip", $value["ip"]);
+            $this->Form->fieldText("value", $value["ip"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+            $this->Form->fieldHidden("old-value", $value["ip"]);
         ?>
         </td>
         <td></td>
         <td>
-            <?php $this->Form->fieldHidden("old-hostname", $value["hostname"]); ?>
+            <?php
+            $this->Form->fieldHidden("old-hostname", $value["hostname"]);
+            $this->Form->fieldHidden("type", "A");
+            ?>
             <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
                 <?php $this->_("Liquid.tab_childname.field_update");?>
             </button>
@@ -45,8 +48,26 @@
     <tr class="<?php if($i % 2 == 0)  echo "odd_row"  ?> module_list">
         <td><?php echo $value["hostname"] ?></td>
         <td><b>AAAA</b></td>
-        <td><?php echo $value["ip"] ?></td>
+        <td>
+            <?php // echo $value["ip"] ?>
+        <?php
+            $this->Form->fieldText("value", $value["ip"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+            $this->Form->fieldHidden("old-value", $value["ip"]);
+        ?>
+        </td>
         <td></td>
+        <td>
+            <?php
+            $this->Form->fieldHidden("old-hostname", $value["hostname"]);
+            $this->Form->fieldHidden("type", "AAAA");
+            ?>
+            <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
+                <?php $this->_("Liquid.tab_childname.field_update");?>
+            </button>
+            <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                <?php $this->_("Liquid.tab_childname.field_delete");?>
+            </button>
+        </td>
     </tr>
     <?php
             $i++;
@@ -56,8 +77,26 @@
     <tr class="<?php if($i % 2 == 0)  echo "odd_row"  ?> module_list">
         <td><?php echo $value["hostname"] ?></td>
         <td><b>CNAME</b></td>
-        <td><?php echo $value["val"] ?></td>
+        <td>
+            <?php // echo $value["val"] ?>
+        <?php
+            $this->Form->fieldText("value", $value["val"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+            $this->Form->fieldHidden("old-value", $value["val"]);
+        ?>
+        </td>
         <td></td>
+        <td>
+            <?php
+            $this->Form->fieldHidden("old-hostname", $value["hostname"]);
+            $this->Form->fieldHidden("type", "CNAME");
+            ?>
+            <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
+                <?php $this->_("Liquid.tab_childname.field_update");?>
+            </button>
+            <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                <?php $this->_("Liquid.tab_childname.field_delete");?>
+            </button>
+        </td>
     </tr>
     <?php
             $i++;
@@ -67,8 +106,26 @@
     <tr class="<?php if($i % 2 == 0)  echo "odd_row" ?> module_list">
         <td><?php echo $value["zone"] ?></td>
         <td><b>MX</b></td>
-        <td><?php echo $value["val"] ?></td>
+        <td>
+            <?php // echo $value["val"] ?>
+        <?php
+            $this->Form->fieldText("value", $value["val"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+            $this->Form->fieldHidden("old-value", $value["val"]);
+        ?>
+        </td>
         <td></td>
+        <td>
+            <?php
+            $this->Form->fieldHidden("old-hostname", $value["zone"]);
+            $this->Form->fieldHidden("type", "MX");
+            ?>
+            <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
+                <?php $this->_("Liquid.tab_childname.field_update");?>
+            </button>
+            <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                <?php $this->_("Liquid.tab_childname.field_delete");?>
+            </button>
+        </td>
     </tr>
     <?php
             $i++;
@@ -78,8 +135,26 @@
     <tr class="<?php if($i % 2 == 0)  echo "odd_row" ?> module_list">
         <td><?php echo $value["hostname"] ?></td>
         <td><b>TXT</b></td>
-        <td><?php echo $value["val"] ?></td>
+        <td>
+            <?php // echo $value["val"] ?>
+        <?php
+            $this->Form->fieldText("value", $value["val"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+            $this->Form->fieldHidden("old-value", $value["val"]);
+        ?>
+        </td>
         <td></td>
+        <td>
+            <?php
+            $this->Form->fieldHidden("old-hostname", $value["hostname"]);
+            $this->Form->fieldHidden("type", "TXT");
+            ?>
+            <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
+                <?php $this->_("Liquid.tab_childname.field_update");?>
+            </button>
+            <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                <?php $this->_("Liquid.tab_childname.field_delete");?>
+            </button>
+        </td>
     </tr>
     <?php
             $i++;

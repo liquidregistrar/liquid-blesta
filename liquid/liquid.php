@@ -1489,8 +1489,37 @@ class Liquid extends Module {
             $domain_id = $fields->{'order-id'};
 
             if (!empty($post)) {
-                print_r($post);
-                die;
+                if ($post["submit"] == "update") {
+                    $post_var["domain_id"] = $domain_id;
+                    $post_var["old_hostname"] = $post["old-hostname"];
+                    $post_var["hostname"] = $post["old-hostname"];
+                    $post_var["old_value"] = $post["old-value"];
+                    $post_var["value"] = $post["value"];
+                    if ($post["type"] == "A") {
+                        $post_var["old-ip"] = $post_var["old-value"];
+                        $post_var["ip"] = $post_var["value"];
+                        $response = $dns->updateIpv4Record($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                    if ($post["type"] == "AAAA") {
+                        $post_var["old-ip"] = $post_var["old-value"];
+                        $post_var["ip"] = $post_var["value"];
+                        $response = $dns->updateIpv6Record($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                    if ($post["type"] == "CNAME") {
+                        $response = $dns->updateCnameRecord($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                    if ($post["type"] == "MX") {
+                        $response = $dns->updateMxRecord($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                    if ($post["type"] == "TXT") {
+                        $response = $dns->updateMxRecord($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                }
             }
 
             $ret_data["domain_id"] = $domain_id;
