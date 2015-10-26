@@ -4,25 +4,35 @@
     $this->Form->create();
 ?>
 <div class="col-md-12">
-    <div class="input-group ">
+    <div class="col-md-4">
+        <input type="text" class="form-control" name="hostname" readonly="" value="<?php echo $value["hostname"] ?>" >
+    </div>
+    <div class="col-md-4">
+        <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-default" type="submit" name="submit" value="update"  >
+            <?php $this->_("Liquid.tab_childname.field_update");?>
+        </button>
+        <button class="btn btn-danger " type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+            <?php $this->_("Liquid.tab_childname.field_delete");?>
+        </button>
+    </div>
+<!--    <div class="input-group ">
         <span class="input-group-addon" id="sizing-addon1">A</span>
         <span class="input-group-addon">
-        <input type="text" class="form-control" name="hostname" readonly="" value="<?php echo $value["hostname"] ?>" >
         </span>
         <span class="input-group-addon">
-        <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
         </span>
         <span class="input-group-addon">
         <button class="btn btn-default" type="submit" name="submit" value="update"  >
             <?php $this->_("Liquid.tab_childname.field_update");?>
         </button>
-        </span>
-        <span class="input-group-addon">
         <button class="btn btn-danger " type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
             <?php $this->_("Liquid.tab_childname.field_delete");?>
         </button>
         </span>
-    </div>
+    </div>-->
 </div>
 <?php
 $this->Form->end();
