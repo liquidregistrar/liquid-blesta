@@ -8,12 +8,14 @@
         $this->Form->fieldHidden("type", "A");
         ?>
         <div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
-            <div class="col-md-8">
+            <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">A</span>
                     <span class="input-group-addon" id="basic-addon1"><?php echo $value["hostname"] ?></span>
-                    <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
                 </div>
+            </div>
+            <div class="col-md-4">
+                    <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
             </div>
             <div class="col-md-3">
                 <div class="btn-group" role="group" aria-label="...">
@@ -38,12 +40,14 @@
         $this->Form->fieldHidden("type", "AAAA");
         ?>
         <div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
-            <div class="col-md-8">
+            <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">AAAA</span>
                     <span class="input-group-addon" id="basic-addon1"><?php echo $value["hostname"] ?></span>
-                    <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
                 </div>
+            </div>
+            <div class="col-md-4">
+                    <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
             </div>
             <div class="col-md-3">
                 <div class="btn-group" role="group" aria-label="...">
@@ -62,18 +66,20 @@
 
     foreach ($vars["dns"]["CNAME"] as $value) {
         $this->Form->create();
-        $this->Form->fieldHidden("old-value", $value["ip"]);
+        $this->Form->fieldHidden("old-value", $value["val"]);
         $this->Form->fieldHidden("old-hostname", $value["hostname"]);
         $this->Form->fieldHidden("hostname", $value["hostname"]);
         $this->Form->fieldHidden("type", "CNAME");
         ?>
         <div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
-            <div class="col-md-8">
+            <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">CNAME</span>
                     <span class="input-group-addon" id="basic-addon1"><?php echo $value["hostname"] ?></span>
-                    <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
                 </div>
+            </div>
+            <div class="col-md-4">
+                    <input type="text" class="form-control"  name="value" value="<?php echo $value["val"] ?>" >
             </div>
             <div class="col-md-3">
                 <div class="btn-group" role="group" aria-label="...">
@@ -92,20 +98,22 @@
 
     foreach ($vars["dns"]["MX"] as $value) {
         $this->Form->create();
-        $this->Form->fieldHidden("old-value", $value["ip"]);
+        $this->Form->fieldHidden("old-value", $value["val"]);
         $this->Form->fieldHidden("old-hostname", $value["zone"]);
         $this->Form->fieldHidden("hostname", $value["zone"]);
         $this->Form->fieldHidden("type", "MX");
         ?>
         <div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">MX</span>
                     <span class="input-group-addon" id="basic-addon1"><?php echo $value["zone"] ?></span>
-                    <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
+                    <input type="text" class="form-control"  name="value" value="<?php echo $value["val"] ?>" >
+            </div>
+            <div class="col-md-1">
                     <input type="text" class="form-control"  name="priority" value="<?php echo $value["priority"] ?>" >
             </div>
             <div class="col-md-3">
@@ -125,21 +133,20 @@
 
     foreach ($vars["dns"]["TXT"] as $value) {
         $this->Form->create();
-        $this->Form->fieldHidden("old-value", $value["ip"]);
+        $this->Form->fieldHidden("old-value", $value["val"]);
         $this->Form->fieldHidden("old-hostname", $value["hostname"]);
         $this->Form->fieldHidden("hostname", $value["hostname"]);
         $this->Form->fieldHidden("type", "TXT");
         ?>
         <div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">TXT</span>
                     <span class="input-group-addon" id="basic-addon1"><?php echo $value["hostname"] ?></span>
-                    <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
                 </div>
             </div>
-            <div class="col-md-2">
-                    <input type="text" class="form-control"  name="priority" value="<?php echo $value["priority"] ?>" >
+            <div class="col-md-4">
+                    <input type="text" class="form-control"  name="value" value="<?php echo $value["val"] ?>" >
             </div>
             <div class="col-md-3">
                 <div class="btn-group" role="group" aria-label="...">
