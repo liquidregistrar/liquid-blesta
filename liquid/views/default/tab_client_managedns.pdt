@@ -3,7 +3,7 @@
     foreach ($vars["dns"]["A"] as $value) {
     $this->Form->create();
 ?>
-<div class="col-md-12">
+<div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
     <div class="col-md-5">
         <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">A</span>
@@ -14,12 +14,14 @@
         <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
     </div>
     <div class="col-md-3">
-        <button class="btn btn-default" type="submit" name="submit" value="update"  >
-            <?php $this->_("Liquid.tab_childname.field_update");?>
-        </button>
-        <button class="btn btn-danger " type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
-            <?php $this->_("Liquid.tab_childname.field_delete");?>
-        </button>
+        <div class="btn-group" role="group" aria-label="...">
+            <button class="btn btn-default" type="submit" name="submit" value="update"  >
+                <?php $this->_("Liquid.tab_childname.field_update");?>
+            </button>
+            <button class="btn btn-danger " type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                <?php $this->_("Liquid.tab_childname.field_delete");?>
+            </button>
+        </div>
     </div>
 <!--    <div class="input-group ">
         <span class="input-group-addon" id="sizing-addon1">A</span>
