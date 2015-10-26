@@ -1,1 +1,22 @@
-test
+<?php
+    $i = 0;
+    foreach ($vars["dns"]["A"] as $value) {
+    $this->Form->create();
+?>
+<div class="col-md-12">
+    <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">A</span>
+        <input type="text" class="form-control" name="hostname" readonly="" value="<?php echo $value["hostname"] ?>" >
+        <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
+        <button class="btn btn-default" type="submit" name="submit" value="update"  >
+                <?php $this->_("Liquid.tab_childname.field_update");?>
+            </button>
+        <button class="btn btn-danger " type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                <?php $this->_("Liquid.tab_childname.field_delete");?>
+            </button>
+    </div>
+</div>
+<?php
+$this->Form->end();
+}
+?>
