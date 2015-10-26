@@ -1065,6 +1065,7 @@ class Liquid extends Module {
 				'tabClientWhois' => Language::_("Liquid.tab_whois.title", true),
 				'tabClientNameservers' => Language::_("Liquid.tab_nameservers.title", true),
 				'tabClientChildname' => Language::_("Liquid.tab_childname.title", true),
+				'tabClientManagedns' => Language::_("Liquid.tab_managedns.title", true),
 				'tabClientSettings' => Language::_("Liquid.tab_settings.title", true)
 
 			);
@@ -1172,6 +1173,20 @@ class Liquid extends Module {
         public function tabManagedns($package, $service, array $get=null, array $post=null, array $files=null)
         {
             return $this->manageDNS("tab_managedns", $package, $service, $get, $post, $files);
+        }
+
+        /**
+         *
+	 * @param stdClass $package A stdClass object representing the current package
+	 * @param stdClass $service A stdClass object representing the current service
+	 * @param array $get Any GET parameters
+	 * @param array $post Any POST parameters
+	 * @param array $files Any FILES parameters
+	 * @return string The string representing the contents of this tab
+         */
+        public function tabClientManagedns($package, $service, array $get=null, array $post=null, array $files=null)
+        {
+            return $this->manageDNS("tab_client_managedns", $package, $service, $get, $post, $files);
         }
 
 	/**
