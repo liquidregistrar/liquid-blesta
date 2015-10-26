@@ -166,7 +166,9 @@
     ?>
 <div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
     <h4>Add Manage DNS</h4>
-    <form>
+    <?php
+        $this->Form->create();
+    ?>
       <div class="form-group">
         <label for="exampleInputEmail1">Hostname</label>
         <input type="text" class="form-control" required="" name="hostname" placeholder="Hostname" >
@@ -191,5 +193,7 @@
       </div>
 
         <button type="submit" name="submit" class="btn btn-primary" value="add" >Submit</button>
-    </form>
+    <?php
+        $this->Form->end();
+    ?>
 </div>
