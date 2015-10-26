@@ -191,7 +191,7 @@ $this->Form->create();
     ?><br>
     Type :
     <?php
-    $this->Form->fieldSelect("type", array("A","AAAA","CNAME","MX","TXT"), "A" ,array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true)));
+    $this->Form->fieldSelect("type", array("A"=>"A","AAAA"=>"AAAA","CNAME"=>"CNAME","MX"=>"MX","TXT"=>"TXT"), "A" ,array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true)));
     ?><br>
     Priority :
     <?php
