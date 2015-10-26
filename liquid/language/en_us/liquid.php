@@ -79,6 +79,7 @@ $lang['Liquid.tab_childname.field_success_add'] = "The Child Name Server has bee
 $lang['Liquid.tab_childname.field_success_delete'] = "The Child Name Server has been successfully deleted.";
 
 $lang['Liquid.tab_managedns.title'] = "Manage DNS";
+$lang['Liquid.tab_managedns.title_add'] = "Add Manage DNS";
 $lang['Liquid.tab_managedns.field_recordtype'] = "Record Type";
 $lang['Liquid.tab_managedns.field_hostname'] = "Hostname";
 $lang['Liquid.tab_managedns.field_value'] = "Value";
