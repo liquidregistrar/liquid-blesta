@@ -187,7 +187,7 @@ $this->Form->create();
     ?><br>
     Value :
     <?php
-    $this->Form->fieldText("value", "", array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true)));
+    $this->Form->fieldText("value", "", array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>""));
     ?><br>
     Type :
     <?php

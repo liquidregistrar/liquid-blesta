@@ -1557,7 +1557,7 @@ class Liquid extends Module {
                     }
                 }
 
-                if ($post["submit"] == "delete") {
+                if ($post["submit"] == "add") {
                     if (!empty($post["hostname"])) {
                         $post_var["hostname"] = $post["hostname"];
                     }
