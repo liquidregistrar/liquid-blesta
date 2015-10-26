@@ -183,13 +183,13 @@
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Value</label>
-        <input type="text" required="" class="form-control" name="value" placeholder="Hostname" >
+        <input type="text" required="" class="form-control" name="value" placeholder="Value" >
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Priority</label>
-        <input type="text" class="form-control" name="priority" placeholder="Hostname" >
+        <input type="text" class="form-control" name="priority" placeholder="Priority" >
       </div>
 
-      <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-primary" value="add" >Submit</button>
     </form>
 </div>
