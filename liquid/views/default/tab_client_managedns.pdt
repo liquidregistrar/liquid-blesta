@@ -190,6 +190,6 @@
         <input type="text" class="form-control" name="priority" placeholder="Priority" >
       </div>
 
-        <button type="submit" class="btn btn-primary" value="add" >Submit</button>
+        <button type="submit" name="submit" class="btn btn-primary" value="add" >Submit</button>
     </form>
 </div>
