@@ -1,47 +1,159 @@
 <?php
-    $i = 0;
+
     foreach ($vars["dns"]["A"] as $value) {
-    $this->Form->create();
-    $this->Form->fieldHidden("old-value", $value["ip"]);
-    $this->Form->fieldHidden("old-hostname", $value["hostname"]);
-    $this->Form->fieldHidden("hostname", $value["hostname"]);
-    $this->Form->fieldHidden("type", "A");
-?>
-<div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
-    <div class="col-md-5">
-        <div class="input-group">
-            <span class="input-group-addon" id="basic-addon1">A</span>
-            <span class="input-group-addon" id="basic-addon1"><?php echo $value["hostname"] ?></span>
-            <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
+        $this->Form->create();
+        $this->Form->fieldHidden("old-value", $value["ip"]);
+        $this->Form->fieldHidden("old-hostname", $value["hostname"]);
+        $this->Form->fieldHidden("hostname", $value["hostname"]);
+        $this->Form->fieldHidden("type", "A");
+        ?>
+        <div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">A</span>
+                    <span class="input-group-addon" id="basic-addon1"><?php echo $value["hostname"] ?></span>
+                    <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button class="btn btn-default" type="submit" name="submit" value="update"  >
+                        <?php $this->_("Liquid.tab_childname.field_update");?>
+                    </button>
+                    <button class="btn btn-danger " type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                        <?php $this->_("Liquid.tab_childname.field_delete");?>
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-md-3">
-        <div class="btn-group" role="group" aria-label="...">
-            <button class="btn btn-default" type="submit" name="submit" value="update"  >
-                <?php $this->_("Liquid.tab_childname.field_update");?>
-            </button>
-            <button class="btn btn-danger " type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
-                <?php $this->_("Liquid.tab_childname.field_delete");?>
-            </button>
+        <?php
+        $this->Form->end();
+    }
+
+    foreach ($vars["dns"]["AAAA"] as $value) {
+        $this->Form->create();
+        $this->Form->fieldHidden("old-value", $value["ip"]);
+        $this->Form->fieldHidden("old-hostname", $value["hostname"]);
+        $this->Form->fieldHidden("hostname", $value["hostname"]);
+        $this->Form->fieldHidden("type", "AAAA");
+        ?>
+        <div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">AAAA</span>
+                    <span class="input-group-addon" id="basic-addon1"><?php echo $value["hostname"] ?></span>
+                    <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button class="btn btn-default" type="submit" name="submit" value="update"  >
+                        <?php $this->_("Liquid.tab_childname.field_update");?>
+                    </button>
+                    <button class="btn btn-danger " type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                        <?php $this->_("Liquid.tab_childname.field_delete");?>
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
-<!--    <div class="input-group ">
-        <span class="input-group-addon" id="sizing-addon1">A</span>
-        <span class="input-group-addon">
-        </span>
-        <span class="input-group-addon">
-        </span>
-        <span class="input-group-addon">
-        <button class="btn btn-default" type="submit" name="submit" value="update"  >
-            <?php $this->_("Liquid.tab_childname.field_update");?>
-        </button>
-        <button class="btn btn-danger " type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
-            <?php $this->_("Liquid.tab_childname.field_delete");?>
-        </button>
-        </span>
-    </div>-->
-</div>
-<?php
-$this->Form->end();
-}
-?>
+        <?php
+        $this->Form->end();
+    }
+
+    foreach ($vars["dns"]["CNAME"] as $value) {
+        $this->Form->create();
+        $this->Form->fieldHidden("old-value", $value["ip"]);
+        $this->Form->fieldHidden("old-hostname", $value["hostname"]);
+        $this->Form->fieldHidden("hostname", $value["hostname"]);
+        $this->Form->fieldHidden("type", "CNAME");
+        ?>
+        <div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">CNAME</span>
+                    <span class="input-group-addon" id="basic-addon1"><?php echo $value["hostname"] ?></span>
+                    <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button class="btn btn-default" type="submit" name="submit" value="update"  >
+                        <?php $this->_("Liquid.tab_childname.field_update");?>
+                    </button>
+                    <button class="btn btn-danger " type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                        <?php $this->_("Liquid.tab_childname.field_delete");?>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <?php
+        $this->Form->end();
+    }
+
+    foreach ($vars["dns"]["MX"] as $value) {
+        $this->Form->create();
+        $this->Form->fieldHidden("old-value", $value["ip"]);
+        $this->Form->fieldHidden("old-hostname", $value["zone"]);
+        $this->Form->fieldHidden("hostname", $value["zone"]);
+        $this->Form->fieldHidden("type", "MX");
+        ?>
+        <div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">MX</span>
+                    <span class="input-group-addon" id="basic-addon1"><?php echo $value["zone"] ?></span>
+                    <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
+                </div>
+            </div>
+            <div class="col-md-2">
+                    <input type="text" class="form-control"  name="priority" value="<?php echo $value["priority"] ?>" >
+            </div>
+            <div class="col-md-3">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button class="btn btn-default" type="submit" name="submit" value="update"  >
+                        <?php $this->_("Liquid.tab_childname.field_update");?>
+                    </button>
+                    <button class="btn btn-danger " type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                        <?php $this->_("Liquid.tab_childname.field_delete");?>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <?php
+        $this->Form->end();
+    }
+
+    foreach ($vars["dns"]["TXT"] as $value) {
+        $this->Form->create();
+        $this->Form->fieldHidden("old-value", $value["ip"]);
+        $this->Form->fieldHidden("old-hostname", $value["hostname"]);
+        $this->Form->fieldHidden("hostname", $value["hostname"]);
+        $this->Form->fieldHidden("type", "TXT");
+        ?>
+        <div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">TXT</span>
+                    <span class="input-group-addon" id="basic-addon1"><?php echo $value["hostname"] ?></span>
+                    <input type="text" class="form-control"  name="value" value="<?php echo $value["ip"] ?>" >
+                </div>
+            </div>
+            <div class="col-md-2">
+                    <input type="text" class="form-control"  name="priority" value="<?php echo $value["priority"] ?>" >
+            </div>
+            <div class="col-md-3">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button class="btn btn-default" type="submit" name="submit" value="update"  >
+                        <?php $this->_("Liquid.tab_childname.field_update");?>
+                    </button>
+                    <button class="btn btn-danger " type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                        <?php $this->_("Liquid.tab_childname.field_delete");?>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <?php
+        $this->Form->end();
+    }
+
+    ?>
