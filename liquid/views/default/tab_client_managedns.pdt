@@ -2,6 +2,9 @@
     $i = 0;
     foreach ($vars["dns"]["A"] as $value) {
     $this->Form->create();
+    $this->Form->fieldHidden("old-value", $value["ip"]);
+    $this->Form->fieldHidden("old-hostname", $value["hostname"]);
+    $this->Form->fieldHidden("type", "A");
 ?>
 <div class="col-md-12" style="margin-bottom: 5px; margin-top: 5px;">
     <div class="col-md-5">
