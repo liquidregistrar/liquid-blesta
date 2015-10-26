@@ -1490,10 +1490,16 @@ class Liquid extends Module {
 
             if (!empty($post)) {
                 $post_var["domain_id"] = $domain_id;
-                $post_var["old_hostname"] = $post["old-hostname"];
-                $post_var["hostname"] = $post["old-hostname"];
-                $post_var["old_value"] = $post["old-value"];
-                $post_var["value"] = $post["value"];
+                if (!empty($post["old-hostname"])) {
+                    $post_var["old_hostname"] = $post["old-hostname"];
+                    $post_var["hostname"] = $post["old-hostname"];
+                }
+                if (!empty($post["old-value"])) {
+                    $post_var["old_value"] = $post["old-value"];
+                }
+                if (!empty($post["value"])) {
+                    $post_var["value"] = $post["value"];
+                }
 
                 if ($post["submit"] == "update") {
                     if ($post["type"] == "A") {
@@ -1547,6 +1553,36 @@ class Liquid extends Module {
                     }
                     if ($post["type"] == "TXT") {
                         $response = $dns->deleteTxtRecord($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                }
+
+                if ($post["submit"] == "delete") {
+                    if (!empty($post["hostname"])) {
+                        $post_var["hostname"] = $post["hostname"];
+                    }
+                    if (!empty($post["priority"])) {
+                        $post_var["priority"] = $post["priority"];
+                    }
+
+                    if ($post["type"] == "A") {
+                        $response = $dns->addIpv4Record($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                    if ($post["type"] == "AAAA") {
+                        $response = $dns->addIpv6Record($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                    if ($post["type"] == "CNAME") {
+                        $response = $dns->addCnameRecord($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                    if ($post["type"] == "MX") {
+                        $response = $dns->addMxRecord($post_var);
+                        $this->processResponse($api, $response);
+                    }
+                    if ($post["type"] == "TXT") {
+                        $response = $dns->addTxtRecord($post_var);
                         $this->processResponse($api, $response);
                     }
                 }
