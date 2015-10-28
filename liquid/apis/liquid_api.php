@@ -63,7 +63,7 @@ class LiquidApi {
 
                 $url = self::LIVE_URL . $this->api_version . "/" ;
 		if ($this->sandbox)
-			$url = self::SANDBOX_URL. $this->api_version . "/kosong" ;
+			$url = self::SANDBOX_URL. $this->api_version . "/" ;
 
 		$url .= $command;
 
@@ -83,6 +83,8 @@ class LiquidApi {
                 if (($ch = curl_init($request_url)) === false) {
                     throw new LiquidRegistrarApiException("PHP extension curl must be loaded.");
                 }
+
+                curl_setopt($ch, CURLOPT_HEADER, 1);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 // kalau ke sandbox di false, kalau ke live di true
 		if ($this->sandbox) {
@@ -120,6 +122,10 @@ class LiquidApi {
                 curl_setopt($ch, CURLOPT_USERPWD, "$user:$pass");
 
 		$response = curl_exec($ch);
+                $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+                $header      = substr($response, 0, $header_size);
+                $body        = substr($response, $header_size);
+                $code        = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
                 # langsung cek respon
                 if (!$response) {
@@ -129,7 +135,7 @@ class LiquidApi {
                     $response = json_encode($emp);
                 }
 		curl_close($ch);
-		return new LiquidResponse($response);
+		return new LiquidResponse($body);
 	}
 
 	/**
