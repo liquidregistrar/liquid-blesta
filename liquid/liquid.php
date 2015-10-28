@@ -285,9 +285,8 @@ class Liquid extends Module {
 
                                 // Set locality for .ASIA
                                 if ($tld == ".asia") {
-//                                    $contact_fields = array_merge(Configure::get("Liquid.contact_fields"), Configure::get("Liquid.contact_fields.asia"));
-                                    $vars['eligibility_criteria'] = "asia";
 
+                                    $vars['eligibility_criteria'] = "asia";
                                     $extra['asia_country']              = $client->country;
                                     $extra['asia_entity_type']          = $vars["attr_legalentitytype"];
                                     $extra['asia_identification_type']  = $vars["attr_identform"];
@@ -323,10 +322,11 @@ class Liquid extends Module {
                                 $vars['purchase_privacy_protection'] = "false";
 
                                 // Handle special contact assignment case for .ASIA
-                                if ($tld == ".asia")
-                                        $vars['attr_cedcontactid'] = $contact_id;
+                                if ($tld == ".asia") {
+                                    $domain_fields = array_merge($domain_fields, array("extra" => true));
+                                    $vars['extra'] = "asia_contact_id=" . $contact_id;
                                 // Handle special assignment case for .AU
-                                elseif ($tld == ".au") {
+                                } elseif ($tld == ".au") {
                                         $vars['attr_eligibilityName'] = $client->company;
                                         $vars['attr_registrantName'] = $client->first_name . " " . $client->last_name;
                                 }
@@ -1848,8 +1848,7 @@ class Liquid extends Module {
                 $contacts = new LiquidContacts($api);
 
                 $vars = array_merge($vars, $this->createMap($vars));
-                print_r($vars);
-                die;
+
                 $response = $contacts->add($vars);
 
                 $this->processResponse($api, $response);
