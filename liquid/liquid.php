@@ -284,13 +284,13 @@ class Liquid extends Module {
                                 }
 
                                 // Set locality for .ASIA
-                                if ($tld == ".asia")
-                                        $vars['attr_locality'] = $client->country;
-                                elseif ($tld == ".ru") {
-                                        $vars['attr_org-r'] = $vars['company'];
-                                        $vars['attr_address-r'] = $vars['address-line-1'];
-                                        $vars['attr_person-r'] = $vars['name'];
-                                }
+//                                if ($tld == ".asia")
+//                                        $vars['attr_locality'] = $client->country;
+//                                elseif ($tld == ".ru") {
+//                                        $vars['attr_org-r'] = $vars['company'];
+//                                        $vars['attr_address-r'] = $vars['address-line-1'];
+//                                        $vars['attr_person-r'] = $vars['name'];
+//                                }
 
                                 // Create customer if necessary
                                 if (!$customer_id)
