@@ -253,9 +253,7 @@ class Liquid extends Module {
                                                         if (empty($part[1])) {
                                                             $tel_cc = "";
                                                             $tel = $part[0];
-                                                            if ($client->country == "ID") {
-                                                                $tel_cc = "62";
-                                                            }
+                                                            $tel_cc = "62";
                                                         } else {
                                                             $tel_cc = $part[0];
                                                             $tel = $part[1];
@@ -275,6 +273,9 @@ class Liquid extends Module {
 					elseif ($key == "lang_pref")
 						$vars[$key] = substr($client->settings['language'], 0, 2);
 				}
+
+                                print_r($client);
+                                die;
 
 				// Set locality for .ASIA
 				if ($tld == ".asia")
@@ -332,11 +333,9 @@ class Liquid extends Module {
 					$response = $domains->register(array_intersect_key($vars, $domain_fields));
 				}
 
-				if (isset($response->response())) {
-                                    $var_response = $response->response();
-                                    if (!empty($var_response["domain_id"])) {
-                                        $order_id = $var_response["domain_id"];
-                                    }
+                                $var_response = $response->response();
+                                if (!empty($var_response["domain_id"])) {
+                                    $order_id = $var_response["domain_id"];
                                 }
 
 				$this->processResponse($api, $response);
