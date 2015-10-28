@@ -104,8 +104,8 @@
                 $(".sub_urlmask").hide();
             }
         })
-        <?php /*if ($vars["forwarding"]["url_dest"] == "0") { ?>
+        <?php if ($vars["forwarding"]["url_dest"] == "0") { ?>
             $(".sub_urlmask").hide();
-        <?php }*/ ?>
+        <?php } ?>
     })
 </script>
