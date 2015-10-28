@@ -1067,6 +1067,7 @@ class Liquid extends Module {
 				'tabClientNameservers' => Language::_("Liquid.tab_nameservers.title", true),
 				'tabClientChildname' => Language::_("Liquid.tab_childname.title", true),
 				'tabClientManagedns' => Language::_("Liquid.tab_managedns.title", true),
+				'tabClientDomainForwarding' => Language::_("Liquid.tab_domainforwarding.title", true),
 				'tabClientSettings' => Language::_("Liquid.tab_settings.title", true)
 
 			);
@@ -1188,6 +1189,11 @@ class Liquid extends Module {
         public function tabDomainForwarding($package, $service, array $get=null, array $post=null, array $files=null)
         {
             return $this->manageDomainForwarding("tab_domainforwarding", $package, $service, $get, $post, $files);
+        }
+
+        public function tabClientDomainForwarding($package, $service, array $get=null, array $post=null, array $files=null)
+        {
+            return $this->manageDomainForwarding("tab_client_domainforwarding", $package, $service, $get, $post, $files);
         }
 
 
