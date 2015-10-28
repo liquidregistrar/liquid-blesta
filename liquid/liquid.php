@@ -298,8 +298,9 @@ class Liquid extends Module {
                                 }
 
                                 echo $tld;
-                                print_r($vars);
-                                print_r($client);
+//                                print_r($vars);
+//                                print_r($client);
+                                print_r(array_intersect_key($vars, array_merge($contact_fields, $customer_fields)));
 
                                 // Create customer if necessary
                                 if (!$customer_id)
@@ -1813,13 +1814,14 @@ class Liquid extends Module {
          * @see LiquidCustomers::signup()
          */
         private function createCustomer($module_row_id, $vars) {
+                print_r($vars);
+                die;
+
                 $row = $this->getModuleRow($module_row_id);
                 $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
                 $api->loadCommand("liquid_customers");
                 $customers = new LiquidCustomers($api);
 
-                print_r($vars);
-                die;
 
                 $response = $customers->signup($vars);
 
