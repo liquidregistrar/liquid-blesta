@@ -1520,8 +1520,24 @@ class Liquid extends Module {
             $domain_id = $fields->{'order-id'};
 
             if (!empty($post)) {
-                print_r($post);
-                die;
+                $post_var["domain_id"]          = $domain_id;
+                $post_var["forward_to"]         = $post["destination"];
+                $post_var["meta_tags"]          = "false";
+                if ($post["urlmask"] == "on") {
+                    $post_var["meta_tags"]      = "true";
+                }
+                $post_var["no_frames_content"]  = $post["headertag"];
+                $post_var["subdomain_forwarding"] = $post["noframe"];
+                $post_var["path_forwarding"]    = "false";
+                if ($post["path"] == "on") {
+                    $post_var["path_forwarding"]= "true";
+                }
+                $post_var["url_masking"]        = "false";
+                if ($post["subdomain"] == "on") {
+                    $post_var["url_masking"]    = "true";
+                }
+                $response = $dns->updateDomainForwarding($post_var);
+                $this->processResponse($api, $response);
             }
 
             $ret_data["domain_id"] = $domain_id;

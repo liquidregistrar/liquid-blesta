@@ -7,12 +7,6 @@
 ?>
 <table class="table">
     <tbody>
-        <tr class="odd_row module_list">
-            <td><?php echo Language::_("Liquid.tab_domainforwarding.source", true); ?></td>
-            <td>
-                <?php $this->Form->fieldText("source", "", array('id' => "source" ,'readonly' => "true" , 'style' => 'width: 100%;'));?>
-            </td>
-        </tr>
         <tr class="module_list">
             <td><?php echo Language::_("Liquid.tab_domainforwarding.destination", true); ?></td>
             <td>
