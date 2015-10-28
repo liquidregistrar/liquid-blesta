@@ -22,17 +22,17 @@
         <tr class="module_list odd_row">
             <td><?php echo Language::_("Liquid.tab_domainforwarding.urlmask", true); ?></td>
             <td>
-                <?php $this->Form->fieldRadio("urlmask", "On", false, array('id' => "urlmask"));?> On <br>
-                <?php $this->Form->fieldRadio("urlmask", "off", false, array('id' => "urlmask"));?> Off
+                <?php $this->Form->fieldRadio("urlmask", "On" , false, array('id' => "urlmask", 'class' => "urlmask"));?> On <br>
+                <?php $this->Form->fieldRadio("urlmask", "off", false, array('id' => "urlmask", 'class' => "urlmask"));?> Off
             </td>
         </tr>
-        <tr class="module_list ">
+        <tr class="module_list sub_urlmask">
             <td><?php echo Language::_("Liquid.tab_domainforwarding.headertag", true); ?></td>
             <td>
                 <?php $this->Form->fieldTextarea("headertag", "", array('id' => "headertag", 'style' => 'width: 100%;'));?>
             </td>
         </tr>
-        <tr class="module_list odd_row ">
+        <tr class="module_list odd_row sub_urlmask">
             <td><?php echo Language::_("Liquid.tab_domainforwarding.noframe", true); ?></td>
             <td>
                 <?php $this->Form->fieldTextarea("noframe", "", array('id' => "noframe", 'style' => 'width: 100%;'));?>
@@ -43,7 +43,7 @@
             <td>
                 <?php $this->Form->fieldRadio("subdomain", "On", false,array('id' => "subdomain"));?> On <br>
                 <?php $this->Form->fieldRadio("subdomain", "off",false, array('id' => "subdomain"));?> Off
-            </td> 
+            </td>
         </tr>
         <tr class="module_list odd_row">
             <td><?php echo Language::_("Liquid.tab_domainforwarding.path", true); ?></td>
@@ -58,3 +58,10 @@
 <?php
     $this->Form->end();
 ?>
+<script>
+    $().ready( function(){
+        $(".urlmask").on("change", function(){
+            alert($(this).val());
+        })
+    })
+</script>
