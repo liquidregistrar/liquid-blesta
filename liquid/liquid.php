@@ -1519,6 +1519,10 @@ class Liquid extends Module {
 
             $domain_id = $fields->{'order-id'};
 
+            if (!empty($post)) {
+                print_r($post);
+                die;
+            }
 
             $ret_data["domain_id"] = $domain_id;
             $data_dns = $dns->retrieveDomainForwarding($ret_data)->response();
