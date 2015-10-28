@@ -1,27 +1,21 @@
 <div class="form-group row">
 <label class="col-md-2 control-label">Source</label>
 <div class="col-md-10">
-    <span class="label label-default">diselanigarappaypal.com</label>
+    <span class="label label-default"><?php echo $domain_name; ?></label>
     </div>
 </div>
 <div class="form-group row">
     <div class="col-md-7">
         <label class="control-label">Destination</label>
         <div class="row">
-            <div class="col-sm-4">
-                <select name="protocol" class="form-control">
-                    <option value="http://" selected="">http://</option>
-                    <option value="https://">https://</option>
-                </select>
-            </div>
             <div class="col-sm-8">
-                <input type="text" class="form-control validate_DF" name="forward" value="<?php echo $vars["forwarding"]["url_dest"]; ?>">
+                <input type="url" class="form-control validate_DF" name="destination" value="<?php echo $vars["forwarding"]["url_dest"]; ?>">
             </div>
         </div>
     </div>
     <div class="col-md-5">
         <div class="well well-sm">
-            <p>URL where you wish to forward requests for www.diselanigarappaypal.com and diselanigarappaypal.com</p>
+            <p>URL where you wish to forward requests for www.<?php echo $domain_name; ?> and <?php echo $domain_name; ?></p>
         </div>
     </div>
 </div>
@@ -40,12 +34,12 @@
             ?>
             <p>
                 <label>
-                    <input type="radio" class="yes1 urlmask" value="off" <?php if ($off){ echo 'checked=""'; } ?> id="urlmasking1" name="urlmasking">Off
+                    <input type="radio" class="yes1 urlmask" value="off" <?php if ($off){ echo 'checked=""'; } ?> id="urlmasking1" name="urlmask">Off
                 </label>
             </p>
             <p>
                 <label>
-                    <input type="radio" class="yes2 urlmask" value="on" <?php if ($on){ echo 'checked=""'; } ?> id="urlmasking2" name="urlmasking">On
+                    <input type="radio" class="yes2 urlmask" value="on" <?php if ($on){ echo 'checked=""'; } ?> id="urlmasking2" name="urlmask">On
                 </label>
             </p>
 
@@ -59,10 +53,10 @@
     <div class="masking_details  ">
         <div class="col-md-7">
             <label class="control-label">Header Tags</label>
-            <textarea name="meta_tags" class="form-control" rows="5">iki meta tag</textarea>
+            <textarea name="headertag" class="form-control" rows="5"><?php echo $vars["forwarding"]["meta_tags"]; ?></textarea>
             <br/>
             <label class="control-label">No Frames Page Content</label>
-            <textarea name="frame_content" class="form-control" rows="7">iki noftame</textarea>
+            <textarea name="noframe" class="form-control" rows="7"><?php echo $vars["forwarding"]["no_frames_content"]; ?></textarea>
         </div>
         <div class="col-md-5">
             <div class="well well-sm">
@@ -92,12 +86,12 @@
             ?>
             <p>
                 <label>
-                    <input type="radio" value="off"  <?php if ($off){ echo 'checked=""'; } ?> id="radio" name="subdomainforwarding">Off
+                    <input type="radio" value="off"  <?php if ($off){ echo 'checked=""'; } ?> id="radio" name="subdomain">Off
                 </label>
             </p>
             <p>
                 <label>
-                    <input type="radio"value="on"  <?php if ($on){ echo 'checked=""'; } ?>  id="radio2" name="subdomainforwarding">On
+                    <input type="radio"value="on"  <?php if ($on){ echo 'checked=""'; } ?>  id="radio2" name="subdomain">On
                 </label>
             </p>
 
@@ -105,7 +99,7 @@
     </div>
     <div class="col-md-5">
         <div class="well well-sm">
-            <p>Enabling Sub Domain Forwarding will forward a request made to http://subdomain.diselanigarappaypal.com to http://yourdestinationurl/subdomain/</p>
+            <p>Enabling Sub Domain Forwarding will forward a request made to http://subdomain.<?php echo $domain_name; ?> to http://yourdestinationurl/subdomain/</p>
         </div>
     </div>
 </div>
@@ -123,12 +117,12 @@
             ?>
             <p>
                 <label>
-                    <input type="radio" value="off" <?php if ($off){ echo 'checked=""'; } ?> id="radio" name="pathforwarding">Off
+                    <input type="radio" value="off" <?php if ($off){ echo 'checked=""'; } ?> id="radio" name="path">Off
                 </label>
             </p>
             <p>
                 <label>
-                    <input type="radio" value="on" <?php if ($on){ echo 'checked=""'; } ?> id="radio2" name="pathforwarding">On
+                    <input type="radio" value="on" <?php if ($on){ echo 'checked=""'; } ?> id="radio2" name="path">On
                 </label>
             </p>
 
@@ -136,7 +130,7 @@
     </div>
     <div class="col-md-5">
         <div class="well well-sm">
-            <p>Enabling Path Forwarding will forward requests made to http://diselanigarappaypal.com/some/path to http://yourdestinationurl/some/path</p>
+            <p>Enabling Path Forwarding will forward requests made to http://<?php echo $domain_name; ?>/some/path to http://yourdestinationurl/some/path</p>
         </div>
     </div>
 </div>

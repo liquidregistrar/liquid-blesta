@@ -1551,6 +1551,7 @@ class Liquid extends Module {
 
             $data_dns = $dns->retrieveDomainForwarding($ret_data)->response();
             $vars["forwarding"] = $data_dns;
+            $vars["domain_name"] = $ret_data["domain_name"];
 
             $view = ($show_content ? $view : "tab_unavailable");
             $this->view = new View($view, "default");
