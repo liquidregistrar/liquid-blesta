@@ -113,7 +113,6 @@ class LiquidApi {
                     case 'delete':
 //			curl_setopt($ch, CURLOPT_URL, $url);
                         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
-                        curl_setopt($ch, CURLOPT_POST, true);
                         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($args));
                         break;
                 }
