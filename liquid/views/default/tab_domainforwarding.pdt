@@ -19,7 +19,7 @@
                 <?php
                     $on = false;
                     $off = true;
-                    if ($vars["forwarding"]["urlmask"] == "1") {
+                    if ($vars["forwarding"]["is_url_masking"] == "1") {
                         $on = true;
                         $off = false;
                     }
@@ -101,7 +101,7 @@
                 $(".sub_urlmask").hide();
             }
         })
-        <?php if ($vars["forwarding"]["urlmask"] != "1") { ?>
+        <?php if ($vars["forwarding"]["is_url_masking"] != "1") { ?>
             $(".sub_urlmask").hide();
         <?php } ?>
     })
