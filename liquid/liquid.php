@@ -332,9 +332,11 @@ class Liquid extends Module {
 					$response = $domains->register(array_intersect_key($vars, $domain_fields));
 				}
 
-				if (isset($response->response()->entityid)) {
+				if (isset($response->response())) {
                                     $var_response = $response->response();
-                                    $order_id = $var_response["domain_id"];
+                                    if (!empty($var_response["domain_id"])) {
+                                        $order_id = $var_response["domain_id"];
+                                    }
                                 }
 
 				$this->processResponse($api, $response);
