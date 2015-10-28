@@ -277,14 +277,11 @@ class Liquid extends Module {
                                 }
 
                                 if (!empty($vars["state"])) {
-                                    $real_state = $this->States->get($vars["country_code"],$vars["state"]);
+                                    $real_state = (array) $this->States->get($vars["country_code"],$vars["state"]);
                                     if (!empty($real_state["name"])) {
                                         $vars["state"] = $real_state["name"];
                                     }
                                 }
-
-                                print_r($vars);
-                                die;
 
                                 // Set locality for .ASIA
                                 if ($tld == ".asia")
