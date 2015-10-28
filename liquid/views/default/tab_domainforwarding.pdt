@@ -31,7 +31,7 @@
                     }
                 ?>
                 <label>
-                    <?php $this->Form->fieldRadio("urlmask", "On" , $on, array('id' => "urlmask", 'class' => "urlmask"));?> On <br>
+                    <?php $this->Form->fieldRadio("urlmask", "on" , $on, array('id' => "urlmask", 'class' => "urlmask"));?> On <br>
                 </label>
                 <label>
                     <?php $this->Form->fieldRadio("urlmask", "off", $off, array('id' => "urlmask", 'class' => "urlmask"));?> Off
@@ -62,7 +62,7 @@
                     }
                 ?>
                 <label>
-                    <?php $this->Form->fieldRadio("subdomain", "On", $on,array('id' => "subdomain"));?> On <br>
+                    <?php $this->Form->fieldRadio("subdomain", "on", $on,array('id' => "subdomain"));?> On <br>
                 </label>
                 <label>
                     <?php $this->Form->fieldRadio("subdomain", "off",$off, array('id' => "subdomain"));?> Off
@@ -81,7 +81,7 @@
                     }
                 ?>
                 <label>
-                    <?php $this->Form->fieldRadio("path", "On", $on,array('id' => "path"));?> On <br>
+                    <?php $this->Form->fieldRadio("path", "on", $on,array('id' => "path"));?> On <br>
                 </label>
                 <label>
                     <?php $this->Form->fieldRadio("path", "off",$off, array('id' => "path"));?> Off
