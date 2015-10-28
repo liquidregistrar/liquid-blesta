@@ -134,6 +134,15 @@ class LiquidApi {
                     $emp["message"] = "Unable to request data from liquid server";
                     $response = json_encode($emp);
                 }
+
+                if (strpos($header, "404 Not Found")) {
+                    $emp["type"] = "";
+                    $emp["header"] = $header;
+                    $emp["code"] = $code;
+                    $emp["message"] = "Unable to request data from liquid server, Maybe URL is not valid";
+                    $response = json_encode($emp);
+                }
+
 		curl_close($ch);
 		return new LiquidResponse($body);
 	}
