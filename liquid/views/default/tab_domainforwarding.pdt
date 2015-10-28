@@ -22,11 +22,19 @@
         <tr class="module_list odd_row">
             <td><?php echo Language::_("Liquid.tab_domainforwarding.urlmask", true); ?></td>
             <td>
+                <?php
+                    $on = false;
+                    $off = true;
+                    if ($vars["forwarding"]["url_dest"] == "1") {
+                        $on = true;
+                        $off = false;
+                    }
+                ?>
                 <label>
-                    <?php $this->Form->fieldRadio("urlmask", "On" , false, array('id' => "urlmask", 'class' => "urlmask"));?> On <br>
+                    <?php $this->Form->fieldRadio("urlmask", "On" , $on, array('id' => "urlmask", 'class' => "urlmask"));?> On <br>
                 </label>
                 <label>
-                    <?php $this->Form->fieldRadio("urlmask", "off", false, array('id' => "urlmask", 'class' => "urlmask"));?> Off
+                    <?php $this->Form->fieldRadio("urlmask", "off", $off, array('id' => "urlmask", 'class' => "urlmask"));?> Off
                 </label>
             </td>
         </tr>
