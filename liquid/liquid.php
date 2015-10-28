@@ -285,9 +285,7 @@ class Liquid extends Module {
 
                                 // Set locality for .ASIA
                                 if ($tld == ".asia") {
-                                    $contact_fields = array_merge(Configure::get("Liquid.contact_fields"), Configure::get("Liquid.contact_fields.asia"));
-                                    print_r($contact_fields);
-
+//                                    $contact_fields = array_merge(Configure::get("Liquid.contact_fields"), Configure::get("Liquid.contact_fields.asia"));
                                     $vars['eligibility_criteria'] = "asia";
                                     $vars["extra"]['asia_country']              = $client->country;
                                     $vars["extra"]['asia_entity_type']          = $vars["attr_legalentitytype"];
@@ -299,18 +297,16 @@ class Liquid extends Module {
                                     $vars['attr_person-r'] = $vars['name'];
                                 }
 
-                                echo $tld;
 
 //                                print_r($vars);
 //                                print_r($client);
-                                print_r(array_intersect_key($vars, array_merge($contact_fields, $customer_fields)));
+//                                print_r(array_intersect_key($vars, array_merge($contact_fields, $customer_fields)));
 
                                 // Create customer if necessary
                                 if (!$customer_id)
                                         $customer_id = $this->createCustomer($package->module_row, array_intersect_key($vars, array_merge($contact_fields, $customer_fields)));
 
                                 $vars['type'] = $contact_type;
-                                die;
 
                                 $vars['customer_id'] = $customer_id;
                                 $contact_id = $this->createContact($package->module_row, array_intersect_key($vars, array_merge($contact_fields, $domain_contact_fields)));
@@ -1817,8 +1813,6 @@ class Liquid extends Module {
          * @see LiquidCustomers::signup()
          */
         private function createCustomer($module_row_id, $vars) {
-                print_r($vars);
-                die;
 
                 $row = $this->getModuleRow($module_row_id);
                 $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
