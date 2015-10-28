@@ -297,8 +297,8 @@ class Liquid extends Module {
                                     $vars['attr_person-r'] = $vars['name'];
                                 } elseif ($tld == ".us") {
                                     $vars['eligibility_criteria'] = "us";
-                                    $extra['us_purpose']    = $vars["attr_category"];
-                                    $extra['us_category']   = $vars["attr_purpose"];
+                                    $extra['us_purpose']    = $vars["attr_purpose"];
+                                    $extra['us_category']   = $vars["attr_category"];
                                     $vars['extra']          = http_build_query($extra);
                                 }
 
