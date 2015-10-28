@@ -1251,130 +1251,129 @@ class Liquid extends Module {
 	 * @return string The string representing the contents of this tab
 	 */
 	private function manageWhois($view, $package, $service, array $get=null, array $post=null, array $files=null) {
-		$row = $this->getModuleRow($package->module_row);
-		$api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-		$api->loadCommand("liquid_domains");
-		$domains = new LiquidDomains($api);
 
-		if (!isset($this->Countries))
-			Loader::loadModels($this, array("Countries"));
+            $row = $this->getModuleRow($package->module_row);
+            $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
+            $api->loadCommand("liquid_domains");
+            $domains = new LiquidDomains($api);
 
-		$vars = new stdClass();
+            if (!isset($this->Countries))
+                    Loader::loadModels($this, array("Countries"));
 
-		$contact_fields = Configure::get("Liquid.contact_fields");
-		$fields = $this->serviceFieldsToObject($service->fields);
+            $vars = new stdClass();
+
+            $contact_fields = Configure::get("Liquid.contact_fields");
+            $fields = $this->serviceFieldsToObject($service->fields);
+
+            if (empty($fields->{'order-id'})) {
+                $this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
+            }
+
 //		$sections = array('registrant_contact', 'admin_contact', 'tech_contact', 'billing_contact');
-		$sections = array('registrantcontact', 'admincontact', 'techcontact', 'billingcontact');
+            $sections = array('registrantcontact', 'admincontact', 'techcontact', 'billingcontact');
 
-		$show_content = true;
+            $show_content = true;
 
-		if (!empty($post)) {
+            if (!empty($post)) {
 
-                    $countries = $this->Countries->getList();
-                    foreach ($countries as $v_countries) {
-                        $country[$v_countries->name]    = $v_countries->alpha2;
-                        $country[$v_countries->alpha2]  = $v_countries->name;
+                $countries = $this->Countries->getList();
+                foreach ($countries as $v_countries) {
+                    $country[$v_countries->name]    = $v_countries->alpha2;
+                    $country[$v_countries->alpha2]  = $v_countries->name;
+                }
+
+                $dom_detail = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields'=>"domain_details"));
+                $data_dom_detail = $dom_detail->response();
+                $customer_id = $data_dom_detail["customer_id"];
+
+                $api->loadCommand("liquid_contacts");
+                $contacts = new LiquidContacts($api);
+
+                foreach ($sections as $section) {
+                    $contact = array();
+                    foreach ($post as $key => $value) {
+                        if (strpos($key, $section . "_") !== false && $value != "")
+                            $contact[str_replace($section . "_", "", $key)] = $value;
                     }
+                    $contact["country_code"] = $country[$contact["country_code"]];
+                    $contact["contact_id"] = $contact["contact-id"];
+                    $response = $contacts->modify($contact, $customer_id);
+                    $this->processResponse($api, $response);
+                    if ($this->Input->errors())
+                        break;
+                }
 
-                    $dom_detail = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields'=>"domain_details"));
-                    $data_dom_detail = $dom_detail->response();
-                    $customer_id = $data_dom_detail["customer_id"];
+                $vars = (object)$post;
+            }
+            elseif (property_exists($fields, "order-id")) {
+                    $response = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields' => array("registrant_contact", "admin_contact", "tech_contact", "billing_contact")));
+                    if ($response->status() == "OK") {
+                            $data = $response->response();
 
-                    $api->loadCommand("liquid_contacts");
-                    $contacts = new LiquidContacts($api);
+                            // Format fields
+                            foreach ($sections as $section) {
+                                if ($section == "registrantcontact") {
+                                    $section_ = "registrant_contact";
+                                }
+                                if ($section == "admincontact") {
+                                    $section_ = "admin_contact";
+                                }
+                                if ($section == "techcontact") {
+                                    $section_ = "tech_contact";
+                                }
+                                if ($section == "billingcontact") {
+                                    $section_ = "billing_contact";
+                                }
 
-                    foreach ($sections as $section) {
-                        $contact = array();
-                        foreach ($post as $key => $value) {
-                            if (strpos($key, $section . "_") !== false && $value != "")
-                                $contact[str_replace($section . "_", "", $key)] = $value;
-                        }
-                        $contact["country_code"] = $country[$contact["country_code"]];
-                        $contact["contact_id"] = $contact["contact-id"];
-                        $response = $contacts->modify($contact, $customer_id);
-                        $this->processResponse($api, $response);
-                        if ($this->Input->errors())
-                            break;
+                                $vars_["order-id"] = $fields->{'order-id'};
+                                $vars_["fields"] = $section_;
+                                $res = $domains->details($vars_);
+                                $data_res = $res->response();
+                                foreach ($data_res as $key => $value) {
+                                    if ($key == "country_code") {
+                                        $value = $data_res["country"];
+                                    }
+                                    if ($key == "contact_id") {
+                                        $key = "contact-id";
+                                        $value = $data_res["contact_id"];
+                                    }
+                                    $vars->{$section . "_" . $key} = $value;
+                                }
+                            }
                     }
+            }
+            else {
+                    // No order-id; info is not available
+                    // $show_content = false;
+                    $this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
+            }
 
-                    $vars = (object)$post;
-		}
-		elseif (property_exists($fields, "order-id")) {
-			$response = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields' => array("registrant_contact", "admin_contact", "tech_contact", "billing_contact")));
-			if ($response->status() == "OK") {
-				$data = $response->response();
+            $contact_fields = array_merge(Configure::get("Liquid.contact_fields"), array('contact-id' => array('type' => "hidden")));
+            unset($contact_fields['customer-id']);
+            unset($contact_fields['type']);
 
-				// Format fields
-				foreach ($sections as $section) {
-                                    if ($section == "registrantcontact") {
-                                        $section_ = "registrant_contact";
-                                    }
-                                    if ($section == "admincontact") {
-                                        $section_ = "admin_contact";
-                                    }
-                                    if ($section == "techcontact") {
-                                        $section_ = "tech_contact";
-                                    }
-                                    if ($section == "billingcontact") {
-                                        $section_ = "billing_contact";
-                                    }
+            $all_fields = array();
+            foreach ($contact_fields as $key => $value) {
+                    $all_fields['admincontact_' . $key] = $value;
+                    $all_fields['techcontact_' . $key] = $value;
+                    $all_fields['registrantcontact_' . $key] = $value;
+                    $all_fields['billingcontact_' . $key] = $value;
+            }
 
-                                    $vars_["order-id"] = $fields->{'order-id'};
-                                    $vars_["fields"] = $section_;
-                                    $res = $domains->details($vars_);
-                                    $data_res = $res->response();
-                                    foreach ($data_res as $key => $value) {
-//                                        if ($key == "state") {
-//                                            $data_state = $this->States->getList($data_res["country"]);
-//                                            foreach ($data_state as $v_state) {
-//                                                if ($v_state["code"] == $value) {
-//                                                    $vars->{$section . "_" . $key} = $v_state["name"];
-//                                                }
-//                                            }
-//                                        }
-                                        if ($key == "country_code") {
-                                            $value = $data_res["country"];
-                                        }
-                                        if ($key == "contact_id") {
-                                            $key = "contact-id";
-                                            $value = $data_res["contact_id"];
-                                        }
-                                        $vars->{$section . "_" . $key} = $value;
-                                    }
-				}
-			}
-		}
-		else {
-			// No order-id; info is not available
-			// $show_content = false;
-			$this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
-		}
+            $module_fields = $this->arrayToModuleFields(Configure::get("Liquid.contact_fields"), null, $vars);
 
-		$contact_fields = array_merge(Configure::get("Liquid.contact_fields"), array('contact-id' => array('type' => "hidden")));
-		unset($contact_fields['customer-id']);
-		unset($contact_fields['type']);
+            $view = ($show_content ? $view : "tab_unavailable");
+            $this->view = new View($view, "default");
 
-		$all_fields = array();
-		foreach ($contact_fields as $key => $value) {
-			$all_fields['admincontact_' . $key] = $value;
-			$all_fields['techcontact_' . $key] = $value;
-			$all_fields['registrantcontact_' . $key] = $value;
-			$all_fields['billingcontact_' . $key] = $value;
-		}
+            // Load the helpers required for this view
+            Loader::loadHelpers($this, array("Form", "Html"));
 
-		$module_fields = $this->arrayToModuleFields(Configure::get("Liquid.contact_fields"), null, $vars);
+            $this->view->set("vars", $vars);
+            $this->view->set("fields", $this->arrayToModuleFields($all_fields, null, $vars)->getFields());
+            $this->view->set("sections", $sections);
+            $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
 
-		$view = ($show_content ? $view : "tab_unavailable");
-		$this->view = new View($view, "default");
-
-		// Load the helpers required for this view
-		Loader::loadHelpers($this, array("Form", "Html"));
-
-		$this->view->set("vars", $vars);
-		$this->view->set("fields", $this->arrayToModuleFields($all_fields, null, $vars)->getFields());
-		$this->view->set("sections", $sections);
-		$this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
-		return $this->view->fetch();
+            return $this->view->fetch();
 	}
 
 	/**
@@ -1397,6 +1396,9 @@ class Liquid extends Module {
 		$domains = new LiquidDomains($api);
 
 		$fields = $this->serviceFieldsToObject($service->fields);
+                if (empty($fields->{'order-id'})) {
+                    $this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
+                }
 		$show_content = true;
 
 		$tld = $this->getTld($fields->{'domain-name'});
@@ -1465,9 +1467,9 @@ class Liquid extends Module {
 
 		$fields = $this->serviceFieldsToObject($service->fields);
 		$show_content = true;
-
-                print_r($service);
-                die;
+                if (empty($fields->{'order-id'})) {
+                    $this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
+                }
 
 		if (property_exists($fields, "order-id")) {
 			if (!empty($post)) {
@@ -1525,6 +1527,9 @@ class Liquid extends Module {
             $dns = new LiquidDnsManage($api);
             $fields = $this->serviceFieldsToObject($service->fields);
             $show_content = true;
+            if (empty($fields->{'order-id'})) {
+                $this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
+            }
 
             $domain_id = $fields->{'order-id'};
 
@@ -1575,6 +1580,9 @@ class Liquid extends Module {
             $dns = new LiquidDnsManage($api);
             $fields = $this->serviceFieldsToObject($service->fields);
             $show_content = true;
+            if (empty($fields->{'order-id'})) {
+                $this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
+            }
 
             $domain_id = $fields->{'order-id'};
 
@@ -1715,6 +1723,9 @@ class Liquid extends Module {
 
 		$fields = $this->serviceFieldsToObject($service->fields);
 		$show_content = true;
+                if (empty($fields->{'order-id'})) {
+                    $this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
+                }
 
 		if (property_exists($fields, "order-id")) {
                     if (!empty($post)) {
@@ -2187,5 +2198,9 @@ class Liquid extends Module {
 		}
 		return true;
 	}
+
+        public function getAndUpdateOrderID() {
+
+        }
 }
 ?>
