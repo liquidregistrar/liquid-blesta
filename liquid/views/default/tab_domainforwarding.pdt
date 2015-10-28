@@ -1,6 +1,3 @@
-<?php
-print_r($vars);
-?>
 <div class="title_row first">
     <h3><?php echo Language::_("Liquid.tab_domainforwarding.title", true); ?></h3>
 </div>
@@ -19,17 +16,17 @@ print_r($vars);
         <tr class="module_list">
             <td><?php echo Language::_("Liquid.tab_domainforwarding.destination", true); ?></td>
             <td>
-                <?php $this->Form->fieldText("destination", "", array('id' => "destination", 'style' => 'width: 100%;'));?>
+                <?php $this->Form->fieldText("destination", $vars["forwarding"]["url_dest"], array('id' => "destination", 'style' => 'width: 100%;'));?>
             </td>
         </tr>
         <tr class="module_list odd_row">
             <td><?php echo Language::_("Liquid.tab_domainforwarding.urlmask", true); ?></td>
             <td>
                 <label>
-                    <?php $this->Form->fieldRadio("urlmask", "On" , false, array('id' => "urlmask", 'class' => "urlmask"));?> On <br>
+                    <?php $this->Form->fieldRadio("urlmask", "On" , ($vars["forwarding"]["url_dest"] == 1)? true : false ;, array('id' => "urlmask", 'class' => "urlmask"));?> On <br>
                 </label>
                 <label>
-                    <?php $this->Form->fieldRadio("urlmask", "off", false, array('id' => "urlmask", 'class' => "urlmask"));?> Off
+                    <?php $this->Form->fieldRadio("urlmask", "off", ($vars["forwarding"]["url_dest"] == 0)? true : false ;, array('id' => "urlmask", 'class' => "urlmask"));?> Off
                 </label>
             </td>
         </tr>
