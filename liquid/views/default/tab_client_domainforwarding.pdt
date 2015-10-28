@@ -1,3 +1,6 @@
+<?php
+$domain_name = $vars["domain_name"];
+?>
 <div class="form-group row">
 <label class="col-md-2 control-label">Source</label>
 <div class="col-md-10">
@@ -34,12 +37,12 @@
             ?>
             <p>
                 <label>
-                    <input type="radio" class="yes1 urlmask" value="off" <?php if ($off){ echo 'checked=""'; } ?> id="urlmasking1" name="urlmask">Off
+                    <input type="radio" class="yes1 urlmask" value="off" <?php if ($off){ echo 'checked=""'; } ?> id="urlmasking1" name="urlmask">&nbsp;Off
                 </label>
             </p>
             <p>
                 <label>
-                    <input type="radio" class="yes2 urlmask" value="on" <?php if ($on){ echo 'checked=""'; } ?> id="urlmasking2" name="urlmask">On
+                    <input type="radio" class="yes2 urlmask" value="on" <?php if ($on){ echo 'checked=""'; } ?> id="urlmasking2" name="urlmask">&nbsp;On
                 </label>
             </p>
 
@@ -86,12 +89,12 @@
             ?>
             <p>
                 <label>
-                    <input type="radio" value="off"  <?php if ($off){ echo 'checked=""'; } ?> id="radio" name="subdomain">Off
+                    <input type="radio" value="off"  <?php if ($off){ echo 'checked=""'; } ?> id="radio" name="subdomain">&nbsp;Off
                 </label>
             </p>
             <p>
                 <label>
-                    <input type="radio"value="on"  <?php if ($on){ echo 'checked=""'; } ?>  id="radio2" name="subdomain">On
+                    <input type="radio"value="on"  <?php if ($on){ echo 'checked=""'; } ?>  id="radio2" name="subdomain">&nbsp;On
                 </label>
             </p>
 
@@ -117,12 +120,12 @@
             ?>
             <p>
                 <label>
-                    <input type="radio" value="off" <?php if ($off){ echo 'checked=""'; } ?> id="radio" name="path">Off
+                    <input type="radio" value="off" <?php if ($off){ echo 'checked=""'; } ?> id="radio" name="path">&nbsp;Off
                 </label>
             </p>
             <p>
                 <label>
-                    <input type="radio" value="on" <?php if ($on){ echo 'checked=""'; } ?> id="radio2" name="path">On
+                    <input type="radio" value="on" <?php if ($on){ echo 'checked=""'; } ?> id="radio2" name="path">&nbsp;On
                 </label>
             </p>
 
