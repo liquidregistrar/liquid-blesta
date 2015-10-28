@@ -38,7 +38,7 @@
                 </label>
             </td>
         </tr>
-        <tr class="module_list sub_urlmask">
+        <tr class="module_list sub_urlmask" <?php if ($off == true) { ?> style="display:none"  <?php };?>>
             <td><?php echo Language::_("Liquid.tab_domainforwarding.headertag", true); ?></td>
             <td>
                 <?php $this->Form->fieldTextarea("headertag", "", array('id' => "headertag", 'style' => 'width: 100%;'));?>
@@ -53,22 +53,38 @@
         <tr class="module_list ">
             <td><?php echo Language::_("Liquid.tab_domainforwarding.subdomain", true); ?></td>
             <td>
+                <?php
+                    $on = false;
+                    $off = true;
+                    if ($vars["forwarding"]["is_subdomain_fwd"] == "1") {
+                        $on = true;
+                        $off = false;
+                    }
+                ?>
                 <label>
-                    <?php $this->Form->fieldRadio("subdomain", "On", false,array('id' => "subdomain"));?> On <br>
+                    <?php $this->Form->fieldRadio("subdomain", "On", $on,array('id' => "subdomain"));?> On <br>
                 </label>
                 <label>
-                    <?php $this->Form->fieldRadio("subdomain", "off",false, array('id' => "subdomain"));?> Off
+                    <?php $this->Form->fieldRadio("subdomain", "off",$off, array('id' => "subdomain"));?> Off
                 </label>
             </td>
         </tr>
         <tr class="module_list odd_row">
             <td><?php echo Language::_("Liquid.tab_domainforwarding.path", true); ?></td>
             <td>
+                <?php
+                    $on = false;
+                    $off = true;
+                    if ($vars["forwarding"]["is_path_fwd"] == "1") {
+                        $on = true;
+                        $off = false;
+                    }
+                ?>
                 <label>
-                    <?php $this->Form->fieldRadio("path", "On", false,array('id' => "path"));?> On <br>
+                    <?php $this->Form->fieldRadio("path", "On", $on,array('id' => "path"));?> On <br>
                 </label>
                 <label>
-                    <?php $this->Form->fieldRadio("path", "off",false, array('id' => "path"));?> Off
+                    <?php $this->Form->fieldRadio("path", "off",$off, array('id' => "path"));?> Off
                 </label>
             </td>
         </tr>
