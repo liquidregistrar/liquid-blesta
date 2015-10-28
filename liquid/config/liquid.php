@@ -388,22 +388,22 @@ Configure::set("Liquid.contact_fields.us", array(
                 'label' => Language::_("Liquid.contact.category", true),
                 'type' => "select",
                 'options' => array(
-                        'C11' => Language::_("Liquid.contact.category.c11", true),
-                        'C12' => Language::_("Liquid.contact.category.c12", true),
-                        'C21' => Language::_("Liquid.contact.category.c21", true),
-                        'C31' => Language::_("Liquid.contact.category.c31", true),
-                        'C32' => Language::_("Liquid.contact.category.c32", true)
+                        'citizen'               => Language::_("Liquid.contact.category.c11", true),
+                        'permanent_resident'    => Language::_("Liquid.contact.category.c12", true),
+                        'us_organization'       => Language::_("Liquid.contact.category.c21", true),
+                        'foreign_organization'  => Language::_("Liquid.contact.category.c31", true),
+                        'has_us_office'         => Language::_("Liquid.contact.category.c32", true)
                 )
         ),
         'attr_purpose' => array(
                 'label' => Language::_("Liquid.contact.purpose", true),
                 'type' => "select",
                 'options' => array(
-                        'P1' => Language::_("Liquid.contact.purpose.p1", true),
-                        'P2' => Language::_("Liquid.contact.purpose.p2", true),
-                        'P3' => Language::_("Liquid.contact.purpose.p3", true),
-                        'P4' => Language::_("Liquid.contact.purpose.p4", true),
-                        'P5' => Language::_("Liquid.contact.purpose.p5", true)
+                        'business'      => Language::_("Liquid.contact.purpose.p1", true),
+                        'non_profit'    => Language::_("Liquid.contact.purpose.p2", true),
+                        'personal'      => Language::_("Liquid.contact.purpose.p3", true),
+                        'education'     => Language::_("Liquid.contact.purpose.p4", true),
+                        'goverment'     => Language::_("Liquid.contact.purpose.p5", true)
                 )
         )
 ));
