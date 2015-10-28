@@ -38,7 +38,7 @@
                 </label>
             </td>
         </tr>
-        <tr class="module_list sub_urlmask" <?php if ($off == true) { ?> style="display:none"  <?php };?>>
+        <tr class="module_list sub_urlmask" >
             <td><?php echo Language::_("Liquid.tab_domainforwarding.headertag", true); ?></td>
             <td>
                 <?php $this->Form->fieldTextarea("headertag", "", array('id' => "headertag", 'style' => 'width: 100%;'));?>
@@ -104,5 +104,8 @@
                 $(".sub_urlmask").hide();
             }
         })
+        <?php if ($vars["forwarding"]["url_dest"] == "0") { ?>
+            $(".sub_urlmask").hide();
+        <?php } ?>
     })
 </script>
