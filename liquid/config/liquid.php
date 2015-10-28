@@ -376,6 +376,14 @@ Configure::set("Liquid.contact_fields.ru", array(
 
 // .US
 Configure::set("Liquid.contact_fields.us", array(
+        'extra' => array(
+                'type' => "hidden",
+                'options' => null
+        ),
+        'eligibility_criteria' => array(
+                'type' => "hidden",
+                'options' => null
+        ),
         'attr_category' => array(
                 'label' => Language::_("Liquid.contact.category", true),
                 'type' => "select",

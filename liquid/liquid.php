@@ -285,7 +285,6 @@ class Liquid extends Module {
 
                                 // Set locality for .ASIA
                                 if ($tld == ".asia") {
-
                                     $vars['eligibility_criteria'] = "asia";
                                     $extra['asia_country']              = $client->country;
                                     $extra['asia_entity_type']          = $vars["attr_legalentitytype"];
@@ -296,12 +295,18 @@ class Liquid extends Module {
                                     $vars['attr_org-r'] = $vars['company'];
                                     $vars['attr_address-r'] = $vars['address-line-1'];
                                     $vars['attr_person-r'] = $vars['name'];
+                                } elseif ($tld == ".us") {
+                                    $vars['eligibility_criteria'] = "us";
+                                    $extra['us_purpose']    = "";
+                                    $extra['us_category']   = "";
+                                    $vars['extra']          = http_build_query($extra);
                                 }
 
 
-//                                print_r($vars);
-//                                print_r($client);
+                                print_r($vars);
+                                print_r($client);
 //                                print_r(array_intersect_key($vars, array_merge($contact_fields, $customer_fields)));
+                                die;
 
                                 // Create customer if necessary
                                 if (!$customer_id)
