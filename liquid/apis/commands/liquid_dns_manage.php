@@ -431,5 +431,40 @@ class LiquidDnsManage {
             }
             return $this->api->submit("domains/$vars[domain_id]/dns/srv/".$vars["hostname"]."/".$vars["value"], $vars, "DELETE");
 	}
+
+        /**
+         * Update Domain Forwarding
+         *
+         * @param array $vars
+         *          - domain_id
+         *          - forward_to
+         *          - meta_tags
+         *          - no_frames_content
+         *          - subdomain_forwarding
+         *          - path_forwarding
+         *          - url_masking
+	 * @return LiquidResponse
+         */
+        public function updateDomainForwarding(array $vars) {
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/domain_forwarding", $vars, "PUT");
+        }
+
+        /**
+         * Get Domain Forwarding
+         *
+         * @param array $vars
+         *          - domain_id
+	 * @return LiquidResponse
+         */
+        public function retrieveDomainForwarding(array $vars) {
+            if (!empty($vars["order-id"])) {
+                $vars["domain_id"] = $vars["order-id"];
+            }
+            return $this->api->submit("domains/$vars[domain_id]/domain_forwarding", $vars, "GET");
+        }
+
 }
 ?>

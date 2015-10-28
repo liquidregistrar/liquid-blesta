@@ -1,3 +1,6 @@
+<?php
+print_r($vars);
+?>
 <div class="title_row first">
     <h3><?php echo Language::_("Liquid.tab_domainforwarding.title", true); ?></h3>
 </div>
@@ -73,7 +76,12 @@
 <script>
     $().ready( function(){
         $(".urlmask").on("change", function(){
-            alert($(this).val());
+            var val_ = $(this).val();
+            if (val_ == "on") {
+                $(".sub_urlmask").show();
+            } else {
+                $(".sub_urlmask").hide();
+            }
         })
     })
 </script>

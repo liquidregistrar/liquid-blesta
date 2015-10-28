@@ -1518,6 +1518,12 @@ class Liquid extends Module {
             $show_content = true;
 
             $domain_id = $fields->{'order-id'};
+
+
+            $ret_data["domain_id"] = $domain_id;
+            $data_dns = $dns->retrieveDomainForwarding($ret_data)->response();
+            $vars["forwarding"] = $data_dns;
+
             $view = ($show_content ? $view : "tab_unavailable");
             $this->view = new View($view, "default");
 
