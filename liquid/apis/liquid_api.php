@@ -63,7 +63,7 @@ class LiquidApi {
 
                 $url = self::LIVE_URL . $this->api_version . "/" ;
 		if ($this->sandbox)
-			$url = self::SANDBOX_URL. $this->api_version . "/" ;
+			$url = self::SANDBOX_URL. $this->api_version . "/kosong" ;
 
 		$url .= $command;
 
@@ -123,7 +123,10 @@ class LiquidApi {
 
                 # langsung cek respon
                 if (!$response) {
-                    return false;
+                    $emp["type"] = "";
+                    $emp["code"] = "";
+                    $emp["message"] = "Unable to request data from liquid server";
+                    $response = json_encode($emp);
                 }
 		curl_close($ch);
 		return new LiquidResponse($response);
