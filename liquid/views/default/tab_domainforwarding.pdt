@@ -23,10 +23,10 @@
             <td><?php echo Language::_("Liquid.tab_domainforwarding.urlmask", true); ?></td>
             <td>
                 <label>
-                    <?php $this->Form->fieldRadio("urlmask", "On" , ($vars["forwarding"]["url_dest"] == 1)? true : false ;, array('id' => "urlmask", 'class' => "urlmask"));?> On <br>
+                    <?php $this->Form->fieldRadio("urlmask", "On" , false, array('id' => "urlmask", 'class' => "urlmask"));?> On <br>
                 </label>
                 <label>
-                    <?php $this->Form->fieldRadio("urlmask", "off", ($vars["forwarding"]["url_dest"] == 0)? true : false ;, array('id' => "urlmask", 'class' => "urlmask"));?> Off
+                    <?php $this->Form->fieldRadio("urlmask", "off", false, array('id' => "urlmask", 'class' => "urlmask"));?> Off
                 </label>
             </td>
         </tr>
