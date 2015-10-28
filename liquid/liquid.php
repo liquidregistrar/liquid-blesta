@@ -276,11 +276,14 @@ class Liquid extends Module {
                                                 $vars[$key] = substr($client->settings['language'], 0, 2);
                                 }
 
-                                $state_test = $this->State->get("ID","JK");
+                                if (!empty($vars["state"])) {
+                                    $real_state = $this->States->get($vars["country_code"],$vars["state"]);
+                                    if (!empty($real_state["name"])) {
+                                        $vars["state"] = $real_state["name"];
+                                    }
+                                }
 
-                                print_r($state_test);
-
-                                print_r($client);
+                                print_r($vars);
                                 die;
 
                                 // Set locality for .ASIA
