@@ -1,121 +1,158 @@
 <div class="form-group row">
-                        <label class="col-md-2 control-label">Source</label>
-                        <div class="col-md-10">
-                            <span class="label label-default">diselanigarappaypal.com</label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-7">
-                                <label class="control-label">Destination</label>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <select name="protocol" class="form-control">
-                                            <option value="http://" selected="">http://</option>
-                                            <option value="https://">https://</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control validate_DF" name="forward" value="lugas2.com">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-help">
-                                    <p>URL where you wish to forward requests for www.diselanigarappaypal.com and diselanigarappaypal.com</p>
-                                </div>
-                            </div>
-                        </div>
+<label class="col-md-2 control-label">Source</label>
+<div class="col-md-10">
+    <span class="label label-default">diselanigarappaypal.com</label>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-7">
+        <label class="control-label">Destination</label>
+        <div class="row">
+            <div class="col-sm-4">
+                <select name="protocol" class="form-control">
+                    <option value="http://" selected="">http://</option>
+                    <option value="https://">https://</option>
+                </select>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control validate_DF" name="forward" value="<?php echo $vars["forwarding"]["url_dest"]; ?>">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="well well-sm">
+            <p>URL where you wish to forward requests for www.diselanigarappaypal.com and diselanigarappaypal.com</p>
+        </div>
+    </div>
+</div>
 
-                        <div class="form-group row">
-                            <div class="col-md-7">
-                                <label class="control-label">URL Masking / Stealth Redirection / URL Hiding</label>
-                                <div class="inputs url_mask_input">
+<div class="form-group row">
+    <div class="col-md-7">
+        <label class="control-label">URL Masking / Stealth Redirection / URL Hiding</label>
+        <div class="inputs url_mask_input">
+            <?php
+                $on = false;
+                $off = true;
+                if ($vars["forwarding"]["is_url_masking"] == "1") {
+                    $on = true;
+                    $off = false;
+                }
+            ?>
+            <p>
+                <label>
+                    <input type="radio" class="yes1 urlmask" value="off" <?php if ($off){ echo 'checked=""'; } ?> id="urlmasking1" name="urlmasking">Off
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="radio" class="yes2 urlmask" value="on" <?php if ($on){ echo 'checked=""'; } ?> id="urlmasking2" name="urlmasking">On
+                </label>
+            </p>
 
-                                    <p>
-                                        <label>
-                                            <input type="radio" class="yes1" value="false" id="urlmasking1" name="urlmasking">Off
-                                        </label>
-                                    </p>
-                                    <p style="margin-bottom: 0;">
-                                        <label>
-                                            <input type="radio" class="yes2" value="true" checked="" id="urlmasking2" name="urlmasking">On
-                                        </label>
-                                    </p>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="well well-sm">
+            <p>Enabling URL masking will ensure that your visitors see the source URL and not the destination URL.</p>
+        </div>
+    </div>
+    <div class="masking_details  ">
+        <div class="col-md-7">
+            <label class="control-label">Header Tags</label>
+            <textarea name="meta_tags" class="form-control" rows="5">iki meta tag</textarea>
+            <br/>
+            <label class="control-label">No Frames Page Content</label>
+            <textarea name="frame_content" class="form-control" rows="7">iki noftame</textarea>
+        </div>
+        <div class="col-md-5">
+            <div class="well well-sm">
+                <p>
+                    Enabling URL Masking will serve a &quot;Frames&quot; page to your browser. You can add TITLE and META tags for your &quot;Frames&quot; page here. eg. &lt;title&gt; Your Webpage title can be mentioned here&lt;/title&gt; &lt;meta name=&quot;keywords&quot; CONTENT=&quot;Your comma-separated keywords are entered here&quot;&gt; &lt;meta name=&quot;description&quot; CONTENT=&quot;Enter website description here&quot;&gt;
+                </p>
+                <p>
+                    Enabling URL masking will serve a &quot;Frames&quot; page to the browser. You may want to set an alternate &lt;NOFRAMES&gt; page content for search engines. Enter your HTML within &lt;NOFRAMES&gt;&lt;/NOFRAMES&gt; tags in the &quot;No Frames Page Content&quot; box to set alternate page content.
+                </p>
+            </div>
+        </div>
+    </div>
 
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-help">
-                                    <p>Enabling URL masking will ensure that your visitors see the source URL and not the destination URL.</p>
-                                </div>
-                            </div>
-                            <div class="masking_details  ">
-                                <div class="col-md-7">
-                                    <label class="control-label">Header Tags</label>
-                                    <textarea name="meta_tags" class="form-control" rows="5">iki meta tag</textarea>
-                                    <br/>
-                                    <label class="control-label">No Frames Page Content</label>
-                                    <textarea name="frame_content" class="form-control" rows="7">iki noftame</textarea>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-help">
-                                        <p>
-                                            Enabling URL Masking will serve a &quot;Frames&quot; page to your browser. You can add TITLE and META tags for your &quot;Frames&quot; page here. eg. &lt;title&gt; Your Webpage title can be mentioned here&lt;/title&gt; &lt;meta name=&quot;keywords&quot; CONTENT=&quot;Your comma-separated keywords are entered here&quot;&gt; &lt;meta name=&quot;description&quot; CONTENT=&quot;Enter website description here&quot;&gt;
-                                        </p>
-                                        <p>
-                                            Enabling URL masking will serve a &quot;Frames&quot; page to the browser. You may want to set an alternate &lt;NOFRAMES&gt; page content for search engines. Enter your HTML within &lt;NOFRAMES&gt;&lt;/NOFRAMES&gt; tags in the &quot;No Frames Page Content&quot; box to set alternate page content.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+</div>
 
-                        </div>
+<div class="form-group row">
+    <div class="col-md-7">
+        <label class="control-label">Sub Domain Forwarding</label>
+        <div class="inputs">
+            <?php
+                $on = false;
+                $off = true;
+                if ($vars["forwarding"]["is_subdomain_fwd"] == "1") {
+                    $on = true;
+                    $off = false;
+                }
+            ?>
+            <p>
+                <label>
+                    <input type="radio" value="off"  <?php if ($off){ echo 'checked=""'; } ?> id="radio" name="subdomainforwarding">Off
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="radio"value="on"  <?php if ($on){ echo 'checked=""'; } ?>  id="radio2" name="subdomainforwarding">On
+                </label>
+            </p>
 
-                        <div class="form-group row">
-                            <div class="col-md-7">
-                                <label class="control-label">Sub Domain Forwarding</label>
-                                <div class="inputs">
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="well well-sm">
+            <p>Enabling Sub Domain Forwarding will forward a request made to http://subdomain.diselanigarappaypal.com to http://yourdestinationurl/subdomain/</p>
+        </div>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-7">
+        <label class="control-label">Path Forwarding</label>
+        <div class="inputs">
+            <?php
+                $on = false;
+                $off = true;
+                if ($vars["forwarding"]["is_path_fwd"] == "1") {
+                    $on = true;
+                    $off = false;
+                }
+            ?>
+            <p>
+                <label>
+                    <input type="radio" value="off" <?php if ($off){ echo 'checked=""'; } ?> id="radio" name="pathforwarding">Off
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="radio" value="on" <?php if ($on){ echo 'checked=""'; } ?> id="radio2" name="pathforwarding">On
+                </label>
+            </p>
 
-                                    <p>
-                                        <label>
-                                            <input type="radio" value="false" id="radio" name="subdomainforwarding">Off
-                                        </label>
-                                    </p>
-                                    <p style="margin-bottom: 0;">
-                                        <label>
-                                            <input type="radio" checked="" value="true" id="radio2" name="subdomainforwarding">On
-                                        </label>
-                                    </p>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="well well-sm">
+            <p>Enabling Path Forwarding will forward requests made to http://diselanigarappaypal.com/some/path to http://yourdestinationurl/some/path</p>
+        </div>
+    </div>
+</div>
 
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-help">
-                                    <p>Enabling Sub Domain Forwarding will forward a request made to http://subdomain.diselanigarappaypal.com to http://yourdestinationurl/subdomain/</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-7">
-                                <label class="control-label">Path Forwarding</label>
-                                <div class="inputs">
-
-                                    <p>
-                                        <label>
-                                            <input type="radio" value="false" id="radio" name="pathforwarding">Off
-                                        </label>
-                                    </p>
-                                    <p style="margin-bottom: 0;">
-                                        <label>
-                                            <input type="radio" checked="" value="true" id="radio2" name="pathforwarding">On
-                                        </label>
-                                    </p>
-
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-help">
-                                    <p>Enabling Path Forwarding will forward requests made to http://diselanigarappaypal.com/some/path to http://yourdestinationurl/some/path</p>
-                                </div>
-                            </div>
-                        </div>
+<script>
+    $().ready( function(){
+        $(".urlmask").on("change", function(){
+            var val_ = $(this).val();
+            if (val_ == "on") {
+                $(".masking_details").show();
+            } else {
+                $(".masking_details").hide();
+            }
+        })
+        <?php if ($vars["forwarding"]["is_url_masking"] != "1") { ?>
+            $(".masking_details").hide();
+        <?php } ?>
+    })
+</script>

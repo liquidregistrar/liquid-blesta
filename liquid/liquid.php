@@ -1547,6 +1547,8 @@ class Liquid extends Module {
             }
 
             $ret_data["domain_id"] = $domain_id;
+            $ret_data["domain_name"] = $fields->{'domain-name'};
+
             $data_dns = $dns->retrieveDomainForwarding($ret_data)->response();
             $vars["forwarding"] = $data_dns;
 
