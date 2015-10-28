@@ -60,6 +60,16 @@ $lang['Liquid.tab_nameservers.title'] = "Name Servers";
 $lang['Liquid.tab_nameserver.field_ns'] = "Name Server %1\$s"; // %1$s is the name server number
 $lang['Liquid.tab_nameservers.field_submit'] = "Update Name Servers";
 
+$lang['Liquid.tab_domainforwarding.title'] = "Domain Forwarding";
+$lang['Liquid.tab_domainforwarding.field_submit'] = "Update Domain Forwarding";
+$lang['Liquid.tab_domainforwarding.source'] = "Source";
+$lang['Liquid.tab_domainforwarding.destination'] = "Destination";
+$lang['Liquid.tab_domainforwarding.urlmask'] = "URL Masking / Stealth Redirection / URL Hiding";
+$lang['Liquid.tab_domainforwarding.headertag'] = "Header Tags";
+$lang['Liquid.tab_domainforwarding.noframe'] = "No Frames Page Content";
+$lang['Liquid.tab_domainforwarding.subdomain'] = "Sub Domain Forwarding";
+$lang['Liquid.tab_domainforwarding.path'] = "Path Forwarding";
+
 $lang['Liquid.tab_settings.title'] = "Settings";
 $lang['Liquid.tab_settings.field_registrar_lock'] = "Registrar Lock";
 $lang['Liquid.tab_settings.field_registrar_lock_yes'] = "Set the registrar lock. Recommended to prevent unauthorized transfer.";

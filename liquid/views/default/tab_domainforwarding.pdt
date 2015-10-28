@@ -1,0 +1,60 @@
+<div class="title_row first">
+    <h3><?php echo Language::_("Liquid.tab_domainforwarding.title", true); ?></h3>
+</div>
+
+<?php
+    $this->Form->create();
+?>
+<table class="table">
+    <tbody>
+        <tr class="odd_row module_list">
+            <th><?php echo Language::_("Liquid.tab_domainforwarding.source", true); ?></th>
+            <td>
+                <?php $this->Form->fieldText("source", "", array('id' => "source" ,'readonly' => "true" , 'style' => 'width: 100%;'));?>
+            </td>
+        </tr>
+        <tr class="module_list">
+            <th><?php echo Language::_("Liquid.tab_domainforwarding.destination", true); ?></th>
+            <td>
+                <?php $this->Form->fieldText("destination", "", array('id' => "destination", 'style' => 'width: 100%;'));?>
+            </td>
+        </tr>
+        <tr class="module_list odd_row">
+            <th><?php echo Language::_("Liquid.tab_domainforwarding.urlmask", true); ?></th>
+            <td>
+                <?php $this->Form->fieldRadio("urlmask", "On", array('id' => "urlmask"));?>
+                <?php $this->Form->fieldRadio("urlmask", "off", array('id' => "urlmask"));?>
+            </td>
+        </tr>
+        <tr class="module_list ">
+            <th><?php echo Language::_("Liquid.tab_domainforwarding.headertag", true); ?></th>
+            <td>
+                <?php $this->Form->fieldTextarea("headertag", "", array('id' => "headertag", 'style' => 'width: 100%;'));?>
+            </td>
+        </tr>
+        <tr class="module_list odd_row ">
+            <th><?php echo Language::_("Liquid.tab_domainforwarding.noframe", true); ?></th>
+            <td>
+                <?php $this->Form->fieldTextarea("noframe", "", array('id' => "noframe", 'style' => 'width: 100%;'));?>
+            </td>
+        </tr>
+        <tr class="module_list ">
+            <th><?php echo Language::_("Liquid.tab_domainforwarding.subdomain", true); ?></th>
+            <td>
+                <?php $this->Form->fieldRadio("subdomain", "On", array('id' => "subdomain"));?>
+                <?php $this->Form->fieldRadio("subdomain", "off", array('id' => "subdomain"));?>
+            </td>
+        </tr>
+        <tr class="module_list odd_row">
+            <th><?php echo Language::_("Liquid.tab_domainforwarding.path", true); ?></th>
+            <td>
+                <?php $this->Form->fieldRadio("path", "On", array('id' => "path"));?>
+                <?php $this->Form->fieldRadio("path", "off", array('id' => "path"));?>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+<?php
+    $this->Form->end();
+?>

@@ -1037,12 +1037,13 @@ class Liquid extends Module {
 	public function getAdminTabs($package) {
 		if ($package->meta->type == "domain") {
 			return array(
-				'tabWhois' => Language::_("Liquid.tab_whois.title", true),
+				'tabWhois'       => Language::_("Liquid.tab_whois.title", true),
 				'tabNameservers' => Language::_("Liquid.tab_nameservers.title", true),
 //				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
-				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
-				'tabManagedns' => Language::_("Liquid.tab_managedns.title", true),
-				'tabSettings' => Language::_("Liquid.tab_settings.title", true),
+				'tabChildname'   => Language::_("Liquid.tab_childname.title", true),
+				'tabManagedns'   => Language::_("Liquid.tab_managedns.title", true),
+				'tabDomainForwarding' => Language::_("Liquid.tab_domainforwarding.title", true),
+				'tabSettings'   => Language::_("Liquid.tab_settings.title", true),
 			);
 		}
 		else {
@@ -1174,6 +1175,21 @@ class Liquid extends Module {
         {
             return $this->manageDNS("tab_managedns", $package, $service, $get, $post, $files);
         }
+
+        /**
+         *
+	 * @param stdClass $package A stdClass object representing the current package
+	 * @param stdClass $service A stdClass object representing the current service
+	 * @param array $get Any GET parameters
+	 * @param array $post Any POST parameters
+	 * @param array $files Any FILES parameters
+	 * @return string The string representing the contents of this tab
+         */
+        public function tabDomainForwarding($package, $service, array $get=null, array $post=null, array $files=null)
+        {
+            return $this->manageDomainForwarding("tab_domainforwarding", $package, $service, $get, $post, $files);
+        }
+
 
         /**
          *
@@ -1492,8 +1508,29 @@ class Liquid extends Module {
 		return $this->view->fetch();
 	}
 
-        private function manageDNS($view, $package, $service, array $get=null, array $post=null, array $files=null) {
+        private function manageDomainForwarding($view, $package, $service, array $get=null, array $post=null, array $files=null) {
+            $vars = array();
+            $row = $this->getModuleRow($package->module_row);
+            $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
+            $api->loadCommand("liquid_dns_manage");
+            $dns = new LiquidDnsManage($api);
+            $fields = $this->serviceFieldsToObject($service->fields);
+            $show_content = true;
 
+            $domain_id = $fields->{'order-id'};
+            $view = ($show_content ? $view : "tab_unavailable");
+            $this->view = new View($view, "default");
+
+            // Load the helpers required for this view
+            Loader::loadHelpers($this, array("Form", "Html"));
+
+            $this->view->set("vars", $vars);
+
+            $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
+            return $this->view->fetch();
+        }
+
+        private function manageDNS($view, $package, $service, array $get=null, array $post=null, array $files=null) {
             $row = $this->getModuleRow($package->module_row);
             $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
             $api->loadCommand("liquid_dns_manage");
@@ -1613,7 +1650,6 @@ class Liquid extends Module {
             // Load the helpers required for this view
             Loader::loadHelpers($this, array("Form", "Html"));
 
-            $tab_data = array();
             $this->view->set("vars", $vars);
 
             $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
