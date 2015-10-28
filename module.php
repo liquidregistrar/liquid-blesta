@@ -38,7 +38,7 @@ abstract class Module {
 	 * @var int The ID of the staff member using the module
 	 */
 	private $staff_id;
-	
+
 	/**
 	 * Returns the name of this module
 	 *
@@ -49,7 +49,7 @@ abstract class Module {
 			return $this->translate($this->config->name);
 		return null;
 	}
-	
+
 	/**
 	 * Returns the version of this module
 	 *
@@ -76,7 +76,7 @@ abstract class Module {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Returns the value used to identify a particular service
 	 *
@@ -92,7 +92,7 @@ abstract class Module {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Returns a noun used to refer to a module row (e.g. "Server", "VPS", "Reseller Account", etc.)
 	 *
@@ -103,7 +103,7 @@ abstract class Module {
 			return $this->translate($this->config->module->row);
 		return null;
 	}
-	
+
 	/**
 	 * Returns a noun used to refer to a module row in plural form (e.g. "Servers", "VPSs", "Reseller Accounts", etc.)
 	 *
@@ -114,7 +114,7 @@ abstract class Module {
 			return $this->translate($this->config->module->rows);
 		return null;
 	}
-	
+
 	/**
 	 * Returns a noun used to refer to a module group (e.g. "Server Group", "Cloud", etc.)
 	 *
@@ -125,7 +125,7 @@ abstract class Module {
 			return $this->translate($this->config->module->group);
 		return null;
 	}
-	
+
 	/**
 	 * Returns the key used to identify the primary field from the set of module row meta fields.
 	 * This value can be any of the module row meta fields.
@@ -137,7 +137,7 @@ abstract class Module {
 			return $this->config->module->row_key;
 		return null;
 	}
-	
+
 	/**
 	 * Performs any necessary bootstraping actions. Sets Input errors on
 	 * failure, preventing the module from being added.
@@ -148,9 +148,9 @@ abstract class Module {
 	 * 	- encrypted Whether or not this field should be encrypted (default 0, not encrypted)
 	 */
 	public function install() {
-		
+
 	}
-	
+
 	/**
 	 * Performs migration of data from $current_version (the current installed version)
 	 * to the given file set version. Sets Input errors on failure, preventing
@@ -159,9 +159,9 @@ abstract class Module {
 	 * @param string $current_version The current installed version of this module
 	 */
 	public function upgrade($current_version) {
-		
+
 	}
-	
+
 	/**
 	 * Performs any necessary cleanup actions. Sets Input errors on failure
 	 * after the module has been uninstalled.
@@ -170,9 +170,9 @@ abstract class Module {
 	 * @param boolean $last_instance True if $module_id is the last instance across all companies for this module, false otherwise
 	 */
 	public function uninstall($module_id, $last_instance) {
-		
+
 	}
-	
+
 	/**
 	 * Returns the relative path from this module's directory to the logo for
 	 * this module. Defaults to views/default/images/logo.png
@@ -184,7 +184,7 @@ abstract class Module {
 			return $this->config->logo;
 		return "views/default/images/logo.png";
 	}
-	
+
 	/**
 	 * Sets the module to be used for any subsequent requests
 	 *
@@ -200,11 +200,11 @@ abstract class Module {
 	 *
 	 * @param stdClass A stdClass object representing the module row
 	 * @see ModuleManager::getRow()
-	 */	
+	 */
 	public final function setModuleRow($module_row) {
 		$this->module_row = $module_row;
 	}
-	
+
 	/**
 	 * Fetches the module currently in use
 	 *
@@ -213,7 +213,7 @@ abstract class Module {
 	public final function getModule() {
 		return $this->module;
 	}
-	
+
 	/**
 	 * Fetches the requested module row for the current module
 	 *
@@ -221,20 +221,20 @@ abstract class Module {
 	 * @return stdClass A stdClass object representing the module row
 	 */
 	public final function getModuleRow($module_row_id=null) {
-		
+
 		if ($module_row_id) {
 			if (!isset($this->ModuleManager))
 				Loader::loadModels($this, array("ModuleManager"));
-			
+
 			$row = $this->ModuleManager->getRow($module_row_id);
-			
+
 			if ($row && $row->module_id == $this->module->id)
 				return $row;
 			return false;
 		}
 		return $this->module_row;
 	}
-	
+
 	/**
 	 * Returns all module rows available to the current module
 	 *
@@ -244,13 +244,13 @@ abstract class Module {
 	public final function getModuleRows($module_group_id=null) {
 		if (!isset($this->module->id))
 			return false;
-		
+
 		if (!isset($this->ModuleManager))
 			Loader::loadModels($this, array("ModuleManager"));
-		
+
 		return $this->ModuleManager->getRows($this->module->id, $module_group_id);
 	}
-	
+
 	/**
 	 * Returns the value used to identify a particular package service which has
 	 * not yet been made into a service. This may be used to uniquely identify
@@ -266,7 +266,7 @@ abstract class Module {
 			return $vars[$this->config->package->name_key];
 		return null;
 	}
-	
+
 	/**
 	 * Attempts to validate service info. This is the top-level error checking method. Sets Input errors on failure.
 	 *
@@ -277,7 +277,7 @@ abstract class Module {
 	public function validateService($package, array $vars=null) {
 		return true;
 	}
-	
+
 	/**
 	 * Adds the service to the remote server. Sets Input errors on failure,
 	 * preventing the service from being added.
@@ -301,7 +301,7 @@ abstract class Module {
 	public function addService($package, array $vars=null, $parent_package=null, $parent_service=null, $status="pending") {
 		return array();
 	}
-	
+
 	/**
 	 * Edits the service on the remote server. Sets Input errors on failure,
 	 * preventing the service from being edited.
@@ -321,7 +321,7 @@ abstract class Module {
 	public function editService($package, $service, array $vars=array(), $parent_package=null, $parent_service=null) {
 		return null;
 	}
-	
+
 	/**
 	 * Cancels the service on the remote server. Sets Input errors on failure,
 	 * preventing the service from being canceled.
@@ -340,7 +340,7 @@ abstract class Module {
 	public function cancelService($package, $service, $parent_package=null, $parent_service=null) {
 		return null;
 	}
-	
+
 	/**
 	 * Suspends the service on the remote server. Sets Input errors on failure,
 	 * preventing the service from being suspended.
@@ -359,7 +359,7 @@ abstract class Module {
 	public function suspendService($package, $service, $parent_package=null, $parent_service=null) {
 		return null;
 	}
-	
+
 	/**
 	 * Unsuspends the service on the remote server. Sets Input errors on failure,
 	 * preventing the service from being unsuspended.
@@ -378,7 +378,7 @@ abstract class Module {
 	public function unsuspendService($package, $service, $parent_package=null, $parent_service=null) {
 		return null;
 	}
-	
+
 	/**
 	 * Allows the module to perform an action when the service is ready to renew.
 	 * Sets Input errors on failure, preventing the service from renewing.
@@ -397,7 +397,7 @@ abstract class Module {
 	public function renewService($package, $service, $parent_package=null, $parent_service=null) {
 		return null;
 	}
-	
+
 	/**
 	 * Updates the package for the service on the remote server. Sets Input
 	 * errors on failure, preventing the service's package from being changed.
@@ -433,7 +433,7 @@ abstract class Module {
 	 * @see Module::getModuleRow()
 	 */
 	public function addPackage(array $vars=null) {
-		
+
 		$meta = array();
 		if (isset($vars['meta']) && is_array($vars['meta'])) {
 			// Return all package meta fields
@@ -445,10 +445,10 @@ abstract class Module {
 				);
 			}
 		}
-		
+
 		return $meta;
 	}
-	
+
 	/**
 	 * Validates input data when attempting to edit a package, returns the meta
 	 * data to save when editing a package. Performs any action required to edit
@@ -465,7 +465,7 @@ abstract class Module {
 	 * @see Module::getModuleRow()
 	 */
 	public function editPackage($package, array $vars=null) {
-		
+
 		$meta = array();
 		if (isset($vars['meta']) && is_array($vars['meta'])) {
 			// Return all package meta fields
@@ -477,10 +477,10 @@ abstract class Module {
 				);
 			}
 		}
-		
-		return $meta;	
+
+		return $meta;
 	}
-	
+
 	/**
 	 * Deletes the package on the remote server. Sets Input errors on failure,
 	 * preventing the package from being deleted.
@@ -490,9 +490,9 @@ abstract class Module {
 	 * @see Module::getModuleRow()
 	 */
 	public function deletePackage($package) {
-		
+
 	}
-	
+
 	/**
 	 * Returns the rendered view of the manage module page
 	 *
@@ -503,7 +503,7 @@ abstract class Module {
 	public function manageModule($module, array &$vars) {
 		return "";
 	}
-	
+
 	/**
 	 * Returns the rendered view of the add module row page
 	 *
@@ -511,7 +511,7 @@ abstract class Module {
 	 * @return string HTML content containing information to display when viewing the add module row page
 	 */
 	public function manageAddRow(array &$vars) {
-		return "";		
+		return "";
 	}
 
 	/**
@@ -520,11 +520,11 @@ abstract class Module {
 	 * @param stdClass $module_row The stdClass representation of the existing module row
 	 * @param array $vars An array of post data submitted to or on the edit module row page (used to repopulate fields after an error)
 	 * @return string HTML content containing information to display when viewing the edit module row page
-	 */	
+	 */
 	public function manageEditRow($module_row, array &$vars) {
 		return "";
 	}
-	
+
 	/**
 	 * Adds the module row on the remote server. Sets Input errors on failure,
 	 * preventing the row from being added.
@@ -546,7 +546,7 @@ abstract class Module {
 		}
 		return $meta;
 	}
-	
+
 	/**
 	 * Edits the module row on the remote server. Sets Input errors on failure,
 	 * preventing the row from being updated.
@@ -569,7 +569,7 @@ abstract class Module {
 		}
 		return $meta;
 	}
-	
+
 	/**
 	 * Deletes the module row on the remote server. Sets Input errors on failure,
 	 * preventing the row from being deleted.
@@ -577,9 +577,9 @@ abstract class Module {
 	 * @param stdClass $module_row The stdClass representation of the existing module row
 	 */
 	public function deleteModuleRow($module_row) {
-		
+
 	}
-	
+
 	/**
 	 * Returns an array of available service delegation order methods. The module
 	 * will determine how each method is defined. For example, the method "first"
@@ -590,9 +590,9 @@ abstract class Module {
 	 * @see Module::selectModuleRow()
 	 */
 	public function getGroupOrderOptions() {
-		
+
 	}
-	
+
 	/**
 	 * Determines which module row should be attempted when a service is provisioned
 	 * for the given group based upon the order method set for that group.
@@ -601,9 +601,9 @@ abstract class Module {
 	 * @see Module::getGroupOrderOptions()
 	 */
 	public function selectModuleRow($module_group_id) {
-		
+
 	}
-	
+
 	/**
 	 * Returns all fields used when adding/editing a package, including any
 	 * javascript to execute when the page is rendered with these fields.
@@ -614,7 +614,7 @@ abstract class Module {
 	public function getPackageFields($vars=null) {
 		return new ModuleFields();
 	}
-	
+
 	/**
 	 * Returns an array of key values for fields stored for a module, package,
 	 * and service under this module, used to substitute those keys with their
@@ -645,29 +645,29 @@ abstract class Module {
 	public function getAdminAddFields($package, $vars=null) {
 		return new ModuleFields();
 	}
-	
+
 	/**
 	 * Returns all fields to display to a client attempting to add a service with the module
 	 *
 	 * @param stdClass $package A stdClass object representing the selected package
 	 * @param $vars stdClass A stdClass object representing a set of post fields
 	 * @return ModuleFields A ModuleFields object, containg the fields to render as well as any additional HTML markup to include
-	 */	
+	 */
 	public function getClientAddFields($package, $vars=null) {
-		return new ModuleFields();		
+		return new ModuleFields();
 	}
-	
+
 	/**
 	 * Returns all fields to display to an admin attempting to edit a service with the module
 	 *
 	 * @param stdClass $package A stdClass object representing the selected package
 	 * @param $vars stdClass A stdClass object representing a set of post fields
 	 * @return ModuleFields A ModuleFields object, containg the fields to render as well as any additional HTML markup to include
-	 */	
+	 */
 	public function getAdminEditFields($package, $vars=null) {
 		return new ModuleFields();
 	}
-	
+
 	/**
 	 * Fetches the HTML content to display when viewing the service info in the
 	 * admin interface.
@@ -679,7 +679,7 @@ abstract class Module {
 	public function getAdminServiceInfo($service, $package) {
 		return "";
 	}
-	
+
 	/**
 	 * Fetches the HTML content to display when viewing the service info in the
 	 * client interface.
@@ -691,7 +691,7 @@ abstract class Module {
 	public function getClientServiceInfo($service, $package) {
 		return "";
 	}
-	
+
 	/**
 	 * Returns all tabs to display to an admin when managing a service whose
 	 * package uses this module
@@ -718,7 +718,7 @@ abstract class Module {
 	public function getClientTabs($package) {
 		return array();
 	}
-	
+
 	/**
 	 * Return all validation errors encountered
 	 *
@@ -728,7 +728,7 @@ abstract class Module {
 		if (isset($this->Input) && is_object($this->Input) && $this->Input instanceof Input)
 			return $this->Input->errors();
 	}
-	
+
 	/**
 	 * Process a request over HTTP using the supplied method type, url and parameters.
 	 *
@@ -742,13 +742,13 @@ abstract class Module {
 			Loader::loadComponents($this, array("Net"));
 			$this->Http = $this->Net->create("Http");
 		}
-		
+
 		if (is_array($params))
 			$params = http_build_query($params);
-		
+
 		return $this->Http->request($method, $url, $params);
 	}
-	
+
 	/**
 	 * Attempts to log the given info to the module log.
 	 *
@@ -762,11 +762,11 @@ abstract class Module {
 	protected function log($url, $data=null, $direction="input", $success=false) {
 		if (!isset($this->Logs))
 			Loader::loadModels($this, array("Logs"));
-		
+
 		// Create a random 8-character group identifier
 		if ($this->log_group == null)
 			$this->log_group = substr(md5(mt_rand()), mt_rand(0, 23), 8);
-		
+
 		$log = array(
 			'staff_id'=>$this->staff_id,
 			'module_id'=>$this->module->id,
@@ -777,13 +777,13 @@ abstract class Module {
 			'group'=>$this->log_group
 		);
 		$this->Logs->addModule($log);
-		
+
 		if (($error = $this->Logs->errors()))
 			throw new Exception(serialize($error));
-			
+
 		return $this->log_group;
 	}
-	
+
 	/**
 	 * Converts numerically indexed service field arrays into an object with member variables
 	 *
@@ -791,17 +791,17 @@ abstract class Module {
 	 * @return stdClass A stdClass objects with member variables
 	 */
 	protected function serviceFieldsToObject(array $fields) {
-		$data = new stdClass();
-		foreach ($fields as $field) {
-			if (is_array($field))
-				$data->{$field['key']} = $field['value'];
-			else
-				$data->{$field->key} = $field->value;
-		}
-		
-		return $data;
+            $data = new stdClass();
+            foreach ($fields as $field) {
+                if (is_array($field))
+                    $data->{$field['key']} = $field['value'];
+                else
+                    $data->{$field->key} = $field->value;
+            }
+
+            return $data;
 	}
-	
+
 	/**
 	 * Converts an array to a ModuleFields object
 	 *
@@ -815,25 +815,25 @@ abstract class Module {
 	 * @return ModuleFields A ModuleFields object containing the fields
 	 */
 	protected function arrayToModuleFields($arr, ModuleFields $fields = null, $vars = null) {
-		
+
 		if ($fields == null)
 			$fields = new ModuleFields();
-		
+
 		foreach ($arr as $name => $field) {
-			
+
 			$label = isset($field['label']) ? $field['label'] : null;
 			$type = isset($field['type']) ? $field['type'] : null;
 			$options = isset($field['options']) ? $field['options'] : null;
 			$attributes = isset($field['attributes']) ? $field['attributes'] : array();
-			
+
 			$field_id = isset($attributes['id']) ? $attributes['id'] : $name . "_id";
-			
+
 			$field_label = null;
 			if ($type !== "hidden")
 				$field_label = $fields->label($label, $field_id);
-			
+
 			$attributes['id'] = $field_id;
-			
+
 			switch ($type) {
 				default:
 					$value = $options;
@@ -853,7 +853,7 @@ abstract class Module {
 					foreach ($options as $key => $value) {
 						$option_id = $field_id . "_" . $i++;
 						$option_label = $fields->label($value, $option_id);
-						
+
 						$checked = false;
 						if (isset($vars->{$name})) {
 							if (is_array($vars->{$name}))
@@ -861,7 +861,7 @@ abstract class Module {
 							else
 								$checked = $key == $vars->{$name};
 						}
-						
+
 						if ($type == "checkbox")
 							$field_label->attach($fields->fieldCheckbox($name, $key, $checked, array('id' => $option_id), $option_label));
 						else
@@ -869,25 +869,25 @@ abstract class Module {
 					}
 					break;
 			}
-			
+
 			if ($field_label)
 				$fields->setField($field_label);
 		}
-		
+
 		return $fields;
 	}
-	
+
 	/**
 	 * Loads a given config file
 	 */
 	protected function loadConfig($file) {
 		if (!isset($this->Json))
 			Loader::loadComponents($this, array("Json"));
-		
+
 		if (file_exists($file))
 			$this->config = $this->Json->decode(file_get_contents($file));
 	}
-	
+
 	/**
 	 * Translate the given str, or passthrough if no translation et
 	 *
@@ -899,7 +899,7 @@ abstract class Module {
 		Configure::set("Language.allow_pass_through", true);
 		$str = Language::_($str, true);
 		Configure::set("Language.allow_pass_through", $pass_through);
-		
+
 		return $str;
 	}
 }

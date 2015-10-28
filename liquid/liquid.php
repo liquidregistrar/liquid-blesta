@@ -1466,6 +1466,9 @@ class Liquid extends Module {
 		$fields = $this->serviceFieldsToObject($service->fields);
 		$show_content = true;
 
+                print_r($service);
+                die;
+
 		if (property_exists($fields, "order-id")) {
 			if (!empty($post)) {
                             if (isset($post['registrar_lock'])) {
