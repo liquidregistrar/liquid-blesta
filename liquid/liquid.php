@@ -285,19 +285,22 @@ class Liquid extends Module {
 
                                 // Set locality for .ASIA
                                 if ($tld == ".asia") {
+                                    $contact_fields = array_merge(Configure::get("Liquid.contact_fields"), Configure::get("Liquid.contact_fields.asia"));
+                                    print_r($contact_fields);
+
                                     $vars['eligibility_criteria'] = "asia";
                                     $vars["extra"]['asia_country']              = $client->country;
                                     $vars["extra"]['asia_entity_type']          = $vars["attr_legalentitytype"];
                                     $vars["extra"]['asia_identification_type']  = $vars["attr_identform"];
                                     $vars["extra"]['asia_identification_number']= $vars["attr_identnumber"];
-                                }
-                                elseif ($tld == ".ru") {
+                                } elseif ($tld == ".ru") {
                                     $vars['attr_org-r'] = $vars['company'];
                                     $vars['attr_address-r'] = $vars['address-line-1'];
                                     $vars['attr_person-r'] = $vars['name'];
                                 }
 
                                 echo $tld;
+
 //                                print_r($vars);
 //                                print_r($client);
                                 print_r(array_intersect_key($vars, array_merge($contact_fields, $customer_fields)));
