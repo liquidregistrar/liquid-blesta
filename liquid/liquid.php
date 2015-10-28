@@ -297,16 +297,16 @@ class Liquid extends Module {
                                     $vars['attr_person-r'] = $vars['name'];
                                 } elseif ($tld == ".us") {
                                     $vars['eligibility_criteria'] = "us";
-                                    $extra['us_purpose']    = "";
-                                    $extra['us_category']   = "";
+                                    $extra['us_purpose']    = $vars["attr_category"];
+                                    $extra['us_category']   = $vars["attr_purpose"];
                                     $vars['extra']          = http_build_query($extra);
                                 }
 
 
-                                print_r($vars);
-                                print_r($client);
-//                                print_r(array_intersect_key($vars, array_merge($contact_fields, $customer_fields)));
-                                die;
+//                                print_r($vars);
+//                                print_r($client);
+////                                print_r(array_intersect_key($vars, array_merge($contact_fields, $customer_fields)));
+//                                die;
 
                                 // Create customer if necessary
                                 if (!$customer_id)
@@ -334,6 +334,9 @@ class Liquid extends Module {
                                 } elseif ($tld == ".au") {
                                         $vars['attr_eligibilityName'] = $client->company;
                                         $vars['attr_registrantName'] = $client->first_name . " " . $client->last_name;
+                                } elseif ($tld == ".us") {
+                                    $domain_fields = array_merge($domain_fields, array("extra" => true));
+                                    $vars['extra'] = "us_contact_id=" . $contact_id;
                                 }
 
                                 $vars = array_merge($vars, $this->createMap($vars));
