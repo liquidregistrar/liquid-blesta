@@ -164,6 +164,10 @@ Configure::set("Liquid.contact_fields.asia", array(
                 'type' => "hidden",
                 'options' => null
         ),
+        'eligibility_criteria' => array(
+                'type' => "hidden",
+                'options' => null
+        ),
         'attr_locality' => array(
                 'type' => "hidden",
                 'options' => null

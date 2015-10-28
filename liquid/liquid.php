@@ -287,10 +287,12 @@ class Liquid extends Module {
                                 if ($tld == ".asia") {
 //                                    $contact_fields = array_merge(Configure::get("Liquid.contact_fields"), Configure::get("Liquid.contact_fields.asia"));
                                     $vars['eligibility_criteria'] = "asia";
-                                    $vars["extra"]['asia_country']              = $client->country;
-                                    $vars["extra"]['asia_entity_type']          = $vars["attr_legalentitytype"];
-                                    $vars["extra"]['asia_identification_type']  = $vars["attr_identform"];
-                                    $vars["extra"]['asia_identification_number']= $vars["attr_identnumber"];
+
+                                    $extra['asia_country']              = $client->country;
+                                    $extra['asia_entity_type']          = $vars["attr_legalentitytype"];
+                                    $extra['asia_identification_type']  = $vars["attr_identform"];
+                                    $extra['asia_identification_number']= $vars["attr_identnumber"];
+                                    $vars['extra'] = http_build_query($extra);
                                 } elseif ($tld == ".ru") {
                                     $vars['attr_org-r'] = $vars['company'];
                                     $vars['attr_address-r'] = $vars['address-line-1'];
@@ -1846,7 +1848,8 @@ class Liquid extends Module {
                 $contacts = new LiquidContacts($api);
 
                 $vars = array_merge($vars, $this->createMap($vars));
-
+                print_r($vars);
+                die;
                 $response = $contacts->add($vars);
 
                 $this->processResponse($api, $response);
