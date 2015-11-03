@@ -1,4 +1,0 @@
-	
-    <div class="empty_section">
-        <div class="empty_box"><?php $this->_("Interworx.tab_unavailable.message");?></div>
-    </div>
