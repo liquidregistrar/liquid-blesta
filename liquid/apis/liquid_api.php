@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . "liquid_response.php";
  */
 class LiquidApi {
 
-	const SANDBOX_URL = "https://api.domainsas.com/";
+	const SANDBOX_URL = "https://api.liquid.jcamp.biz/";
 	const LIVE_URL = "https://api.liqu.id/";
 	const RESPONSE_FORMAT = "json";
 

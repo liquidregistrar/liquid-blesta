@@ -1834,8 +1834,11 @@ class Liquid extends Module {
 
                 $this->processResponse($api, $response);
 
-                if (!$this->Input->errors() && $response->response() > 0)
-                        return $response->response();
+                if (!$this->Input->errors()) {
+                    $respon = $response->response();
+                    return $respon["customer_id"];
+                }
+
                 return null;
         }
 
