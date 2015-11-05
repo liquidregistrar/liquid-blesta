@@ -303,11 +303,6 @@ class Liquid extends Module {
                                 }
 
 
-//                                print_r($vars);
-//                                print_r($client);
-////                                print_r(array_intersect_key($vars, array_merge($contact_fields, $customer_fields)));
-//                                die;
-
                                 // Create customer if necessary
                                 if (!$customer_id)
                                         $customer_id = $this->createCustomer($package->module_row, array_intersect_key($vars, array_merge($contact_fields, $customer_fields)));
@@ -393,8 +388,10 @@ class Liquid extends Module {
                                         return;
 
                                 $order_id = null;
-                                if ($response->response())
-                                        $order_id = $response->response();
+                                if ($response->response()) {
+                                    $domain_data = $response->response();
+                                        $order_id = $domain_data["domain_id"];
+                                }
 
                                 return array(
                                         array('key' => "domain-name", 'value' => $vars['domain-name'], 'encrypted' => 0),
@@ -1005,11 +1002,11 @@ class Liquid extends Module {
                         if (property_exists($fields, "order-id"))
                                 $order_id = $vars->{'order-id'};
                         else
-                                {
-                                        $parts = explode('/', $_SERVER['REQUEST_URI']);
-                                        $order_id = $this->getorderid($package->module_row , $vars->{'domain-name'});
-                                        $this->UpdateOrderID($package , array('service-id' => $parts[sizeof($parts)-2] , 'domain-name' => $vars->{'domain-name'}));
-                                }
+                        {
+                                $parts = explode('/', $_SERVER['REQUEST_URI']);
+                                $order_id = $this->getorderid($package->module_row , $vars->{'domain-name'});
+                                $this->UpdateOrderID($package , array('service-id' => $parts[sizeof($parts)-2] , 'domain-name' => $vars->{'domain-name'}));
+                        }
 
                         // Create domain label
                         $domain = $fields->label(Language::_("Liquid.domain.domain-name", true), "domain-name");
@@ -1353,14 +1350,6 @@ class Liquid extends Module {
                                     $res = $domains->details($vars_);
                                     $data_res = $res->response();
                                     foreach ($data_res as $key => $value) {
-//                                        if ($key == "state") {
-//                                            $data_state = $this->States->getList($data_res["country"]);
-//                                            foreach ($data_state as $v_state) {
-//                                                if ($v_state["code"] == $value) {
-//                                                    $vars->{$section . "_" . $key} = $v_state["name"];
-//                                                }
-//                                            }
-//                                        }
                                         if ($key == "country_code") {
                                             $value = $data_res["country"];
                                         }
@@ -1398,6 +1387,10 @@ class Liquid extends Module {
 
                 // Load the helpers required for this view
                 Loader::loadHelpers($this, array("Form", "Html"));
+
+                if (empty($vars->{'billingcontact_contact-id'})) {
+                    $this->UpdateOrderID($package, array("domain-name" => $fields->{'domain-name'}));
+                }
 
                 $this->view->set("vars", $vars);
                 $this->view->set("fields", $this->arrayToModuleFields($all_fields, null, $vars)->getFields());
@@ -2049,8 +2042,8 @@ class Liquid extends Module {
                 if ($check->status() == "OK") {
                     return true;
                 }
+
                 return false;
-//		return $domains->available(array('domain' => "liquid.com"))->status() == "OK";
         }
 
         /**

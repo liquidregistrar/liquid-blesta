@@ -4,7 +4,7 @@ require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . "liquid_response.php";
 /**
  * Liquid API processor
  *
- * Documentation on the Liquid API: http://manage.liquid.com/kb/answer/744
+ * Documentation on the Liquid API
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License
@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . "liquid_response.php";
  */
 class LiquidApi {
 
-	const SANDBOX_URL = "https://api.liquid.jcamp.biz/";
+	const SANDBOX_URL = "https://api.liquid.jcamp.net/";
 	const LIVE_URL = "https://api.liqu.id/";
 	const RESPONSE_FORMAT = "json";
 
