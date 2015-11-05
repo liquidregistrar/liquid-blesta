@@ -1389,7 +1389,7 @@ class Liquid extends Module {
                 Loader::loadHelpers($this, array("Form", "Html"));
 
                 if (empty($vars->{'billingcontact_contact-id'})) {
-                    $this->UpdateOrderID($package, array("domain-name" => $fields->{'domain-name'}));
+                    $this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
                 }
 
                 $this->view->set("vars", $vars);
