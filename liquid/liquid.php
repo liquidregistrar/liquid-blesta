@@ -1087,22 +1087,20 @@ class Liquid extends Module {
          * @return array An array of tabs in the format of method => title. Example: array('methodName' => "Title", 'methodName2' => "Title2")
          */
         public function getClientTabs($package) {
-                if ($package->meta->type == "domain") {
-                        return array(
-                                'tabClientWhois' => Language::_("Liquid.tab_whois.title", true),
-                                'tabClientNameservers' => Language::_("Liquid.tab_nameservers.title", true),
-                                'tabClientChildname' => Language::_("Liquid.tab_childname.title", true),
-                                'tabClientManagedns' => Language::_("Liquid.tab_managedns.title", true),
-                                'tabClientDomainForwarding' => Language::_("Liquid.tab_domainforwarding.title", true),
-                                'tabClientSettings' => Language::_("Liquid.tab_settings.title", true)
-
-                        );
-                }
-                else {
-                        #
-                        # TODO: Activate & uploads CSR, set field data, etc.
-                        #
-                }
+            if ($package->meta->type == "domain") {
+                return array(
+                    'tabClientWhois' => Language::_("Liquid.tab_whois.title", true),
+                    'tabClientNameservers' => Language::_("Liquid.tab_nameservers.title", true),
+                    'tabClientChildname' => Language::_("Liquid.tab_childname.title", true),
+                    'tabClientManagedns' => Language::_("Liquid.tab_managedns.title", true),
+                    'tabClientDomainForwarding' => Language::_("Liquid.tab_domainforwarding.title", true),
+                    'tabClientSettings' => Language::_("Liquid.tab_settings.title", true)
+                );
+            } else {
+                #
+                # TODO: Activate & uploads CSR, set field data, etc.
+                #
+            }
         }
 
         /**
@@ -1411,59 +1409,63 @@ class Liquid extends Module {
          * @return string The string representing the contents of this tab
          */
         private function manageNameservers($view, $package, $service, array $get=null, array $post=null, array $files=null) {
-                $vars = new stdClass();
+            $vars = new stdClass();
 
-                $row = $this->getModuleRow($package->module_row);
-                $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-                $api->loadCommand("liquid_domains");
-                $domains = new LiquidDomains($api);
+            $row = $this->getModuleRow($package->module_row);
+            $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
+            $api->loadCommand("liquid_domains");
+            $domains = new LiquidDomains($api);
 
-                $fields = $this->serviceFieldsToObject($service->fields);
-                $show_content = true;
+            $fields = $this->serviceFieldsToObject($service->fields);
+            $show_content = true;
 
-                $tld = $this->getTld($fields->{'domain-name'});
-                $sld = substr($fields->{'domain-name'}, 0, -strlen($tld));
+            $tld = $this->getTld($fields->{'domain-name'});
+            $sld = substr($fields->{'domain-name'}, 0, -strlen($tld));
 
-                if (property_exists($fields, "order-id")) {
-                        if (!empty($post)) {
-                                $ns = array();
-                                foreach ($post['ns'] as $i => $nameserver) {
-                                        if ($nameserver != "")
-                                                $ns[] = $nameserver;
-                                }
+            if (property_exists($fields, "order-id")) {
+                if (!empty($post)) {
+                    $ns = array();
+                    foreach ($post['ns'] as $i => $nameserver) {
+                            if ($nameserver != "")
+                                    $ns[] = $nameserver;
+                    }
 
-                                $ns_ = implode(",", $ns);
-                                $post['order-id'] = $fields->{'order-id'};
-                                $response = $domains->modifyNs(array('domain_id' => $fields->{'order-id'}, 'ns' => $ns_));
-                                $this->processResponse($api, $response);
+                    $ns_ = implode(",", $ns);
+                    $post['order-id'] = $fields->{'order-id'};
+                    $response = $domains->modifyNs(array('domain_id' => $fields->{'order-id'}, 'ns' => $ns_));
+                    $this->processResponse($api, $response);
 
-                                $vars = (object)$post;
-                        }
-                        else {
-                                $response = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields' => "ns"))->response();
-
-                                $vars->ns = array();
-                                for ($i=0; $i<5 ;$i++) {
-                                        if (isset($response["ns" . ($i+1)]))
-                                                $vars->ns[] = $response["ns" . ($i+1)];
-                                }
-                        }
+                    $vars = (object)$post;
                 }
                 else {
-                        // No order-id; info is not available
-                        // $show_content = false;
-                        $this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
+                    $response = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields' => "ns"))->response();
+
+                    $vars->ns = array();
+                    for ($i=0; $i<5 ;$i++) {
+                            if (isset($response["ns" . ($i+1)]))
+                                    $vars->ns[] = $response["ns" . ($i+1)];
+                    }
                 }
+            }
+            else {
+                // No order-id; info is not available
+                // $show_content = false;
+                $this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
+            }
 
-                $view = ($show_content ? $view : "tab_unavailable");
-                $this->view = new View($view, "default");
+            $view = ($show_content ? $view : "tab_unavailable");
+            $this->view = new View($view, "default");
 
-                // Load the helpers required for this view
-                Loader::loadHelpers($this, array("Form", "Html"));
+            // Load the helpers required for this view
+            Loader::loadHelpers($this, array("Form", "Html"));
 
-                $this->view->set("vars", $vars);
-                $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
-                return $this->view->fetch();
+            if (empty($vars->ns[0])) {
+                $this->UpdateOrderID($package , array('service-id' => $service->id , 'domain-name' => $fields->{'domain-name'}));
+            }
+
+            $this->view->set("vars", $vars);
+            $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
+            return $this->view->fetch();
         }
 
         /**
@@ -2201,7 +2203,6 @@ class Liquid extends Module {
 
                 Loader::loadModels($this, array("Services"));
 
-                // print_r( $vars );
                 $order_id = $this->getorderid($package->module_row , $vars['domain-name']);
 
                 $this->Services->edit($vars['service-id'] ,  array('domain-name' => $vars['domain-name'] , 'order-id' => $order_id)); // performs service edit, and also calls YourModule::editService()
