@@ -529,15 +529,15 @@ class Liquid extends Module {
                 if ($package->meta->type == "domain") {
                         $fields = $this->serviceFieldsToObject($service->fields);
 
-                        $response = $domains->details(array('order-id' => $fields->{'order-id'}, 'options' => array("OrderDetails")));
+                        $response = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields' => "domain_details"));
                         $this->processResponse($api, $response);
-                        $order = $response->response();
+                        $order = (array) $response->response();
 
                         $vars = array(
                                 'years' => 1,
-                                'order-id' => $fields->{'order-id'},
-                                'exp-date' => $order->endtime,
-                                'invoice-option' => "NoInvoice"
+                                'domain_id' => $fields->{'order-id'},
+                                'current_date' => $order["end_date"],
+                                'invoice_option' => "no_invoice"
                         );
 
                         foreach ($package->pricing as $pricing) {
@@ -548,7 +548,7 @@ class Liquid extends Module {
                         }
 
                         // Only process renewal if adding years today will add time to the expiry date
-                        if (strtotime("+" . $vars['years'] . " years") > $order->endtime) {
+                        if (strtotime("+" . $vars['years'] . " years") > $order["end_date"]) {
                                 $api->loadCommand("liquid_domains");
                                 $domains = new LiquidDomains($api);
                                 $response = $domains->renew($vars);

@@ -184,7 +184,8 @@ class LiquidDomains {
          * @return LiquidResponse
          */
         public function renew(array $vars) {
-                return $this->api->submit("domains/renew", $vars, "POST");
+            $domain_id = $vars["domain_id"];
+            return $this->api->submit("domains/$domain_id/renew", $vars, "POST");
         }
 
         /**
