@@ -522,46 +522,45 @@ class Liquid extends Module {
          */
         public function renewService($package, $service, $parent_package=null, $parent_service=null) {
 
-                $row = $this->getModuleRow($package->module_row);
-                $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
+            $row = $this->getModuleRow($package->module_row);
+            $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
 
-                // Renew domain
-                if ($package->meta->type == "domain") {
-                        $fields = $this->serviceFieldsToObject($service->fields);
+            // Renew domain
+            if ($package->meta->type == "domain") {
+                $fields = $this->serviceFieldsToObject($service->fields);
 
-                        $response = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields' => "domain_details"));
-                        $this->processResponse($api, $response);
-                        $order = (array) $response->response();
+                $response = $domains->details(array('order-id' => $fields->{'order-id'}, 'fields' => "domain_details"));
+                $this->processResponse($api, $response);
+                $order = (array) $response->response();
 
-                        $vars = array(
-                                'years' => 1,
-                                'domain_id' => $fields->{'order-id'},
-                                'current_date' => $order["end_date"],
-                                'invoice_option' => "no_invoice"
-                        );
+                $vars = array(
+                    'years' => 1,
+                    'domain_id' => $fields->{'order-id'},
+                    'current_date' => $order["end_date"],
+                    'invoice_option' => "no_invoice"
+                );
 
-                        foreach ($package->pricing as $pricing) {
-                                if ($pricing->id == $service->pricing_id) {
-                                        $vars['years'] = $pricing->term;
-                                        break;
-                                }
-                        }
-
-                        // Only process renewal if adding years today will add time to the expiry date
-                        if (strtotime("+" . $vars['years'] . " years") > $order["end_date"]) {
-                                $api->loadCommand("liquid_domains");
-                                $domains = new LiquidDomains($api);
-                                $response = $domains->renew($vars);
-                                $this->processResponse($api, $response);
-                        }
-                }
-                else {
-                        #
-                        # TODO: SSL Cert: Set cancelation date of service?
-                        #
+                foreach ($package->pricing as $pricing) {
+                    if ($pricing->id == $service->pricing_id) {
+                        $vars['years'] = $pricing->term;
+                        break;
+                    }
                 }
 
-                return null;
+                // Only process renewal if adding years today will add time to the expiry date
+                if (strtotime("+" . $vars['years'] . " years") > $order["end_date"]) {
+                    $api->loadCommand("liquid_domains");
+                    $domains = new LiquidDomains($api);
+                    $response = $domains->renew($vars);
+                    $this->processResponse($api, $response);
+                }
+            } else {
+                #
+                # TODO: SSL Cert: Set cancelation date of service?
+                #
+            }
+
+            return null;
         }
 
         /**
