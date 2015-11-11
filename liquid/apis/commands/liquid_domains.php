@@ -39,8 +39,7 @@ class LiquidDomains {
                     $caller        = $trace[1]["function"];
                     $function_call = $caller;
                 }
-                echo $function_call;
-                die;
+                $vars["domain_name"] = $vars["domain-name"];
             }
             return $this->api->submit("domains/availability", $vars, "GET");
         }
@@ -238,8 +237,7 @@ class LiquidDomains {
                         $caller        = $trace[1]["function"];
                         $function_call = $caller;
                     }
-                    echo $function_call;
-                    die;
+                    $vars["domain_name"] = $vars["domain-name"];
                 }
 
                 return $this->api->submit("domains/details-by-name", $vars, "GET");
