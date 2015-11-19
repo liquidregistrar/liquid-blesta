@@ -159,6 +159,12 @@ Configure::set("Liquid.customer_fields", array(
 
 
 // .ASIA
+Configure::set("Liquid.contact_fields.co", array(
+        'eligibility_criteria' => array(
+                'type' => "hidden",
+                'options' => null
+        )
+));
 Configure::set("Liquid.contact_fields.asia", array(
         'extra' => array(
                 'type' => "hidden",
