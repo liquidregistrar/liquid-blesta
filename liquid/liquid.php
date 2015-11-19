@@ -300,6 +300,8 @@ class Liquid extends Module {
                                     $extra['us_purpose']    = $vars["attr_purpose"];
                                     $extra['us_category']   = $vars["attr_category"];
                                     $vars['extra']          = http_build_query($extra);
+                                } elseif ($tld == ".co") {
+                                    $vars['eligibility_criteria'] = "co";
                                 }
 
 
