@@ -250,9 +250,7 @@ class Liquid extends Module {
                                             if (isset($client->numbers) AND is_array($client->numbers)) {
                                                 foreach ($client->numbers as $v_telp) {
                                                     $v_telp = (array) $v_telp;
-                                                    print_r($v_telp);
-                                                    die;
-                                                    if ($v_telp["type"] == "phone" AND $v_telp["location"] == "home") {
+//                                                    if ($v_telp["type"] == "phone" AND $v_telp["location"] == "home") {
                                                         $part = explode(".", $this->formatPhone($v_telp["number"], $client->country));
                                                         if (empty($part[1])) {
                                                             $tel_cc = "";
@@ -265,7 +263,7 @@ class Liquid extends Module {
 
                                                         $vars[$key]     = ltrim($tel_cc, "+");
                                                         $vars['tel_no'] = ltrim($tel, "0");
-                                                    }
+//                                                    }
                                                 }
                                             }
 
