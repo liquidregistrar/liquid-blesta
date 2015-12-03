@@ -697,7 +697,7 @@ class Liquid extends Module {
     public function manageAddRow (array &$vars)
     {
         // Load the view into this object, so helpers can be automatically added to the view
-        $this->view = new View("add_row", "default");
+        $this->view = new View("add_row");
         $this->view->base_uri = $this->base_uri;
         $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
 
