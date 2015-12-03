@@ -389,7 +389,7 @@ class Liquid extends Module {
                 # TODO: Create SSL cert
             #
             }
-        } elseif ($status != "pending") {
+        } elseif ($status != "pending" AND $status != "in_review") {
             if ($package->meta->type == "domain") {
                 $api->loadCommand("liquid_domains");
                 $domains = new LiquidDomains($api);
