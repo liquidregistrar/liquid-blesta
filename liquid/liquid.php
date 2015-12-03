@@ -388,7 +388,7 @@ class Liquid extends Module {
                 #
                 # TODO: Create SSL cert
             #
-                        }
+            }
         } elseif ($status != "pending") {
             if ($package->meta->type == "domain") {
                 $api->loadCommand("liquid_domains");
@@ -2269,7 +2269,7 @@ class Liquid extends Module {
 
         if (($errors = $this->Services->errors())) {
             $this->parent->setMessage("error", $errors);
-            echo $errors;
+//            echo $errors;
         }
         return true;
     }

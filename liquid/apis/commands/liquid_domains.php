@@ -243,15 +243,19 @@ class LiquidDomains {
      */
     public function orderid (array $vars)
     {
-        if (!empty($vars["domain-name"])) {
+//        if (!empty($vars["domain-name"])) {
             $trace = debug_backtrace();
+            echo "<pre>";
+            print_r($trace);
+            echo "</pre>";
+            die;
             $function_call = "";
             if (!empty($trace[1]["function"])) { // untuk ngambil fungsi apa yang terakhir menggunakan curl
                 $caller = $trace[1]["function"];
                 $function_call = $caller;
             }
             $vars["domain_name"] = $vars["domain-name"];
-        }
+//        }
 
         return $this->api->submit("domains/details-by-name", $vars, "GET");
     }
@@ -282,6 +286,11 @@ class LiquidDomains {
      */
     public function detailsByName (array $vars)
     {
+                    echo "<pre>";
+            print_r($trace);
+            echo "</pre>";
+            die;
+
         return $this->api->submit("domains/details-by-name", $vars, "GET");
     }
 
