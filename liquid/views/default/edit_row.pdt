@@ -35,9 +35,15 @@
 						$this->Form->label($this->_("Liquid.row_meta.sandbox", true), "sandbox", array('class' => "inline"));
 						?>
 					</li>
+            <li>
+                <?php
+                $this->Form->fieldCheckbox("debug_backtrace", "true", $this->Html->ifSet($vars->debug_backtrace) == "true", array('id' => "debug_backtrace"));
+                $this->Form->label($this->_("Liquid.row_meta.debug_backtrace", true), "debug_backtrace", array('class' => "inline"));
+                ?>
+            </li>
 				</ul>
 			</div>
-			
+
 			<div class="button_row"><a class="btn_right submit" href="#"><?php $this->_("Liquid.edit_row.add_btn");?></a></div>
 			<?php
 			$this->Form->end();
