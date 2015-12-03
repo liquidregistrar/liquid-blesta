@@ -2153,8 +2153,7 @@ class Liquid extends Module {
             }
             $dbg_backtrace[$key] = $value;
         }
-        $this->log("debug_backtrace", debug_backtrace(), "api_debug", $response->status() == "OK");
-
+        $this->log("debug_backtrace", $dbg_backtrace, "api_debug", $response->status() == "OK");
     }
 
     /**
