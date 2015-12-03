@@ -2148,10 +2148,11 @@ class Liquid extends Module {
         $this->log($last_request['url'], $response->raw(), "output", $response->status() == "OK");
         $dbg_backtrace = array();
         foreach (debug_backtrace() as $key => $value) {
-            if ($key >= 3) {
+            if ($key >= 5) {
                 continue;
             }
             $dbg_backtrace[$key] = $value;
+            unset($dbg_backtrace[$key]["object"]);
         }
         $this->log($last_request['url'], json_encode($dbg_backtrace), "output", $response->status() == "OK");
     }
