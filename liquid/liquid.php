@@ -697,7 +697,7 @@ class Liquid extends Module {
     public function manageAddRow (array &$vars)
     {
         // Load the view into this object, so helpers can be automatically added to the view
-        $this->view = new View("add_row");
+        $this->view = new View("add_row", "default");
         $this->view->base_uri = $this->base_uri;
         $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
 
@@ -755,7 +755,7 @@ class Liquid extends Module {
      */
     public function addModuleRow (array &$vars)
     {
-        $meta_fields = array("registrar", "reseller_id", "key", "sandbox", "debug_backtrace");
+        $meta_fields = array("registrar", "reseller_id", "key", "sandbox");
         $encrypted_fields = array("key");
 
         // Set unspecified checkboxes
@@ -770,7 +770,6 @@ class Liquid extends Module {
             // Build the meta data for this row
             $meta = array();
             foreach ($vars as $key => $value) {
-
                 if (in_array($key, $meta_fields)) {
                     $meta[] = array(
                         'key' => $key,
@@ -2147,6 +2146,13 @@ class Liquid extends Module {
 
         $this->log($last_request['url'], serialize($last_request['args']), "input", true);
         $this->log($last_request['url'], $response->raw(), "output", $response->status() == "OK");
+        $dbg_backtrace = array();
+        foreach (debug_backtrace() as $key => $value) {
+            if ($key >= 3) {
+                continue;
+            }
+            $dbg_backtrace[$key] = $value;
+        }
         $this->log("debug_backtrace", debug_backtrace(), "api_debug", $response->status() == "OK");
 
     }

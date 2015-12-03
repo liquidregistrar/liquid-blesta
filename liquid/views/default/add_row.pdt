@@ -36,12 +36,6 @@ $this->Form->create();
                 $this->Form->label($this->_("Liquid.row_meta.sandbox", true), "sandbox", array('class' => "inline"));
                 ?>
             </li>
-            <li>
-                <?php
-                $this->Form->fieldCheckbox("debug_backtrace", "true", $this->Html->ifSet($vars->debug_backtrace) == "true", array('id' => "debug_backtrace"));
-                $this->Form->label($this->_("Liquid.row_meta.debug_backtrace", true), "debug_backtrace", array('class' => "inline"));
-                ?>
-            </li>
         </ul>
     </div>
 
