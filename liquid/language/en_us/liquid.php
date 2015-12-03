@@ -1,4 +1,5 @@
 <?php
+
 // Basics
 $lang['Liquid.name'] = "Liquid";
 $lang['Liquid.module_row'] = "Account";
@@ -20,6 +21,7 @@ $lang['Liquid.manage.module_rows_no_results'] = "There are no accounts.";
 // Row Meta
 $lang['Liquid.row_meta.registrar'] = "Registrar Name";
 $lang['Liquid.row_meta.reseller_id'] = "Reseller ID";
+$lang['Liquid.row_meta.debug_backtrace'] = "Debug Backtrace Api";
 $lang['Liquid.row_meta.key'] = "Key";
 $lang['Liquid.row_meta.sandbox'] = "Sandbox";
 $lang['Liquid.row_meta.sandbox_true'] = "Yes";
@@ -367,4 +369,3 @@ $lang['Liquid.domain.ASIAIdentForm.politicalPartyRegistry'] = "Political Party R
 $lang['Liquid.domain.ASIAIdentForm.passport'] = "Passport/ Citizenship ID";
 $lang['Liquid.domain.ASIAIdentNumber'] = "Identity Number";
 
-?>
