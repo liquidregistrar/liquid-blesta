@@ -277,7 +277,8 @@ class LiquidDnsManage {
         if (!empty($vars["order-id"])) {
             $vars["domain_id"] = $vars["order-id"];
         }
-        return $this->api->submit("domains/$vars[domain_id]/dns/txt/" . $vars["old_hostname"] . "/" . $vars["old_value"], $vars, "PUT");
+//        return $this->api->submit("domains/$vars[domain_id]/dns/txt/" . $vars["old_hostname"] . "/" . $vars["old_value"], $vars, "PUT");
+        return $this->api->submit("domains/$vars[domain_id]/dns/txt", $vars, "PUT");
     }
 
     /**
@@ -434,7 +435,8 @@ class LiquidDnsManage {
         if (!empty($vars["order-id"])) {
             $vars["domain_id"] = $vars["order-id"];
         }
-        return $this->api->submit("domains/$vars[domain_id]/dns/txt/" . $vars["hostname"] . "/" . $vars["old_value"], $vars, "DELETE");
+//        return $this->api->submit("domains/$vars[domain_id]/dns/txt/" . $vars["hostname"] . "/" . $vars["old_value"], $vars, "DELETE");
+        return $this->api->submit("domains/$vars[domain_id]/dns/txt", $vars, "DELETE");
     }
 
     /**
