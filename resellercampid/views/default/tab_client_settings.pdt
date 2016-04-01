@@ -8,7 +8,7 @@
 		
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title"><?php $this->_("Liquid.tab_settings.field_registrar_lock");?></h3>
+					<h3 class="panel-title"><?php $this->_("Resellercampid.tab_settings.field_registrar_lock");?></h3>
 				</div>
 				<div class="panel-body">
 					<?php 
@@ -26,7 +26,7 @@
 				
 					<div class="input-group has-success">
 						<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-						<input class="form-control" type="text" placeholder="<?php $this->_("Liquid.tab_settings.field_registrar_lock_yes");	?>" disabled>
+						<input class="form-control" type="text" placeholder="<?php $this->_("Resellercampid.tab_settings.field_registrar_lock_yes");	?>" disabled>
 						<span class="input-group-addon">
 							<?php
 							$this->Form->fieldRadio("registrar_lock", "true", $this->Html->ifSet($vars->registrar_lock) == "true");
@@ -35,7 +35,7 @@
 					</div><!-- /input-group -->	
 					<div class="input-group has-warning">
 						<span class="input-group-addon"><span class="glyphicon glyphicon-transfer"></span></span>
-						<input class="form-control" type="text" placeholder="<?php $this->_("Liquid.tab_settings.field_registrar_lock_no");	?>" disabled>
+						<input class="form-control" type="text" placeholder="<?php $this->_("Resellercampid.tab_settings.field_registrar_lock_no");	?>" disabled>
 						<span class="input-group-addon">
 							<?php
 							$this->Form->fieldRadio("registrar_lock", "false", $this->Html->ifSet($vars->registrar_lock) == "false");
@@ -53,7 +53,7 @@
 						<label>
 							<?php
 							$this->Form->fieldCheckbox("request_epp", "true", $this->Html->ifSet($vars->request_epp) == "true", array('id' => "request_epp"));
-							$this->_("Liquid.tab_settings.field_request_epp");
+							$this->_("Resellercampid.tab_settings.field_request_epp");
 							?>
 						</label>
 						<strong class="epp_code label-info" style="display: none;"><?php $this->Html->_($vars->epp_code);?></strong>
@@ -66,7 +66,7 @@
 		</div>
 	</div>
 	<button class="btn btn-default pull-right" type="submit">
-		<i class="fa fa-edit"></i> <?php $this->_("Liquid.tab_settings.field_submit");?>
+		<i class="fa fa-edit"></i> <?php $this->_("Resellercampid.tab_settings.field_submit");?>
 	</button>
 	<?php
 	$this->Form->end();

@@ -6,7 +6,7 @@
 		<ul>
 			<li>
 				<?php
-				$this->Form->label($this->_("Liquid.tab_settings.field_registrar_lock", true), "registrar_lock");
+				$this->Form->label($this->_("Resellercampid.tab_settings.field_registrar_lock", true), "registrar_lock");
 
 				$this->Form->fieldRadio("registrar_lock", "true", $this->Html->ifSet($vars->registrar_lock) == "true", array('id' => "registrar_lock_yes"));
 				$this->Form->label("Set the registrar lock. Recommended to prevent unauthorized transfer.", "registrar_lock_yes", array('class' => "inline"));

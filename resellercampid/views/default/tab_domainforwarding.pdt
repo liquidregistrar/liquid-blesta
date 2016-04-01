@@ -1,5 +1,5 @@
 <div class="title_row first">
-    <h3><?php echo Language::_("Liquid.tab_domainforwarding.title", true); ?></h3>
+    <h3><?php echo Language::_("Resellercampid.tab_domainforwarding.title", true); ?></h3>
 </div>
 
 <?php
@@ -8,13 +8,13 @@
 <table class="table">
     <tbody>
         <tr class="module_list">
-            <td><?php echo Language::_("Liquid.tab_domainforwarding.destination", true); ?></td>
+            <td><?php echo Language::_("Resellercampid.tab_domainforwarding.destination", true); ?></td>
             <td>
                 <?php $this->Form->fieldText("destination", $vars["forwarding"]["url_dest"], array('id' => "destination", 'style' => 'width: 100%;'));?>
             </td>
         </tr>
         <tr class="module_list odd_row">
-            <td><?php echo Language::_("Liquid.tab_domainforwarding.urlmask", true); ?></td>
+            <td><?php echo Language::_("Resellercampid.tab_domainforwarding.urlmask", true); ?></td>
             <td>
                 <?php
                     $on = false;
@@ -33,19 +33,19 @@
             </td>
         </tr>
         <tr class="module_list sub_urlmask" >
-            <td><?php echo Language::_("Liquid.tab_domainforwarding.headertag", true); ?></td>
+            <td><?php echo Language::_("Resellercampid.tab_domainforwarding.headertag", true); ?></td>
             <td>
                 <?php $this->Form->fieldTextarea("headertag", $vars["forwarding"]["meta_tags"], array('id' => "headertag", 'style' => 'width: 100%;'));?>
             </td>
         </tr>
         <tr class="module_list odd_row sub_urlmask">
-            <td><?php echo Language::_("Liquid.tab_domainforwarding.noframe", true); ?></td>
+            <td><?php echo Language::_("Resellercampid.tab_domainforwarding.noframe", true); ?></td>
             <td>
                 <?php $this->Form->fieldTextarea("noframe", $vars["forwarding"]["no_frames_content"], array('id' => "noframe", 'style' => 'width: 100%;'));?>
             </td>
         </tr>
         <tr class="module_list ">
-            <td><?php echo Language::_("Liquid.tab_domainforwarding.subdomain", true); ?></td>
+            <td><?php echo Language::_("Resellercampid.tab_domainforwarding.subdomain", true); ?></td>
             <td>
                 <?php
                     $on = false;
@@ -64,7 +64,7 @@
             </td>
         </tr>
         <tr class="module_list odd_row">
-            <td><?php echo Language::_("Liquid.tab_domainforwarding.path", true); ?></td>
+            <td><?php echo Language::_("Resellercampid.tab_domainforwarding.path", true); ?></td>
             <td>
                 <?php
                     $on = false;
@@ -86,7 +86,7 @@
     </tbody>
 </table>
     <button class="btn btn-primary" type="submit" name="submit" value="update"  >
-    <i class="fa fa-plus-square"></i> <?php $this->_("Liquid.tab_domainforwarding.field_submit");?>
+    <i class="fa fa-plus-square"></i> <?php $this->_("Resellercampid.tab_domainforwarding.field_submit");?>
     </button>
 <?php
     $this->Form->end();

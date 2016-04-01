@@ -1,14 +1,14 @@
 <div class="title_row first">
-    <h3><?php echo Language::_("Liquid.tab_managedns.title", true); ?></h3>
+    <h3><?php echo Language::_("Resellercampid.tab_managedns.title", true); ?></h3>
 </div>
 
 <table class="table">
     <tbody>
     <tr class="heading_row">
-        <td><span><?php echo Language::_("Liquid.tab_managedns.field_hostname", true); ?></span></td>
-        <td><span><?php echo Language::_("Liquid.tab_managedns.field_recordtype", true); ?></span></td>
-        <td><span><?php echo Language::_("Liquid.tab_managedns.field_value", true); ?></span></td>
-        <td><span><?php echo Language::_("Liquid.tab_managedns.field_priority", true); ?></span></td>
+        <td><span><?php echo Language::_("Resellercampid.tab_managedns.field_hostname", true); ?></span></td>
+        <td><span><?php echo Language::_("Resellercampid.tab_managedns.field_recordtype", true); ?></span></td>
+        <td><span><?php echo Language::_("Resellercampid.tab_managedns.field_value", true); ?></span></td>
+        <td><span><?php echo Language::_("Resellercampid.tab_managedns.field_priority", true); ?></span></td>
         <td>&nbsp;</td>
     </tr>
     <?php
@@ -21,7 +21,7 @@
         <td><b>A</b></td>
         <td><?php // echo $value["ip"] ?>
         <?php
-            $this->Form->fieldText("value", $value["ip"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+            $this->Form->fieldText("value", $value["ip"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Resellercampid.tab_childname.field_ip", true, $i+1)));
             $this->Form->fieldHidden("old-value", $value["ip"]);
         ?>
         </td>
@@ -32,10 +32,10 @@
             $this->Form->fieldHidden("type", "A");
             ?>
             <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
-                <?php $this->_("Liquid.tab_childname.field_update");?>
+                <?php $this->_("Resellercampid.tab_childname.field_update");?>
             </button>
             <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
-                <?php $this->_("Liquid.tab_childname.field_delete");?>
+                <?php $this->_("Resellercampid.tab_childname.field_delete");?>
             </button>
         </td>
     </tr>
@@ -52,7 +52,7 @@
         <td>
             <?php // echo $value["ip"] ?>
         <?php
-            $this->Form->fieldText("value", $value["ip"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+            $this->Form->fieldText("value", $value["ip"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Resellercampid.tab_childname.field_ip", true, $i+1)));
             $this->Form->fieldHidden("old-value", $value["ip"]);
         ?>
         </td>
@@ -63,10 +63,10 @@
             $this->Form->fieldHidden("type", "AAAA");
             ?>
             <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
-                <?php $this->_("Liquid.tab_childname.field_update");?>
+                <?php $this->_("Resellercampid.tab_childname.field_update");?>
             </button>
             <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
-                <?php $this->_("Liquid.tab_childname.field_delete");?>
+                <?php $this->_("Resellercampid.tab_childname.field_delete");?>
             </button>
         </td>
     </tr>
@@ -83,7 +83,7 @@
         <td>
             <?php // echo $value["val"] ?>
         <?php
-            $this->Form->fieldText("value", $value["val"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+            $this->Form->fieldText("value", $value["val"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Resellercampid.tab_childname.field_ip", true, $i+1)));
             $this->Form->fieldHidden("old-value", $value["val"]);
         ?>
         </td>
@@ -94,10 +94,10 @@
             $this->Form->fieldHidden("type", "CNAME");
             ?>
             <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
-                <?php $this->_("Liquid.tab_childname.field_update");?>
+                <?php $this->_("Resellercampid.tab_childname.field_update");?>
             </button>
             <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
-                <?php $this->_("Liquid.tab_childname.field_delete");?>
+                <?php $this->_("Resellercampid.tab_childname.field_delete");?>
             </button>
         </td>
     </tr>
@@ -114,12 +114,12 @@
         <td>
             <?php // echo $value["val"] ?>
         <?php
-            $this->Form->fieldText("value", $value["val"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+            $this->Form->fieldText("value", $value["val"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Resellercampid.tab_childname.field_ip", true, $i+1)));
             $this->Form->fieldHidden("old-value", $value["val"]);
         ?>
         </td>
         <td>
-            <?php $this->Form->fieldText("priority", $value["priority"], array('id' => "priority" , 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1))); ?>
+            <?php $this->Form->fieldText("priority", $value["priority"], array('id' => "priority" , 'placeholder'=>$this->_("Resellercampid.tab_childname.field_ip", true, $i+1))); ?>
         </td>
         <td>
             <?php
@@ -127,10 +127,10 @@
             $this->Form->fieldHidden("type", "MX");
             ?>
             <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
-                <?php $this->_("Liquid.tab_childname.field_update");?>
+                <?php $this->_("Resellercampid.tab_childname.field_update");?>
             </button>
             <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
-                <?php $this->_("Liquid.tab_childname.field_delete");?>
+                <?php $this->_("Resellercampid.tab_childname.field_delete");?>
             </button>
         </td>
     </tr>
@@ -147,7 +147,7 @@
         <td>
             <?php // echo $value["val"] ?>
         <?php
-            $this->Form->fieldText("value", $value["val"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+            $this->Form->fieldText("value", $value["val"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Resellercampid.tab_childname.field_ip", true, $i+1)));
             $this->Form->fieldHidden("old-value", $value["val"]);
         ?>
         </td>
@@ -158,10 +158,10 @@
             $this->Form->fieldHidden("type", "TXT");
             ?>
             <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
-                <?php $this->_("Liquid.tab_childname.field_update");?>
+                <?php $this->_("Resellercampid.tab_childname.field_update");?>
             </button>
             <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
-                <?php $this->_("Liquid.tab_childname.field_delete");?>
+                <?php $this->_("Resellercampid.tab_childname.field_delete");?>
             </button>
         </td>
     </tr>
@@ -172,18 +172,18 @@
     ?>
     </tbody>
 </table>
-<?php // echo Language::_("Liquid.tab_managedns.field_priority_note", true); ?>
+<?php // echo Language::_("Resellercampid.tab_managedns.field_priority_note", true); ?>
 
 <br>
 <div class="title_row first">
-    <h3><?php echo Language::_("Liquid.tab_managedns.title_add", true); ?></h3>
+    <h3><?php echo Language::_("Resellercampid.tab_managedns.title_add", true); ?></h3>
 </div>
 <?php
 $this->Form->create();
     ?>
     Hostname :
     <?php
-    $this->Form->fieldText("hostname", "", array('id' => "cns" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ns", true )));
+    $this->Form->fieldText("hostname", "", array('id' => "cns" , 'class'=>"form-control", 'placeholder'=>$this->_("Resellercampid.tab_childname.field_ns", true )));
     ?><br>
     Value :
     <?php
@@ -191,7 +191,7 @@ $this->Form->create();
     ?><br>
     Type :
     <?php
-    $this->Form->fieldSelect("type", array("A"=>"A","AAAA"=>"AAAA","CNAME"=>"CNAME","MX"=>"MX","TXT"=>"TXT"), "A" ,array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true)));
+    $this->Form->fieldSelect("type", array("A"=>"A","AAAA"=>"AAAA","CNAME"=>"CNAME","MX"=>"MX","TXT"=>"TXT"), "A" ,array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>$this->_("Resellercampid.tab_childname.field_ip", true)));
     ?><br>
     Priority :
     <?php
@@ -199,7 +199,7 @@ $this->Form->create();
     ?>
     <br>
     <button class="btn btn-primary" type="submit" name="submit" value="add"  >
-    <i class="fa fa-plus-square"></i> <?php $this->_("Liquid.tab_childname.field_add");?>
+    <i class="fa fa-plus-square"></i> <?php $this->_("Resellercampid.tab_childname.field_add");?>
     </button>
     <?php
 $this->Form->end();
