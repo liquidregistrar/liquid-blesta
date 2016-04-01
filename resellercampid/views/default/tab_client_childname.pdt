@@ -1,0 +1,78 @@
+
+	<div class="row panel-fix">
+		<div class="col-md-12">
+		<?php
+		$count = 1 ;
+		foreach ($vars["cns"] as $name => $value) {
+//			for ($i=0; $i<count($value); $i++) {
+			$this->Form->create();
+				?>
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon"><?php echo $count ;?></span>
+						<?php
+						$this->Form->fieldText("cns", $value["hostname"], array('id' => "cns" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ns", true, $i+1)));
+						$this->Form->fieldHidden("old-cns", $value["hostname"]);
+						$this->Form->fieldText("ip", $value["ip"], array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+						$this->Form->fieldHidden("old-ip", $value["ip"]);
+						?>
+						<span class="input-group-addon">
+                                                    <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
+                                                            <i class="fa fa-edit"></i> <?php $this->_("Liquid.tab_childname.field_update");?>
+                                                    </button>
+                                                    <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                                                            <i class="fa fa-ban"></i> <?php $this->_("Liquid.tab_childname.field_delete");?>
+                                                    </button>
+						</span>
+					</div>
+				</div>
+				<?php
+			$this->Form->end();
+			$count++;
+//			}
+		}
+		?>
+		<div class="form-group">
+			<!-- Button trigger modal -->
+			<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+				<i class="fa fa-plus-square"></i> <?php $this->_("Liquid.tab_childname.field_add");?> <?php $this->_("Liquid.tab_childname.title");?>
+			</button>
+		</div>
+		</div>
+	</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel"><?php $this->_("Liquid.tab_childname.field_add");?> <?php $this->_("Liquid.tab_childname.title");?></h4>
+			</div>
+			<div class="modal-body">
+				<?php
+				$this->Form->create();
+				?>
+				<div class="input-group">
+					<span class="input-group-addon">1</span>
+					<?php
+					$this->Form->fieldText("cns", "", array('id' => "cns" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ns", true )));
+					$this->Form->fieldText("ip", "", array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true))); ?>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" type="button" data-dismiss="modal">
+					<i class="fa fa-ban fa-fw"></i> <?php $this->_("Liquid.tab_childname.field_close");?>
+				</button>
+				<button class="btn btn-primary" type="submit" name="submit" value="add"  >
+					<i class="fa fa-plus-square"></i> <?php $this->_("Liquid.tab_childname.field_add");?>
+				</button>
+			</div>
+		<?php
+		$this->Form->end();
+		?>
+		</div>
+	</div>
+</div>
+
+
