@@ -831,7 +831,7 @@ class Resellercampid extends Module {
 
         // Set type of package
         $type = $fields->label(Language::_("Resellercampid.package_fields.type", true), "resellercampid_type");
-        $type->attach($fields->fieldSelect("meta[type]", $types, $this->Html->ifSet($vars->meta['type']), array('id' => resellercampidtype")));
+        $type->attach($fields->fieldSelect("meta[type]", $types, $this->Html->ifSet($vars->meta['type']), array('id' => "resellercampid_type")));
         $fields->setField($type);
 
         // Set all TLD checkboxes
