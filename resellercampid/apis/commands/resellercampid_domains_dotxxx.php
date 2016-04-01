@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Liquid Domain .XXX Management
+ * Resellercampid Domain .XXX Management
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License
- * @package liquid.commands
+ * @package resellercampid.commands
  */
-class LiquidDomainsDotxxx {
+class ResellercampidDomainsDotxxx {
 
     /**
-     * @var LiquidApi
+     * @var ResellercampidApi
      */
     private $api;
 
     /**
      * Sets the API to use for communication
      *
-     * @param LiquidApi $api The API to use for communication
+     * @param ResellercampidApi $api The API to use for communication
      */
-    public function __construct (LiquidApi $api)
+    public function __construct (ResellercampidApi $api)
     {
         $this->api = $api;
     }
@@ -30,7 +30,7 @@ class LiquidDomainsDotxxx {
      * @param array $vars An array of input params including:
      * 	- order-id Order Id of the .XXX Domain Registration Order, to which you want to associate/dissociate a Membership Token/ID.
      * 	- association-id A Membership Token/ID allocated by the .XXX Registry needs to be associated with the domain name, only if the Registrant wants it to resolve.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function associationDetails (array $vars)
     {

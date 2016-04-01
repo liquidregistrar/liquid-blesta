@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Liquid Contact COOP Management
+ * Resellercampid Contact COOP Management
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License
- * @package liquid.commands
+ * @package resellercampid.commands
  */
-class LiquidContactsCoop {
+class ResellercampidContactsCoop {
 
     /**
-     * @var LiquidApi
+     * @var ResellercampidApi
      */
     private $api;
 
     /**
      * Sets the API to use for communication
      *
-     * @param LiquidApi $api The API to use for communication
+     * @param ResellercampidApi $api The API to use for communication
      */
-    public function __construct (LiquidApi $api)
+    public function __construct (ResellercampidApi $api)
     {
         $this->api = $api;
     }
@@ -43,7 +43,7 @@ class LiquidContactsCoop {
      * 	- state Name of the state
      * 	- fax-cc Fax number country code
      * 	- fax Fax number
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function addSponsor (array $vars)
     {

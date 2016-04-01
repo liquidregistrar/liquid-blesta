@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Liquid Module
+ * Resellercampid Module
  *
  * @package blesta
- * @subpackage blesta.components.modules.liquid
+ * @subpackage blesta.components.modules.resellercampid
  * @copyright Copyright (c) 2010, Phillips Data, Inc.
  * @license http://www.blesta.com/license/ The Blesta License Agreement
  * @link http://www.blesta.com/ Blesta
  */
-class Liquid extends Module {
+class Resellercampid extends Module {
 
     /**
      * @var string The version of this module
@@ -19,7 +19,7 @@ class Liquid extends Module {
     /**
      * @var string The authors of this module
      */
-    private static $authors = array(array('name' => "JogjaCamp.", 'url' => "https://resellercamp.com"));
+    private static $authors = array(array('name' => "JogjaCamp.", 'url' => "https://resellercamp.id"));
 
     /**
      * Initializes the module
@@ -30,9 +30,9 @@ class Liquid extends Module {
         Loader::loadComponents($this, array("Input"));
 
         // Load the language required by this module
-        Language::loadLang("liquid", null, dirname(__FILE__) . DS . "language" . DS);
+        Language::loadLang("resellercampid", null, dirname(__FILE__) . DS . "language" . DS);
 
-        Configure::load("liquid", dirname(__FILE__) . DS . "config" . DS);
+        Configure::load("resellercampid", dirname(__FILE__) . DS . "config" . DS);
     }
 
     /**
@@ -42,7 +42,7 @@ class Liquid extends Module {
      */
     public function getName ()
     {
-        return Language::_("Liquid.name", true);
+        return Language::_("Resellercampid.name", true);
     }
 
     /**
@@ -87,7 +87,7 @@ class Liquid extends Module {
      */
     public function moduleRowName ()
     {
-        return Language::_("Liquid.module_row", true);
+        return Language::_("Resellercampid.module_row", true);
     }
 
     /**
@@ -97,7 +97,7 @@ class Liquid extends Module {
      */
     public function moduleRowNamePlural ()
     {
-        return Language::_("Liquid.module_row_plural", true);
+        return Language::_("Resellercampid.module_row_plural", true);
     }
 
     /**
@@ -191,8 +191,8 @@ class Liquid extends Module {
         }
 
         if ($package->meta->type == "domain") {
-            $contact_fields = Configure::get("Liquid.contact_fields");
-            $customer_fields = Configure::get("Liquid.customer_fields");
+            $contact_fields = Configure::get("Resellercampid.contact_fields");
+            $customer_fields = Configure::get("Resellercampid.customer_fields");
             $domain_field_basics = array(
                 'years' => true,
                 'domain_name' => true,
@@ -205,17 +205,17 @@ class Liquid extends Module {
                 'invoice_option' => true,
                 'purchase_privacy_protection' => true
             );
-            $transfer_fields = array_merge(Configure::get("Liquid.transfer_fields"), $domain_field_basics);
-            $domain_fields = array_merge(Configure::get("Liquid.domain_fields"), $domain_field_basics);
-            $domain_contact_fields = (array) Configure::get("Liquid.contact_fields" . $tld);
+            $transfer_fields = array_merge(Configure::get("Resellercampid.transfer_fields"), $domain_field_basics);
+            $domain_fields = array_merge(Configure::get("Resellercampid.domain_fields"), $domain_field_basics);
+            $domain_contact_fields = (array) Configure::get("Resellercampid.contact_fields" . $tld);
 
             $input_fields = array_merge($contact_fields, $customer_fields, $transfer_fields, $domain_fields, $domain_field_basics, $domain_contact_fields);
         }
 
         if (isset($vars['use_module']) && $vars['use_module'] == "true") {
             if ($package->meta->type == "domain") {
-                $api->loadCommand("liquid_domains");
-                $domains = new LiquidDomains($api);
+                $api->loadCommand("resellercampid_domains");
+                $domains = new ResellercampidDomains($api);
 
                 $contact_type = $this->getContactType($tld);
                 $order_id = null;
@@ -391,8 +391,8 @@ class Liquid extends Module {
             }
         } elseif ($status != "pending" AND $status != "in_review") {
             if ($package->meta->type == "domain") {
-                $api->loadCommand("liquid_domains");
-                $domains = new LiquidDomains($api);
+                $api->loadCommand("resellercampid_domains");
+                $domains = new ResellercampidDomains($api);
 
                 $response = $domains->orderid($vars);
                 $this->processResponse($api, $response);
@@ -566,8 +566,8 @@ class Liquid extends Module {
 
             // Only process renewal if adding years today will add time to the expiry date
             if (strtotime("+" . $vars['years'] . " years") > $order["end_date"]) {
-                $api->loadCommand("liquid_domains");
-                $domains = new LiquidDomains($api);
+                $api->loadCommand("resellercampid_domains");
+                $domains = new ResellercampidDomains($api);
                 $response = $domains->renew($vars);
                 $this->processResponse($api, $response);
             }
@@ -678,7 +678,7 @@ class Liquid extends Module {
         // Load the view into this object, so helpers can be automatically added to the view
         $this->view = new View("manage", "default");
         $this->view->base_uri = $this->base_uri;
-        $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
+        $this->view->setDefaultView("components" . DS . "modules" . DS . "resellercampid" . DS);
 
         // Load the helpers required for this view
         Loader::loadHelpers($this, array("Form", "Html", "Widget"));
@@ -699,7 +699,7 @@ class Liquid extends Module {
         // Load the view into this object, so helpers can be automatically added to the view
         $this->view = new View("add_row", "default");
         $this->view->base_uri = $this->base_uri;
-        $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
+        $this->view->setDefaultView("components" . DS . "modules" . DS . "resellercampid" . DS);
 
         // Load the helpers required for this view
         Loader::loadHelpers($this, array("Form", "Html", "Widget"));
@@ -726,7 +726,7 @@ class Liquid extends Module {
         // Load the view into this object, so helpers can be automatically added to the view
         $this->view = new View("edit_row", "default");
         $this->view->base_uri = $this->base_uri;
-        $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
+        $this->view->setDefaultView("components" . DS . "modules" . DS . "resellercampid" . DS);
 
         // Load the helpers required for this view
         Loader::loadHelpers($this, array("Form", "Html", "Widget"));
@@ -825,19 +825,19 @@ class Liquid extends Module {
         $fields = new ModuleFields();
 
         $types = array(
-            'domain' => Language::_("Liquid.package_fields.type_domain", true),
-                //'ssl' => Language::_("Liquid.package_fields.type_ssl", true)
+            'domain' => Language::_("Resellercampid.package_fields.type_domain", true),
+                //'ssl' => Language::_("Resellercampid.package_fields.type_ssl", true)
         );
 
         // Set type of package
-        $type = $fields->label(Language::_("Liquid.package_fields.type", true), "liquid_type");
-        $type->attach($fields->fieldSelect("meta[type]", $types, $this->Html->ifSet($vars->meta['type']), array('id' => "liquid_type")));
+        $type = $fields->label(Language::_("Resellercampid.package_fields.type", true), "resellercampid_type");
+        $type->attach($fields->fieldSelect("meta[type]", $types, $this->Html->ifSet($vars->meta['type']), array('id' => resellercampidtype")));
         $fields->setField($type);
 
         // Set all TLD checkboxes
-        $tld_options = $fields->label(Language::_("Liquid.package_fields.tld_options", true));
+        $tld_options = $fields->label(Language::_("Resellercampid.package_fields.tld_options", true));
 
-        $tlds = Configure::get("Liquid.tlds");
+        $tlds = Configure::get("Resellercampid.tlds");
         sort($tlds);
         foreach ($tlds as $tld) {
             $tld_label = $fields->label($tld, "tld_" . $tld);
@@ -847,26 +847,26 @@ class Liquid extends Module {
 
         // Set nameservers
         for ($i = 1; $i <= 5; $i++) {
-            $type = $fields->label(Language::_("Liquid.package_fields.ns" . $i, true), "liquid_ns" . $i);
-            $type->attach($fields->fieldText("meta[ns][]", $this->Html->ifSet($vars->meta['ns'][$i - 1]), array('id' => "liquid_ns" . $i)));
+            $type = $fields->label(Language::_("Resellercampid.package_fields.ns" . $i, true), "resellercampid_ns" . $i);
+            $type->attach($fields->fieldText("meta[ns][]", $this->Html->ifSet($vars->meta['ns'][$i - 1]), array('id' => "resellercampid_ns" . $i)));
             $fields->setField($type);
         }
 
         $fields->setHtml("
                         <script type=\"text/javascript\">
                                 $(document).ready(function() {
-                                        toggleTldOptions($('#liquid_type').val());
+                                        toggleTldOptions($('#resellercampid_type').val());
 
                                         // Re-fetch module options to toggle fields
-                                        $('#liquid_type').change(function() {
+                                        $('#resellercampid_type').change(function() {
                                                 toggleTldOptions($(this).val());
                                         });
 
                                         function toggleTldOptions(type) {
                                                 if (type == 'ssl')
-                                                        $('.liquid_tlds').hide();
+                                                        $('.resellercampid_tlds').hide();
                                                 else
-                                                        $('.liquid_tlds').show();
+                                                        $('.resellercampid_tlds').show();
                                         }
                                 });
                         </script>
@@ -918,18 +918,18 @@ class Liquid extends Module {
 
             // Handle transfer request
             if (isset($vars->transfer) || isset($vars->{'auth-code'})) {
-                return $this->arrayToModuleFields(Configure::get("Liquid.transfer_fields"), null, $vars);
+                return $this->arrayToModuleFields(Configure::get("Resellercampid.transfer_fields"), null, $vars);
             }
             // Handle domain registration
             else {
 
-                $module_fields = $this->arrayToModuleFields(array_merge(Configure::get("Liquid.domain_fields"), Configure::get("Liquid.nameserver_fields")), null, $vars);
+                $module_fields = $this->arrayToModuleFields(array_merge(Configure::get("Resellercampid.domain_fields"), Configure::get("Resellercampid.nameserver_fields")), null, $vars);
 
                 if (isset($vars->{'domain-name'})) {
                     $tld = $this->getTld($vars->{'domain-name'});
 
                     if ($tld) {
-                        $extension_fields = array_merge((array) Configure::get("Liquid.domain_fields" . $tld), (array) Configure::get("Liquid.contact_fields" . $tld));
+                        $extension_fields = array_merge((array) Configure::get("Resellercampid.domain_fields" . $tld), (array) Configure::get("Resellercampid.contact_fields" . $tld));
                         if ($extension_fields)
                             $module_fields = $this->arrayToModuleFields($extension_fields, $module_fields, $vars);
                     }
@@ -971,7 +971,7 @@ class Liquid extends Module {
 
             // Handle transfer request
             if (isset($vars->transfer) || isset($vars->{'auth-code'})) {
-                $fields = Configure::get("Liquid.transfer_fields");
+                $fields = Configure::get("Resellercampid.transfer_fields");
 
                 // We should already have the domain name don't make editable
                 $fields['domain-name']['type'] = "hidden";
@@ -979,7 +979,7 @@ class Liquid extends Module {
 
                 $module_fields = $this->arrayToModuleFields($fields, null, $vars);
 
-                $extension_fields = Configure::get("Liquid.contact_fields" . $tld);
+                $extension_fields = Configure::get("Resellercampid.contact_fields" . $tld);
                 if ($extension_fields)
                     $module_fields = $this->arrayToModuleFields($extension_fields, $module_fields, $vars);
 
@@ -987,7 +987,7 @@ class Liquid extends Module {
             }
             // Handle domain registration
             else {
-                $fields = array_merge(Configure::get("Liquid.nameserver_fields"), Configure::get("Liquid.domain_fields"));
+                $fields = array_merge(Configure::get("Resellercampid.nameserver_fields"), Configure::get("Resellercampid.domain_fields"));
 
                 // We should already have the domain name don't make editable
                 $fields['domain-name']['type'] = "hidden";
@@ -996,7 +996,7 @@ class Liquid extends Module {
                 $module_fields = $this->arrayToModuleFields($fields, null, $vars);
 
                 if (isset($vars->{'domain-name'})) {
-                    $extension_fields = array_merge((array) Configure::get("Liquid.domain_fields" . $tld), (array) Configure::get("Liquid.contact_fields" . $tld));
+                    $extension_fields = array_merge((array) Configure::get("Resellercampid.domain_fields" . $tld), (array) Configure::get("Resellercampid.contact_fields" . $tld));
                     if ($extension_fields)
                         $module_fields = $this->arrayToModuleFields($extension_fields, $module_fields, $vars);
                 }
@@ -1035,14 +1035,14 @@ class Liquid extends Module {
             }
 
             // Create domain label
-            $domain = $fields->label(Language::_("Liquid.domain.domain-name", true), "domain-name");
+            $domain = $fields->label(Language::_("Resellercampid.domain.domain-name", true), "domain-name");
             // Create domain field and attach to domain label
             $domain->attach($fields->fieldText("domain-name", $this->Html->ifSet($vars->{'domain-name'}), array('id' => "domain-name")));
             // Set the label as a field
             $fields->setField($domain);
 
             // Create Order-id label
-            $orderid = $fields->label(Language::_("Liquid.domain.order-id", true), "order-id");
+            $orderid = $fields->label(Language::_("Resellercampid.domain.order-id", true), "order-id");
             // Create orderid field and attach to orderid label
             $orderid->attach($fields->fieldText("order-id", $this->Html->ifSet($order_id), array('id' => "order-id")));
             // Set the label as a field
@@ -1091,13 +1091,13 @@ class Liquid extends Module {
     {
         if ($package->meta->type == "domain") {
             return array(
-                'tabWhois' => Language::_("Liquid.tab_whois.title", true),
-                'tabNameservers' => Language::_("Liquid.tab_nameservers.title", true),
-//				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
-                'tabChildname' => Language::_("Liquid.tab_childname.title", true),
-                'tabManagedns' => Language::_("Liquid.tab_managedns.title", true),
-                'tabDomainForwarding' => Language::_("Liquid.tab_domainforwarding.title", true),
-                'tabSettings' => Language::_("Liquid.tab_settings.title", true),
+                'tabWhois' => Language::_("Resellercampid.tab_whois.title", true),
+                'tabNameservers' => Language::_("Resellercampid.tab_nameservers.title", true),
+//				'tabChildname' => Language::_("Resellercampid.tab_childname.title", true),
+                'tabChildname' => Language::_("Resellercampid.tab_childname.title", true),
+                'tabManagedns' => Language::_("Resellercampid.tab_managedns.title", true),
+                'tabDomainForwarding' => Language::_("Resellercampid.tab_domainforwarding.title", true),
+                'tabSettings' => Language::_("Resellercampid.tab_settings.title", true),
             );
         } else {
             #
@@ -1117,12 +1117,12 @@ class Liquid extends Module {
     {
         if ($package->meta->type == "domain") {
             return array(
-                'tabClientWhois' => Language::_("Liquid.tab_whois.title", true),
-                'tabClientNameservers' => Language::_("Liquid.tab_nameservers.title", true),
-                'tabClientChildname' => Language::_("Liquid.tab_childname.title", true),
-                'tabClientManagedns' => Language::_("Liquid.tab_managedns.title", true),
-                'tabClientDomainForwarding' => Language::_("Liquid.tab_domainforwarding.title", true),
-                'tabClientSettings' => Language::_("Liquid.tab_settings.title", true)
+                'tabClientWhois' => Language::_("Resellercampid.tab_whois.title", true),
+                'tabClientNameservers' => Language::_("Resellercampid.tab_nameservers.title", true),
+                'tabClientChildname' => Language::_("Resellercampid.tab_childname.title", true),
+                'tabClientManagedns' => Language::_("Resellercampid.tab_managedns.title", true),
+                'tabClientDomainForwarding' => Language::_("Resellercampid.tab_domainforwarding.title", true),
+                'tabClientSettings' => Language::_("Resellercampid.tab_settings.title", true)
             );
         } else {
             #
@@ -1313,15 +1313,15 @@ class Liquid extends Module {
     {
         $row = $this->getModuleRow($package->module_row);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-        $api->loadCommand("liquid_domains");
-        $domains = new LiquidDomains($api);
+        $api->loadCommand("resellercampid_domains");
+        $domains = new ResellercampidDomains($api);
 
         if (!isset($this->Countries))
             Loader::loadModels($this, array("Countries"));
 
         $vars = new stdClass();
 
-        $contact_fields = Configure::get("Liquid.contact_fields");
+        $contact_fields = Configure::get("Resellercampid.contact_fields");
         $fields = $this->serviceFieldsToObject($service->fields);
 //		$sections = array('registrant_contact', 'admin_contact', 'tech_contact', 'billing_contact');
         $sections = array('registrantcontact', 'admincontact', 'techcontact', 'billingcontact');
@@ -1340,8 +1340,8 @@ class Liquid extends Module {
             $data_dom_detail = $dom_detail->response();
             $customer_id = $data_dom_detail["customer_id"];
 
-            $api->loadCommand("liquid_contacts");
-            $contacts = new LiquidContacts($api);
+            $api->loadCommand("resellercampid_contacts");
+            $contacts = new ResellercampidContacts($api);
 
             foreach ($sections as $section) {
                 $contact = array();
@@ -1401,7 +1401,7 @@ class Liquid extends Module {
             $this->UpdateOrderID($package, array('service-id' => $service->id, 'domain-name' => $fields->{'domain-name'}));
         }
 
-        $contact_fields = array_merge(Configure::get("Liquid.contact_fields"), array('contact-id' => array('type' => "hidden")));
+        $contact_fields = array_merge(Configure::get("Resellercampid.contact_fields"), array('contact-id' => array('type' => "hidden")));
         unset($contact_fields['customer-id']);
         unset($contact_fields['type']);
 
@@ -1413,7 +1413,7 @@ class Liquid extends Module {
             $all_fields['billingcontact_' . $key] = $value;
         }
 
-        $module_fields = $this->arrayToModuleFields(Configure::get("Liquid.contact_fields"), null, $vars);
+        $module_fields = $this->arrayToModuleFields(Configure::get("Resellercampid.contact_fields"), null, $vars);
 
         $view = ($show_content ? $view : "tab_unavailable");
         $this->view = new View($view, "default");
@@ -1428,7 +1428,7 @@ class Liquid extends Module {
         $this->view->set("vars", $vars);
         $this->view->set("fields", $this->arrayToModuleFields($all_fields, null, $vars)->getFields());
         $this->view->set("sections", $sections);
-        $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
+        $this->view->setDefaultView("components" . DS . "modules" . DS . "resellercampid" . DS);
         return $this->view->fetch();
     }
 
@@ -1449,8 +1449,8 @@ class Liquid extends Module {
 
         $row = $this->getModuleRow($package->module_row);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-        $api->loadCommand("liquid_domains");
-        $domains = new LiquidDomains($api);
+        $api->loadCommand("resellercampid_domains");
+        $domains = new ResellercampidDomains($api);
 
         $fields = $this->serviceFieldsToObject($service->fields);
         $show_content = true;
@@ -1500,7 +1500,7 @@ class Liquid extends Module {
         }
 
         $this->view->set("vars", $vars);
-        $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
+        $this->view->setDefaultView("components" . DS . "modules" . DS . "resellercampid" . DS);
         return $this->view->fetch();
     }
 
@@ -1521,8 +1521,8 @@ class Liquid extends Module {
 
         $row = $this->getModuleRow($package->module_row);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-        $api->loadCommand("liquid_domains");
-        $domains = new LiquidDomains($api);
+        $api->loadCommand("resellercampid_domains");
+        $domains = new ResellercampidDomains($api);
 
         $fields = $this->serviceFieldsToObject($service->fields);
         $show_content = true;
@@ -1569,7 +1569,7 @@ class Liquid extends Module {
         Loader::loadHelpers($this, array("Form", "Html"));
 
         $this->view->set("vars", $vars);
-        $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
+        $this->view->setDefaultView("components" . DS . "modules" . DS . "resellercampid" . DS);
         return $this->view->fetch();
     }
 
@@ -1578,8 +1578,8 @@ class Liquid extends Module {
         $vars = array();
         $row = $this->getModuleRow($package->module_row);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-        $api->loadCommand("liquid_dns_manage");
-        $dns = new LiquidDnsManage($api);
+        $api->loadCommand("resellercampid_dns_manage");
+        $dns = new ResellercampidDnsManage($api);
         $fields = $this->serviceFieldsToObject($service->fields);
         $show_content = true;
 
@@ -1621,7 +1621,7 @@ class Liquid extends Module {
 
         $this->view->set("vars", $vars);
 
-        $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
+        $this->view->setDefaultView("components" . DS . "modules" . DS . "resellercampid" . DS);
         return $this->view->fetch();
     }
 
@@ -1629,8 +1629,8 @@ class Liquid extends Module {
     {
         $row = $this->getModuleRow($package->module_row);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-        $api->loadCommand("liquid_dns_manage");
-        $dns = new LiquidDnsManage($api);
+        $api->loadCommand("resellercampid_dns_manage");
+        $dns = new ResellercampidDnsManage($api);
         $fields = $this->serviceFieldsToObject($service->fields);
         $show_content = true;
 
@@ -1748,7 +1748,7 @@ class Liquid extends Module {
 
         $this->view->set("vars", $vars);
 
-        $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
+        $this->view->setDefaultView("components" . DS . "modules" . DS . "resellercampid" . DS);
         return $this->view->fetch();
     }
 
@@ -1769,8 +1769,8 @@ class Liquid extends Module {
 
         $row = $this->getModuleRow($package->module_row);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-        $api->loadCommand("liquid_domains");
-        $domains = new LiquidDomains($api);
+        $api->loadCommand("resellercampid_domains");
+        $domains = new ResellercampidDomains($api);
 
         $fields = $this->serviceFieldsToObject($service->fields);
         $show_content = true;
@@ -1838,7 +1838,7 @@ class Liquid extends Module {
         Loader::loadHelpers($this, array("Form", "Html"));
 
         $this->view->set("vars", $vars);
-        $this->view->setDefaultView("components" . DS . "modules" . DS . "liquid" . DS);
+        $this->view->setDefaultView("components" . DS . "modules" . DS . "resellercampid" . DS);
         return $this->view->fetch();
     }
 
@@ -1848,15 +1848,15 @@ class Liquid extends Module {
      * @param int $module_row_id The module row ID to add the customer under
      * @param array $vars An array of customer information
      * @return int The customer-id created, null otherwise
-     * @see LiquidCustomers::signup()
+     * @see ResellercampidCustomers::signup()
      */
     private function createCustomer ($module_row_id, $vars)
     {
 
         $row = $this->getModuleRow($module_row_id);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-        $api->loadCommand("liquid_customers");
-        $customers = new LiquidCustomers($api);
+        $api->loadCommand("resellercampid_customers");
+        $customers = new ResellercampidCustomers($api);
 
 
         $response = $customers->signup($vars);
@@ -1877,7 +1877,7 @@ class Liquid extends Module {
      * @param int $module_row_id The module row ID to add the contact under
      * @param array $vars An array of contact information
      * @return int The contact-id created, null otherwise
-     * @see LiquidContacts::add()
+     * @see ResellercampidContacts::add()
      */
     private function createContact ($module_row_id, $vars)
     {
@@ -1885,8 +1885,8 @@ class Liquid extends Module {
 
         $row = $this->getModuleRow($module_row_id);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-        $api->loadCommand("liquid_contacts");
-        $contacts = new LiquidContacts($api);
+        $api->loadCommand("resellercampid_contacts");
+        $contacts = new ResellercampidContacts($api);
 
         $vars = array_merge($vars, $this->createMap($vars));
 
@@ -1904,18 +1904,18 @@ class Liquid extends Module {
     }
 
     /**
-     * Fetches the liquid customer ID based on username
+     * Fetches the resellercampid customer ID based on username
      *
      * @param int $module_row_id The module row ID to search on
      * @param string $username The customer username (should be an email address)
-     * @return int The liquid customer-id if one exists, null otherwise
+     * @return int The resellercampid customer-id if one exists, null otherwise
      */
     private function getCustomerId ($module_row_id, $username)
     {
         $row = $this->getModuleRow($module_row_id);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-        $api->loadCommand("liquid_customers");
-        $customers = new LiquidCustomers($api);
+        $api->loadCommand("resellercampid_customers");
+        $customers = new ResellercampidCustomers($api);
 
         $vars = array('email' => $username, 'no-of-records' => 10, 'page-no' => 1);
         $response = $customers->search($vars);
@@ -1934,10 +1934,10 @@ class Liquid extends Module {
     }
 
     /**
-     * Fetches a liquid contact ID of a given liquid customer ID
+     * Fetches a resellercampid contact ID of a given resellercampid customer ID
      *
      * @param int $module_row_id The module row ID to search on
-     * @param string $customer_id The liquid customer-id
+     * @param string $customer_id The resellercampid customer-id
      * @param string $type includes one of:
      * 	- Contact
      * 	- CoopContact
@@ -1949,14 +1949,14 @@ class Liquid extends Module {
      * 	- CaContact
      * 	- DeContact
      * 	- EsContact
-     * @return int The liquid contact-id if one exists, null otherwise
+     * @return int The resellercampid contact-id if one exists, null otherwise
      */
     private function getContactId ($module_row_id, $customer_id, $type = "Contact")
     {
         $row = $this->getModuleRow($module_row_id);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-        $api->loadCommand("liquid_contacts");
-        $contacts = new LiquidContacts($api);
+        $api->loadCommand("resellercampid_contacts");
+        $contacts = new ResellercampidContacts($api);
 
         $vars = array('customer-id' => $customer_id, 'no-of-records' => 10, 'page-no' => 1, 'type' => $type);
         $response = $contacts->search($vars);
@@ -1986,7 +1986,7 @@ class Liquid extends Module {
     }
 
     /**
-     * Create a so-called 'map' of attr-name and attr-value fields to cope with Liquid
+     * Create a so-called 'map' of attr-name and attr-value fields to cope with Resellercampid
      * ridiculous format requirements.
      *
      * @param $attr array An array of key/value pairs
@@ -2018,8 +2018,8 @@ class Liquid extends Module {
 
         $row = $this->getModuleRow();
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-        $api->loadCommand("liquid_domains");
-        $domains = new LiquidDomains($api);
+        $api->loadCommand("resellercampid_domains");
+        $domains = new ResellercampidDomains($api);
         $result = $domains->available(array('domain' => $domain));
 
         if ($result->status() != "OK")
@@ -2048,7 +2048,7 @@ class Liquid extends Module {
                 'valid' => array(
                     'rule' => "isEmpty",
                     'negate' => true,
-                    'message' => Language::_("Liquid.!error.reseller_id.valid", true)
+                    'message' => Language::_("Resellercampid.!error.reseller_id.valid", true)
                 )
             ),
             'key' => array(
@@ -2056,12 +2056,12 @@ class Liquid extends Module {
                     'last' => true,
                     'rule' => "isEmpty",
                     'negate' => true,
-                    'message' => Language::_("Liquid.!error.key.valid", true)
+                    'message' => Language::_("Resellercampid.!error.key.valid", true)
                 ),
                 'valid_connection' => array(
                     'rule' => array(array($this, "validateConnection"), $vars['reseller_id'], isset($vars['sandbox']) ? $vars['sandbox'] : "false"),
-//					'message' => Language::_("Liquid.!error.key.valid_connection", true)
-                    'message' => Language::_("Liquid.!error.key.valid_connection", true)
+//					'message' => Language::_("Resellercampid.!error.key.valid_connection", true)
+                    'message' => Language::_("Resellercampid.!error.key.valid_connection", true)
                 )
             )
         );
@@ -2078,10 +2078,10 @@ class Liquid extends Module {
     public function validateConnection ($key, $reseller_id, $sandbox)
     {
         $api = $this->getApi($reseller_id, $key, $sandbox == "true");
-        $api->loadCommand("liquid_domains");
-        $domains = new LiquidDomains($api);
+        $api->loadCommand("resellercampid_domains");
+        $domains = new ResellercampidDomains($api);
 
-        $check = $domains->available(array("domain" => "liquid.com"));
+        $check = $domains->available(array("domain" => "resellercampid.com"));
 
         if ($check->status() == "OK") {
             return true;
@@ -2091,27 +2091,27 @@ class Liquid extends Module {
     }
 
     /**
-     * Initializes the LiquidApi and returns an instance of that object
+     * Initializes the ResellercampidApi and returns an instance of that object
      *
      * @param string $reseller_id The reseller ID to connect as
      * @param string $key The key to use when connecting
      * @param boolean $sandbox Whether or not to process in sandbox mode (for testing)
-     * @return LiquidApi The LiquidApi instance
+     * @return ResellercampidApi The ResellercampidApi instance
      */
     private function getApi ($reseller_id, $key, $sandbox)
     {
-        Loader::load(dirname(__FILE__) . DS . "apis" . DS . "liquid_api.php");
+        Loader::load(dirname(__FILE__) . DS . "apis" . DS . "resellercampid_api.php");
 
-        return new LiquidApi($reseller_id, $key, $sandbox);
+        return new ResellercampidApi($reseller_id, $key, $sandbox);
     }
 
     /**
      * Process API response, setting an errors, and logging the request
      *
-     * @param LiquidApi $api The liquid API object
-     * @param LiquidResponse $response The liquid API response object
+     * @param ResellercampidApi $api The resellercampid API object
+     * @param ResellercampidResponse $response The resellercampid API response object
      */
-    private function processResponse (LiquidApi $api, LiquidResponse $response)
+    private function processResponse (ResellercampidApi $api, ResellercampidResponse $response)
     {
         $this->logRequest($api, $response);
 
@@ -2121,7 +2121,7 @@ class Liquid extends Module {
             if (isset($res_error["message"])) {
                 $errors = $res_error["message"];
             } else {
-                $errors = "Errors is empty, please call liquid Customer Service";
+                $errors = "Errors is empty, please call resellercampid Customer Service";
             }
 
             $this->Input->setErrors(array('errors' => (array) $errors));
@@ -2131,10 +2131,10 @@ class Liquid extends Module {
     /**
      * Logs the API request
      *
-     * @param LiquidApi $api The liquid API object
-     * @param LiquidResponse $response The liquid API response object
+     * @param ResellercampidApi $api The resellercampid API object
+     * @param ResellercampidResponse $response The resellercampid API response object
      */
-    private function logRequest (LiquidApi $api, LiquidResponse $response)
+    private function logRequest (ResellercampidApi $api, ResellercampidResponse $response)
     {
         $last_request = $api->lastRequest();
 
@@ -2166,7 +2166,7 @@ class Liquid extends Module {
      */
     private function getTld ($domain, $top = false)
     {
-        $tlds = Configure::get("Liquid.tlds");
+        $tlds = Configure::get("Resellercampid.tlds");
 
         $domain = strtolower($domain);
 
@@ -2225,15 +2225,15 @@ class Liquid extends Module {
      *
      * @param array $vars An array of input params including:
      * 	- domain_name The Registered domain name whose Order Id you want to know.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function getorderid ($module_row_id, $domain)
     {
 
         $row = $this->getModuleRow($module_row_id);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
-        $api->loadCommand("liquid_domains");
-        $domains = new LiquidDomains($api);
+        $api->loadCommand("resellercampid_domains");
+        $domains = new ResellercampidDomains($api);
 
 
         $response = $domains->orderid(array('domain_name' => $domain));
@@ -2256,7 +2256,7 @@ class Liquid extends Module {
      *
      * @param array $vars An array of input params including:
      * 	- domain-name The Registered domain name whose Order Id you want to know.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function UpdateOrderID ($package, array $vars)
     {

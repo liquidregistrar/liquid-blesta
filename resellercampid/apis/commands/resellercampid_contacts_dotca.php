@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Liquid Contact CA Management
+ * Resellercampid Contact CA Management
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License
- * @package liquid.commands
+ * @package resellercampid.commands
  */
-class LiquidContactsDotca {
+class ResellercampidContactsDotca {
 
     /**
-     * @var LiquidApi
+     * @var ResellercampidApi
      */
     private $api;
 
     /**
      * Sets the API to use for communication
      *
-     * @param LiquidApi $api The API to use for communication
+     * @param ResellercampidApi $api The API to use for communication
      */
-    public function __construct (LiquidApi $api)
+    public function __construct (ResellercampidApi $api)
     {
         $this->api = $api;
     }
@@ -27,7 +27,7 @@ class LiquidContactsDotca {
     /**
      * Gets the Registrant Agreement mandated by the Canadian Internet Registration Authority (CIRA).
      *
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function registrantagreement (array $vars)
     {

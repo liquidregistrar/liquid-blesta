@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Liquid Contact Management
+ * Resellercampid Contact Management
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License
- * @package liquid.commands
+ * @package resellercampid.commands
  */
-class LiquidContacts {
+class ResellercampidContacts {
 
     /**
-     * @var LiquidApi
+     * @var ResellercampidApi
      */
     private $api;
 
     /**
      * Sets the API to use for communication
      *
-     * @param LiquidApi $api The API to use for communication
+     * @param ResellercampidApi $api The API to use for communication
      */
-    public function __construct (LiquidApi $api)
+    public function __construct (ResellercampidApi $api)
     {
         $this->api = $api;
     }
@@ -92,7 +92,7 @@ class LiquidContacts {
      * 			- purpose P1, P2, P3, P4, P5
      * 			- category C11, C12, C21, C31, C32
      * 	- attr-value Mapping value of the extra details required to be associated with a particular Contact before registering a domain name. This together with attr-name shall contain the extra details.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function add (array $vars)
     {
@@ -118,7 +118,7 @@ class LiquidContacts {
      * 	- state Name of the state
      * 	- fax-cc Fax number country code
      * 	- fax Fax number
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function modify (array $vars, $customer_id = null)
     {
@@ -134,7 +134,7 @@ class LiquidContacts {
      *
      * @param array $vars An array of input params including:
      * 	- contact-id The Contact Id for which details are required
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function details (array $vars)
     {
@@ -154,7 +154,7 @@ class LiquidContacts {
      * 	- company Name of the Company
      * 	- email Email address of the Contact
      * 	- type Type of contact. Valid values are: Contact, CoopContact, UkContact, EuContact, Sponsor, CnContact, CoContact, CaContact, DeContact, EsContact.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function search (array $vars)
     {
@@ -167,7 +167,7 @@ class LiquidContacts {
      * @param array $vars An array of input params including:
      * 	- customer_id The Customer for whom you want to get the Default Contacts
      * 	- type Type of default contact to be returned. It can be one or more of following contacts types : Contact, CoopContact, UkContact, EuContact, CnContact, CoContact, CaContact, DeContact, EsContact.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function getDefault (array $vars)
     {
@@ -227,7 +227,7 @@ class LiquidContacts {
      * 			- category C11, C12, C21, C31, C32
      * 	- attr-value Mapping value of the extra details required to be associated with a particular Contact before registering a domain name. This together with attr-name shall contain the extra details.
      * 	- product-key The product keys for which the details are to be associated. They can be one of the set (domus | dotcoop | dotasia | dotca | dotes | dotpro | dotnl).
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function setDetails (array $vars)
     {
@@ -239,7 +239,7 @@ class LiquidContacts {
      *
      * @param array $vars An array of input params including:
      * 	- contact-id The Contact that you want to delete
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function delete (array $vars)
     {
@@ -251,7 +251,7 @@ class LiquidContacts {
      *
      * @param array $vars An array of input params including:
      * 	- customer_id The Customer for whom you want to get the list of Sponsors
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function sponsors (array $vars)
     {
@@ -271,7 +271,7 @@ class LiquidContacts {
      * 		- .EU EUROPEAN_COUNTRY
      * 		- .RU RU_CONTACT_INFO
      * 		- .US APP_PREF_NEXUS
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function validateRegistrant (array $vars)
     {

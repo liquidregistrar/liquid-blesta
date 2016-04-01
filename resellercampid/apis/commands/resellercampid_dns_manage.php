@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Liquid DNS Management
+ * Resellercampid DNS Management
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License
- * @package liquid.commands
+ * @package resellercampid.commands
  */
-class LiquidDnsManage {
+class ResellercampidDnsManage {
 
     /**
-     * @var LiquidApi
+     * @var ResellercampidApi
      */
     private $api;
 
     /**
      * Sets the API to use for communication
      *
-     * @param LiquidApi $api The API to use for communication
+     * @param ResellercampidApi $api The API to use for communication
      */
-    public function __construct (LiquidApi $api)
+    public function __construct (ResellercampidApi $api)
     {
         $this->api = $api;
     }
@@ -27,7 +27,7 @@ class LiquidDnsManage {
     /**
      * returve semua data dns
      * @param array $vars (fields, domain_id)
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function retrieve (array $vars)
     {
@@ -43,7 +43,7 @@ class LiquidDnsManage {
      * 	- value An IPv4 address
      * 	- host The host for which you need to add the A record. By default, IP address gets added for the domain name.
      * 	- ttl Number of seconds the record needs to be cached by the DNS Resolvers. Default value is 14400.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function addIpv4Record (array $vars)
     {
@@ -61,7 +61,7 @@ class LiquidDnsManage {
      * 	- value An IPv6 address
      * 	- host The host for which you need to add the AAAA record. By default, IP address gets added for the domain name.
      * 	- ttl Number of seconds the record needs to be cached by the DNS Resolvers. Default value is 14400.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function addIpv6Record (array $vars)
     {
@@ -79,7 +79,7 @@ class LiquidDnsManage {
      * 	- value A Fully Qualified Domain Name (FQDN) as the destination
      * 	- host The host part of the domain-name for which you need to add a CNAME
      * 	- ttl Number of seconds the record needs to be cached by the DNS Resolvers. Default value is 14400.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function addCnameRecord (array $vars)
     {
@@ -98,7 +98,7 @@ class LiquidDnsManage {
      * 	- host The host part of the domain-name for which you need to add an MX. By default, MX record gets added for the domain name.
      * 	- ttl Number of seconds the record needs to be cached by the DNS Resolvers. Default value is 14400.
      * 	- priority The Priority of the MX record
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function addMxRecord (array $vars)
     {
@@ -116,7 +116,7 @@ class LiquidDnsManage {
      * 	- value A Fully Qualified Domain Name (FQDN) as the authoritative Name Server
      * 	- host The host part of the domain-name for which you need to add an NS record. By default, NS record gets added for the domain name.
      * 	- ttl Number of seconds the record needs to be cached by the DNS Resolvers. Default value is 14400.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function addNsRecord (array $vars)
     {
@@ -134,7 +134,7 @@ class LiquidDnsManage {
      * 	- value Any text through which you wish to convey information about the zone
      * 	- host The host part of the domain-name for which you need to add a TXT record
      * 	- ttl Number of seconds the record needs to be cached by the DNS Resolvers. Default value is 14400.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function addTxtRecord (array $vars)
     {
@@ -155,7 +155,7 @@ class LiquidDnsManage {
      * 	- priority The Priority of the host. Value ranges from 0 to 65535.
      * 	- port The port number of the service
      * 	- weight A relative weight for records with the same priority
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function addSrvRecord (array $vars)
     {
@@ -174,7 +174,7 @@ class LiquidDnsManage {
      * 	- current-value Current IPv4 address
      * 	- new-value New IPv4 address
      * 	- ttl Number of seconds the record needs to be cached by the DNS Resolvers. Default value is 14400.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function updateIpv4Record (array $vars)
     {
@@ -193,7 +193,7 @@ class LiquidDnsManage {
      * 	- current-value Current IPv6 address
      * 	- new-value New IPv6 address
      * 	- ttl Number of seconds the record needs to be cached by the DNS Resolvers. Default value is 14400.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function updateIpv6Record (array $vars)
     {
@@ -212,7 +212,7 @@ class LiquidDnsManage {
      * 	- current-value Current CNAME value
      * 	- new-value New CNAME value
      * 	- ttl Number of seconds the record needs to be cached by the DNS Resolvers. Default value is 14400.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function updateCnameRecord (array $vars)
     {
@@ -232,7 +232,7 @@ class LiquidDnsManage {
      * 	- new-value New MX value
      * 	- ttl Number of seconds the record needs to be cached by the DNS Resolvers. Default value is 14400.
      * 	- priority The Priority of the MX record
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function updateMxRecord (array $vars)
     {
@@ -251,7 +251,7 @@ class LiquidDnsManage {
      * 	- current-value Current NS value
      * 	- new-value New NS value
      * 	- ttl Number of seconds the record needs to be cached by the DNS Resolvers. Default value is 14400.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function updateNsRecord (array $vars)
     {
@@ -270,7 +270,7 @@ class LiquidDnsManage {
      * 	- current-value Current TXTvalue
      * 	- new-value New TXT value
      * 	- ttl Number of seconds the record needs to be cached by the DNS Resolvers. Default value is 14400.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function updateTxtRecord (array $vars)
     {
@@ -293,7 +293,7 @@ class LiquidDnsManage {
      * 	- priority The Priority of the host. Value ranges from 0 to 65535.
      * 	- port The Port number of the service
      * 	- weight A relative weight for records with the same priority
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function updateSrvRecord (array $vars)
     {
@@ -313,7 +313,7 @@ class LiquidDnsManage {
      * 	- retry Number of seconds that should elapse before a failed refresh should be retried. Value should not be less than 14400.
      * 	- expire Number of seconds that specifies the upper limit on the time interval that can elapse before the zone is no longer authoritative. Value should not be less than 14400.
      * 	- ttl Number of seconds the record needs to be cached by the DNS Resolvers. Value should not be less than 14400.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function updateSoaRecord (array $vars)
     {
@@ -330,7 +330,7 @@ class LiquidDnsManage {
      * 	- page-no Page number for which details are to be fetched
      * 	- host Hostname of the record
      * 	- value Value of the record
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
 //	public function searchRecords(array $vars) {
 //		return $this->api->submit("domains/search-records", $vars);
@@ -343,7 +343,7 @@ class LiquidDnsManage {
      * 	- domain-name Domain name for which you want to delete an IPv4 record
      * 	- host Hostname of the record to be deleted
      * 	- value An IPv4 address to be deleted
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function deleteIpv4Record (array $vars)
     {
@@ -360,7 +360,7 @@ class LiquidDnsManage {
      * 	- domain-name Domain name for which you want to delete an IPv6 record
      * 	- host Hostname of the record to be deleted
      * 	- value An IPv6 address to be deleted
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function deleteIpv6Record (array $vars)
     {
@@ -377,7 +377,7 @@ class LiquidDnsManage {
      * 	- domain-name Domain name for which you want to delete a CNAME record
      * 	- host Hostname of the record to be deleted
      * 	- value A Fully Qualified Domain Name (FQDN)
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function deleteCnameRecord (array $vars)
     {
@@ -394,7 +394,7 @@ class LiquidDnsManage {
      * 	- domain-name Domain name for which you want to delete a MX record
      * 	- host Hostname of the record to be deleted
      * 	- value A Fully Qualified Domain Name (FQDN)
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function deleteMxRecord (array $vars)
     {
@@ -411,7 +411,7 @@ class LiquidDnsManage {
      * 	- domain-name Domain name for which you want to delete a NS record
      * 	- host Hostname of the record to be deleted
      * 	- value A Fully Qualified Domain Name (FQDN)
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function deleteNsRecord (array $vars)
     {
@@ -428,7 +428,7 @@ class LiquidDnsManage {
      * 	- domain-name Domain name for which you want to delete a TXT record
      * 	- host Hostname of the record to be deleted
      * 	- value A text value for which the record to be deleted
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function deleteTxtRecord (array $vars)
     {
@@ -448,7 +448,7 @@ class LiquidDnsManage {
      * 	- value The hostname of the machine providing the service
      * 	- port The port number of the service
      * 	- weight A relative weight for records with the same priority
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function deleteSrvRecord (array $vars)
     {
@@ -469,7 +469,7 @@ class LiquidDnsManage {
      *          - subdomain_forwarding
      *          - path_forwarding
      *          - url_masking
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function updateDomainForwarding (array $vars)
     {
@@ -484,7 +484,7 @@ class LiquidDnsManage {
      *
      * @param array $vars
      *          - domain_id
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function retrieveDomainForwarding (array $vars)
     {

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Liquid API response handler
+ * Resellercampid API response handler
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License
- * @package liquid
+ * @package resellercampid
  */
-class LiquidResponse {
+class ResellercampidResponse {
 
     /**
      * @var stdClass A stdClass object representing the response
@@ -25,7 +25,7 @@ class LiquidResponse {
     private $err_msg = "";
 
     /**
-     * Initializes the Liquid Response
+     * Initializes the Resellercampid Response
      *
      * @param string $response The raw XML response data from an API request
      */
@@ -74,9 +74,9 @@ class LiquidResponse {
             $this->err_msg = $this->response["message"];
             return $this->response;
         } elseif (empty($this->response)) {
-            return "Unable to request data from liquid server";
+            return "Unable to request data from resellercampid server";
 //            } elseif (!is_array($this->response) === false) {
-//                return "Unable to request data from liquid serverx";
+//                return "Unable to request data from resellercampid serverx";
         }
 
         return false;

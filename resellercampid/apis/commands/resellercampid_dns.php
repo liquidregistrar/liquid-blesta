@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Liquid DNS Activation
+ * Resellercampid DNS Activation
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License
- * @package liquid.commands
+ * @package resellercampid.commands
  */
-class LiquidDns {
+class ResellercampidDns {
 
     /**
-     * @var LiquidApi
+     * @var ResellercampidApi
      */
     private $api;
 
     /**
      * Sets the API to use for communication
      *
-     * @param LiquidApi $api The API to use for communication
+     * @param ResellercampidApi $api The API to use for communication
      */
-    public function __construct (LiquidApi $api)
+    public function __construct (ResellercampidApi $api)
     {
         $this->api = $api;
     }
@@ -29,7 +29,7 @@ class LiquidDns {
      *
      * @param array $vars An array of input params including:
      * 	- order-id Order Id of the Order for which the DNS service is to be activated
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function activate (array $vars)
     {

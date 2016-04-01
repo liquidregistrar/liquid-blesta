@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Liquid Domain Management
+ * Resellercampid Domain Management
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License
- * @package liquid.commands
+ * @package resellercampid.commands
  */
-class LiquidDomains {
+class ResellercampidDomains {
 
     /**
-     * @var LiquidApi
+     * @var ResellercampidApi
      */
     private $api;
 
     /**
      * Sets the API to use for communication
      *
-     * @param LiquidApi $api The API to use for communication
+     * @param ResellercampidApi $api The API to use for communication
      */
-    public function __construct (LiquidApi $api)
+    public function __construct (ResellercampidApi $api)
     {
         $this->api = $api;
     }
@@ -31,7 +31,7 @@ class LiquidDomains {
      * 	- domain-name Domain name(s) that you need to check the availability for.
      * 	- tlds TLDs for which the domain name availability needs to be checked.
      * 	- suggest-alternative Pass true if domain name suggestions are required. Default value is false. (optional)
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function available (array $vars)
     {
@@ -54,7 +54,7 @@ class LiquidDomains {
      * 	- domain-name Internationalized Domain Name(s) that you need to check the availability for.
      * 	- tld TLD for which the domain name availability needs to be checked.
      * 	- idnLanguageCode While performing check availability for an Internationalized Domain Name, you need to provide the corresponding language code (2 or 3 characters)
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function idnAvailable (array $vars)
     {
@@ -70,7 +70,7 @@ class LiquidDomains {
      * 	- no-of-results Maximum number of suggestions to be returned.
      * 	- hyphen-allowed Default value is false. Recommended value is true. If true is passed, generates suggestions with hyphens (Dashes) "-". (optional)
      * 	- add-related Default value is false. Recommended value is true. If true is passed, generates suggestions with related keywords. (optional)
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function suggestNames (array $vars)
     {
@@ -127,7 +127,7 @@ class LiquidDomains {
      * 			- cnhosting This parameter indicates that the domain name will be hosted in China. The value needs to be passed as true.
      * 			- cnhostingclause Through this parameter, the Registrant agrees to the terms and conditions for hosting the domain name in China. The value needs to be passed as yes.
      * 	- attr-value Mapping value of the extra details required to register a domain name. This together with attr-name shall contain the extra details. (optional)
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function register (array $vars)
     {
@@ -160,7 +160,7 @@ class LiquidDomains {
      * 		- Required for .ASIA:
      * 			- cedcontactid The contact ID of either Admin, Technical, Billing, or Registrant
      * 	- attr-value Mapping value of the extra details required to register a domain name. This together with attr-name shall contain the extra details. (optional)
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function transfer (array $vars)
     {
@@ -189,7 +189,7 @@ class LiquidDomains {
      * 		- NoInvoice This will not raise any Invoice. The Order will be executed.
      * 		- PayInvoice This will raise an invoice and if there are sufficient funds in the customer's account the invoice will be paid and the order will be executed, else the order will remain pending in the system
      * 		- KeepInvoice This will raise an Invoice for the Customer to pay later. The Order will be executed.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function renew (array $vars)
     {
@@ -215,7 +215,7 @@ class LiquidDomains {
      * 	- creation-date-end UNIX TimeStamp for listing of Domain Registration Orders whose Creation Date is less than creation-date-end.
      * 	- expiry-date-start UNIX TimeStamp for listing of Domain Registration Orders whose Expiry Date is greater than expiry-date-start.
      * 	- expiry-date-end UNIX TimeStamp for listing of Domain Registration Orders whose Expiry Date is less than expiry-date-end.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function search (array $vars)
     {
@@ -227,7 +227,7 @@ class LiquidDomains {
      *
      * @param array $vars An array of input params including:
      * 	- customer-id The Customer for whom you want to fetch the default Name Servers.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function customerDefaultNs (array $vars)
     {
@@ -239,7 +239,7 @@ class LiquidDomains {
      *
      * @param array $vars An array of input params including:
      * 	- domain-name The Registered domain name whose Order Id you want to know.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function orderid (array $vars)
     {
@@ -262,7 +262,7 @@ class LiquidDomains {
      * @param array $vars An array of input params including:
      * 	- order-id Order Id of the Domain Registration Order whose details need to be fetched.
      * 	- options Values can be: All, OrderDetails, ContactIds, RegistrantContactDetails, AdminContactDetails, TechContactDetails, BillingContactDetails, NsDetails, DomainStatus.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function details (array $vars)
     {
@@ -278,7 +278,7 @@ class LiquidDomains {
      * @param array $vars An array of input params including:
      * 	- domain-name Domain name associated with the Domain Registration Order whose details need to be fetched.
      * 	- options Values can be: All, OrderDetails, ContactIds, RegistrantContactDetails, AdminContactDetails, TechContactDetails, BillingContactDetails, NsDetails, DomainStatus.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function detailsByName (array $vars)
     {
@@ -291,7 +291,7 @@ class LiquidDomains {
      * @param array $vars An array of input params including:
      * 	- order-id Order Id of the Domain Registration Order whose Name Servers you want to modify.
      * 	- ns New Name Servers.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function modifyNs (array $vars)
     {
@@ -308,7 +308,7 @@ class LiquidDomains {
      * 	- order-id Order Id of the Domain Registration Order for which you want to add the Child Name Servers.
      * 	- cns Child Name Servers name that you want to add.
      * 	- ip IP addresses that you want to associate with the Child Name Servers.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function addCns (array $vars)
     {
@@ -325,7 +325,7 @@ class LiquidDomains {
      * 	- order-id Order Id of the Domain Registration Order whose Child Name Server you want to change.
      * 	- old-cns Current Child Name Server of the specified Order.
      * 	- new-cns New Child Name Server that you want to associate with the Order.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function modifyCnsName (array $vars)
     {
@@ -341,7 +341,7 @@ class LiquidDomains {
      * 	- cns Name of the Child Name Server whose IP you want to change.
      * 	- old-ip Currently associated IP address with the specified Child Name Server.
      * 	- new-ip New IP address that you want to associate with the specified Child Name Server.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function modifyCnsIp (array $vars)
     {
@@ -355,7 +355,7 @@ class LiquidDomains {
      * 	- order-id Order Id of the Domain Registration Order.
      * 	- cns Child Name Server's name for which the IP address needs to be deleted.
      * 	- ip IP address that needs to be deleted.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function deleteCnsIp (array $vars)
     {
@@ -374,7 +374,7 @@ class LiquidDomains {
      * 	- admin-contact-id The Contact that you want to use as the new Admin Contact.
      * 	- tech-contact-id The Contact that you want to use as the new Technical Contact.
      * 	- billing-contact-id The Contact that you want to use as the new Billing Contact.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function modifyContact (array $vars)
     {
@@ -388,7 +388,7 @@ class LiquidDomains {
      * 	- order-id Order Id of the Domain Registration Order whose privacy protection you want to change.
      * 	- protect-privacy Enable / Disable Privacy Protection service. Possible values are: true or false.
      * 	- reason The reason to enable / disable Privacy Protection.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function modifyPrivacyProtection (array $vars)
     {
@@ -401,7 +401,7 @@ class LiquidDomains {
      * @param array $vars An array of input params including:
      * 	- order-id Order Id of the Domain Registration Order whose auth-code you want to modify.
      * 	- auth-code New auth-code.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function modifyAuthCode (array $vars)
     {
@@ -413,7 +413,7 @@ class LiquidDomains {
      *
      * @param array $vars An array of input params including:
      * 	- order-id Order Id of the Domain Registration Order on which the Theft Protection Lock to be applied.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function enableTheftProtection (array $vars)
     {
@@ -425,7 +425,7 @@ class LiquidDomains {
      *
      * @param array $vars An array of input params including:
      * 	- order-id Order Id of the Domain Registration Order on which the Theft Protection Lock is to be removed.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function disableTheftProtection (array $vars)
     {
@@ -437,7 +437,7 @@ class LiquidDomains {
      *
      * @param array $vars An array of input params including:
      * 	- order-id Order Id of the Domain Registration Order whose list of the locks need to be fetched.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function locks (array $vars)
     {
@@ -449,7 +449,7 @@ class LiquidDomains {
      *
      * @param array $vars An array of input params including:
      * 	- order-id Order ID for which the RFA mail needs to be resent.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function resendRfa (array $vars)
     {
@@ -461,7 +461,7 @@ class LiquidDomains {
      *
      * @param array $vars An array of input params including:
      * 	- order-id Order Id of the Transfer request that you want to Cancel
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function cancelTransfer (array $vars)
     {
@@ -473,7 +473,7 @@ class LiquidDomains {
      *
      * @param array $vars An array of input params including:
      * 	- order-id Order Id of the Domain Registration Order that you want to delete
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function delete (array $vars)
     {
@@ -489,7 +489,7 @@ class LiquidDomains {
      * 		- NoInvoice This will not raise any Invoice. The Order will be executed.
      * 		- PayInvoice This will raise an invoice and if there are sufficient funds in the customer's account the invoice will be paid and the order will be executed, else the order will remain pending in the system
      * 		- KeepInvoice This will raise an Invoice for the Customer to pay later. The Order will be executed.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function restore (array $vars)
     {

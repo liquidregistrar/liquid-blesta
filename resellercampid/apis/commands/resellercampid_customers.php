@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Liquid Customer Management
+ * Resellercampid Customer Management
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License
- * @package liquid.commands
+ * @package resellercampid.commands
  */
-class LiquidCustomers {
+class ResellercampidCustomers {
 
     /**
-     * @var LiquidApi
+     * @var ResellercampidApi
      */
     private $api;
 
     /**
      * Sets the API to use for communication
      *
-     * @param LiquidApi $api The API to use for communication
+     * @param ResellercampidApi $api The API to use for communication
      */
-    public function __construct (LiquidApi $api)
+    public function __construct (ResellercampidApi $api)
     {
         $this->api = $api;
     }
@@ -49,7 +49,7 @@ class LiquidCustomers {
      * 	- fax Fax number
      * 	- mobile-cc Mobile country code
      * 	- mobile Mobile number
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function signup (array $vars)
     {
@@ -81,7 +81,7 @@ class LiquidCustomers {
      * 	- fax Fax number
      * 	- mobile-cc Mobile country code
      * 	- mobile Mobile number
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function modify (array $vars)
     {
@@ -93,7 +93,7 @@ class LiquidCustomers {
      *
      * @param array $vars An array of input params including:
      * 	- username Username of the Customer
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function details (array $vars)
     {
@@ -105,7 +105,7 @@ class LiquidCustomers {
      *
      * @param array $vars An array of input params including:
      * 	- customer-id Customer Id of the Customer
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function detailsById (array $vars)
     {
@@ -119,7 +119,7 @@ class LiquidCustomers {
      * 	- username Username of the Customer
      * 	- passwd Password of the Customer
      * 	- ip IP address of the Customer
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function generateToken (array $vars)
     {
@@ -131,7 +131,7 @@ class LiquidCustomers {
      *
      * @param array $vars An array of input params including:
      * 	- token Authentication Token.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function authenticateToken (array $vars)
     {
@@ -144,7 +144,7 @@ class LiquidCustomers {
      * @param array $vars An array of input params including:
      * 	- customer-id Customer Id of the Customer whose password needs to be changed
      * 	- new-passwd New password
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function changePassword (array $vars)
     {
@@ -169,7 +169,7 @@ class LiquidCustomers {
      * 	- creation-date-end UNIX TimeStamp for listing of Customer accounts whose Creation Date is less than creation-date-end
      * 	- total-receipt-start Total receipts of Customer which is greater than total-receipt-start
      * 	- total-receipt-end Total receipts of Customer which is less than total-receipt-end
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function tempPassword (array $vars)
     {
@@ -181,7 +181,7 @@ class LiquidCustomers {
      *
      * @param array $vars An array of input params including:
      * 	- customer-id Customer Id of the Customer for whom a temporary password needs to be generated
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function search (array $vars)
     {
@@ -193,7 +193,7 @@ class LiquidCustomers {
      *
      * @param array $vars An array of input params including:
      * 	- customer-id Customer Id of the Customer that you want to delete
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function delete (array $vars)
     {

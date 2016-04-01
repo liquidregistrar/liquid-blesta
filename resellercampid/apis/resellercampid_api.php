@@ -1,17 +1,17 @@
 <?php
 
-require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . "liquid_response.php";
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . "resellercampid_response.php";
 
 /**
- * Liquid API processor
+ * Resellercampid API processor
  *
- * Documentation on the Liquid API
+ * Documentation on the Resellercampid API
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License
- * @package liquid
+ * @package resellercampid
  */
-class LiquidApi {
+class ResellercampidApi {
 
     const SANDBOX_URL = "https://api.domainsas.com/";
     const LIVE_URL = "https://api.liqu.id/";
@@ -68,7 +68,7 @@ class LiquidApi {
      * @param string $command The command to submit (e.g. domains/available)
      * @param array $args An array of key/value pair arguments to submit to the given API command
      * @param string $method The request method (GET, POST, PUT, DELETE, etc.)
-     * @return LiquidResponse The response object
+     * @return ResellercampidResponse The response object
      */
     public function submit ($command, array $args = array(), $method = "POST")
     {
@@ -93,7 +93,7 @@ class LiquidApi {
         }
 
         if (($ch = curl_init($request_url)) === false) {
-            throw new LiquidRegistrarApiException("PHP extension curl must be loaded.");
+            throw new ResellercampidRegistrarApiException("PHP extension curl must be loaded.");
         }
 
         curl_setopt($ch, CURLOPT_HEADER, 1);
@@ -138,7 +138,7 @@ class LiquidApi {
         if (!$response) {
             $emp["type"] = "";
             $emp["code"] = "";
-            $emp["message"] = "Unable to request data from liquid server";
+            $emp["message"] = "Unable to request data from resellercampid server";
             $response = json_encode($emp);
         }
 
@@ -146,12 +146,12 @@ class LiquidApi {
             $emp["type"] = "";
             $emp["header"] = $header;
             $emp["code"] = $code;
-            $emp["message"] = "Unable to request data from liquid server, Maybe URL is not valid";
+            $emp["message"] = "Unable to request data from resellercampid server, Maybe URL is not valid";
             $response = json_encode($emp);
         }
 
         curl_close($ch);
-        return new LiquidResponse($body);
+        return new ResellercampidResponse($body);
     }
 
     /**

@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Liquid Order Management
+ * Resellercampid Order Management
  *
  * @copyright Copyright (c) 2013, Phillips Data, Inc.
  * @license http://opensource.org/licenses/mit-license.php MIT License
- * @package liquid.commands
+ * @package resellercampid.commands
  */
-class LiquidOrders {
+class ResellercampidOrders {
 
     /**
-     * @var LiquidApi
+     * @var ResellercampidApi
      */
     private $api;
 
     /**
      * Sets the API to use for communication
      *
-     * @param LiquidApi $api The API to use for communication
+     * @param ResellercampidApi $api The API to use for communication
      */
-    public function __construct (LiquidApi $api)
+    public function __construct (ResellercampidApi $api)
     {
         $this->api = $api;
     }
@@ -30,7 +30,7 @@ class LiquidOrders {
      * @param array $vars An array of input params including:
      * 	- order-id Order Id of the Order on which the Suspension is to be applied
      * 	- reason The reason for the suspension.
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function suspend (array $vars)
     {
@@ -42,7 +42,7 @@ class LiquidOrders {
      *
      * @param array $vars An array of input params including:
      * 	- order-id Order Id of the Order for which the Suspension is to be removed
-     * @return LiquidResponse
+     * @return ResellercampidResponse
      */
     public function unsuspend (array $vars)
     {
