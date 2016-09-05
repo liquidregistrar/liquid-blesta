@@ -164,6 +164,10 @@ class ResellercampidDomains {
      */
     public function transfer (array $vars)
     {
+        if (!empty($vars["auth-code"])) {
+            $vars["auth_code"] = $vars["auth-code"];
+        }
+
         return $this->api->submit("domains/transfer", $vars, "POST");
     }
 
