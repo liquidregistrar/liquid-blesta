@@ -2081,10 +2081,22 @@ class Liquid extends Module {
         $api->loadCommand("liquid_domains");
         $domains = new LiquidDomains($api);
 
-        $check = $domains->available(array("domain" => "liquid.com"));
+        // $check = $domains->available(array("domain" => "liquid.com"));
 
+        // if ($check->status() == "OK") {
+        //     return true;
+        // }
+
+        // cek menggunakan domain .com
+        $check = $domains->available(array("domain" => "liquid2017.com"));
         if ($check->status() == "OK") {
             return true;
+        } else {
+            // jika error, cek lagi menggunakan domain .id
+            $check_lagi = $domains->available(array("domain" => "resellercamp2017.id"));
+            if ($check_lagi->status() == "OK") {
+                return true;
+            }
         }
 
         return false;

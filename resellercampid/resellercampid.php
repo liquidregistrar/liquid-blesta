@@ -2081,10 +2081,22 @@ class Resellercampid extends Module {
         $api->loadCommand("resellercampid_domains");
         $domains = new ResellercampidDomains($api);
 
-        $check = $domains->available(array("domain" => "resellercampid.com"));
+        // $check = $domains->available(array("domain" => "resellercampid.com"));
 
+        // if ($check->status() == "OK") {
+        //     return true;
+        // }
+
+        // cek menggunakan domain .id
+        $check = $domains->available(array("domain" => "resellercamp2017.id"));
         if ($check->status() == "OK") {
             return true;
+        } else {
+            // jika error, cek lagi menggunakan domain .com
+            $check_lagi = $domains->available(array("domain" => "liquid2017.com"));
+            if ($check_lagi->status() == "OK") {
+                return true;
+            }
         }
 
         return false;
