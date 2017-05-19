@@ -43,6 +43,7 @@ Configure::set("Liquid.tlds", array(
     ".wang",
     ".win",
     ".vip",
+    ".ponpes.id",
 //  ".tel",
 //  ".mobi",
 //  ".ws",

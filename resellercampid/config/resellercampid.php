@@ -42,6 +42,7 @@ Configure::set("Resellercampid.tlds", array(
     ".wang",
     ".win",
     ".vip",
+    ".ponpes.id",
 ));
 
 // Transfer fields
