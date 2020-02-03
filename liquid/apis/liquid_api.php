@@ -54,7 +54,7 @@ class LiquidApi {
      * @param string $key The key to use when connecting
      * @param boolean $sandbox Whether or not to process in sandbox mode (for testing)
      */
-    public function __construct ($reseller_id, $key, $sandbox = false, $debug_backtrace)
+    public function __construct ($reseller_id, $key, $sandbox = false, $debug_backtrace = array())
     {
         $this->reseller_id = $reseller_id;
         $this->key = $key;
