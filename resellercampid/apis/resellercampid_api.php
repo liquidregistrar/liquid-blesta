@@ -104,7 +104,9 @@ class ResellercampidApi {
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         } else {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, true);
+            // update : https://www.php.net/manual/en/function.curl-setopt.php
+            // CURLOPT_SSL_VERIFYHOST --> Support for value 1 removed in cURL 7.28.1.
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
         }
         $method = strtolower($method);
         switch ($method) {
