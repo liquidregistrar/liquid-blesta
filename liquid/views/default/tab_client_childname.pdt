@@ -2,14 +2,14 @@
 	<div class="row panel-fix">
 		<div class="col-md-12">
 		<?php
-		$count = 1 ;
+		$i = 1 ;
 		foreach ($vars["cns"] as $name => $value) {
 //			for ($i=0; $i<count($value); $i++) {
 			$this->Form->create();
 				?>
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon"><?php echo $count ;?></span>
+						<span class="input-group-addon"><?php echo $i ;?></span>
 						<?php
 						$this->Form->fieldText("cns", $value["hostname"], array('id' => "cns" , 'class'=>"form-control", 'placeholder'=>$this->_("Liquid.tab_childname.field_ns", true, $i+1)));
 						$this->Form->fieldHidden("old-cns", $value["hostname"]);
@@ -28,7 +28,7 @@
 				</div>
 				<?php
 			$this->Form->end();
-			$count++;
+			$i++;
 //			}
 		}
 		?>
