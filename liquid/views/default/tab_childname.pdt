@@ -1,4 +1,3 @@
-
 <div class="title_row first">
     <h3><?php echo Language::_("Liquid.tab_childname.title", true); ?></h3>
 </div>
@@ -16,35 +15,37 @@
 
         <?php
         $i = 1 ;
-        foreach ($vars["cns"] as $name => $value) {
-        $this->Form->create();
-        ?>
-        <tr>
-            <td><?php echo $i; ?></td>
-            <td>
-                <?php
-                    $this->Form->fieldText("cns", $value["hostname"], array('id' => "cns" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ns", true, $i+1)));
-                    $this->Form->fieldHidden("old-cns", $value["hostname"]);
-                ?>
-            </td>
-            <td>
-                <?php
-                    $this->Form->fieldText("ip", $value["ip"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
-                    $this->Form->fieldHidden("old-ip", $value["ip"]);
-                ?>
-            </td>
-            <td>
-                <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
-                    <?php $this->_("Liquid.tab_childname.field_update");?>
-                </button>
-                <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
-                    <?php $this->_("Liquid.tab_childname.field_delete");?>
-                </button>
-            </td>
-        </tr>
-        <?php
-        $this->Form->end();
-        $i++;
+        if (isset($vars["cns"])) {
+            foreach ($vars["cns"] as $name => $value) {
+            $this->Form->create();
+            ?>
+            <tr>
+                <td><?php echo $i; ?></td>
+                <td>
+                    <?php
+                        $this->Form->fieldText("cns", $value["hostname"], array('id' => "cns" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ns", true, $i+1)));
+                        $this->Form->fieldHidden("old-cns", $value["hostname"]);
+                    ?>
+                </td>
+                <td>
+                    <?php
+                        $this->Form->fieldText("ip", $value["ip"], array('id' => "ip" , 'style' => 'width: 100%;', 'placeholder'=>$this->_("Liquid.tab_childname.field_ip", true, $i+1)));
+                        $this->Form->fieldHidden("old-ip", $value["ip"]);
+                    ?>
+                </td>
+                <td>
+                    <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
+                        <?php $this->_("Liquid.tab_childname.field_update");?>
+                    </button>
+                    <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+                        <?php $this->_("Liquid.tab_childname.field_delete");?>
+                    </button>
+                </td>
+            </tr>
+            <?php
+            $this->Form->end();
+            $i++;
+            }
         }
         ?>
 
