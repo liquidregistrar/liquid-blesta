@@ -3,6 +3,19 @@
 </div>
 
 <?php
+    if (!isset($vars["forwarding"]["url_dest"])) { 
+        $vars["forwarding"]["url_dest"] = '';
+    }
+    if (!isset($vars["forwarding"]["is_url_masking"])) {
+        $vars["forwarding"]["is_url_masking"] == '0';
+    }
+    if (!isset($vars["forwarding"]["is_subdomain_fwd"])) {
+        $vars["forwarding"]["is_subdomain_fwd"] == '0';
+    }
+    if (!isset($vars["forwarding"]["is_path_fwd"])) {
+        $vars["forwarding"]["is_path_fwd"] == '0';
+    }
+
     $this->Form->create();
 ?>
 <table class="table">

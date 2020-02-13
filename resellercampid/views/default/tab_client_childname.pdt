@@ -3,33 +3,35 @@
 		<div class="col-md-12">
 		<?php
 		$i = 1 ;
-		foreach ($vars["cns"] as $name => $value) {
-//			for ($i=0; $i<count($value); $i++) {
-			$this->Form->create();
-				?>
-				<div class="form-group">
-					<div class="input-group">
-						<span class="input-group-addon"><?php echo $i ;?></span>
-						<?php
-						$this->Form->fieldText("cns", $value["hostname"], array('id' => "cns" , 'class'=>"form-control", 'placeholder'=>$this->_("Resellercampid.tab_childname.field_ns", true, $i+1)));
-						$this->Form->fieldHidden("old-cns", $value["hostname"]);
-						$this->Form->fieldText("ip", $value["ip"], array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>$this->_("Resellercampid.tab_childname.field_ip", true, $i+1)));
-						$this->Form->fieldHidden("old-ip", $value["ip"]);
-						?>
-						<span class="input-group-addon">
-                                                    <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
-                                                            <i class="fa fa-edit"></i> <?php $this->_("Resellercampid.tab_childname.field_update");?>
-                                                    </button>
-                                                    <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
-                                                            <i class="fa fa-ban"></i> <?php $this->_("Resellercampid.tab_childname.field_delete");?>
-                                                    </button>
-						</span>
+		if (isset($vars["cns"])) {
+			foreach ($vars["cns"] as $name => $value) {
+	//			for ($i=0; $i<count($value); $i++) {
+				$this->Form->create();
+					?>
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><?php echo $i ;?></span>
+							<?php
+							$this->Form->fieldText("cns", $value["hostname"], array('id' => "cns" , 'class'=>"form-control", 'placeholder'=>$this->_("Resellercampid.tab_childname.field_ns", true, $i+1)));
+							$this->Form->fieldHidden("old-cns", $value["hostname"]);
+							$this->Form->fieldText("ip", $value["ip"], array('id' => "ip" , 'class'=>"form-control", 'placeholder'=>$this->_("Resellercampid.tab_childname.field_ip", true, $i+1)));
+							$this->Form->fieldHidden("old-ip", $value["ip"]);
+							?>
+							<span class="input-group-addon">
+	                                                    <button class="btn btn-default btn-xs" type="submit" name="submit" value="update"  >
+	                                                            <i class="fa fa-edit"></i> <?php $this->_("Resellercampid.tab_childname.field_update");?>
+	                                                    </button>
+	                                                    <button class="btn btn-danger btn-xs" type="submit" name="submit" value="delete" onClick="return confirm('Are you sure?')" >
+	                                                            <i class="fa fa-ban"></i> <?php $this->_("Resellercampid.tab_childname.field_delete");?>
+	                                                    </button>
+							</span>
+						</div>
 					</div>
-				</div>
-				<?php
-			$this->Form->end();
-			$i++;
-//			}
+					<?php
+				$this->Form->end();
+				$i++;
+	//			}
+			}
 		}
 		?>
 		<div class="form-group">
