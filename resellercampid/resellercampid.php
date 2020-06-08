@@ -14,7 +14,7 @@ class Resellercampid extends Module {
     /**
      * @var string The version of this module
      */
-    private static $version = "1.0.0";
+    private static $version = "1.2.0";
 
     /**
      * @var string The authors of this module
@@ -1554,7 +1554,7 @@ class Resellercampid extends Module {
                         $vars->registrar_lock = "true";
                     }
 
-                    $vars->epp_code = $response["auth_code"];
+                    $vars->epp_code = (isset($response["auth_code"])) ? $response["auth_code"] : 'null';
                 }
             }
         } else {
