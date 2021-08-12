@@ -413,6 +413,18 @@ class LiquidDomains {
     }
 
     /**
+     * Get the Auth-Code of the specified Domain Registration Order.
+     *
+     * @param array $vars An array of input params including:
+     *  - order-id Order Id of the Domain Registration Order whose auth-code you want to get.
+     * @return LiquidResponse
+     */
+    public function getAuthCode (array $vars)
+    {
+        return $this->api->submit("domains/" . $vars["order-id"] . "/auth_code", $vars, "GET");
+    }
+
+    /**
      * Applies the Theft Protection Lock on the specified Order.
      *
      * @param array $vars An array of input params including:
