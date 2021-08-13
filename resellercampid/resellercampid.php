@@ -1546,15 +1546,23 @@ class Resellercampid extends Module {
                 $vars = (object) $post;
             } else {
 
-                $response = $domains->details(array('domain_id' => $fields->{'order-id'}, 'fields' => "All"))->response();
+                $response = $domains->details(array('domain_id' => $fields->{'order-id'}, 'fields' => "All"));
+                $this->processResponse($api, $response);
 
-                if ($response) {
+                $data_domain = $response->response();
+
+                if ($data_domain) {
                     $vars->registrar_lock = "false";
-                    if ($response["theft_protection"] == "true") {
+                    if ($data_domain["theft_protection"] == "true") {
                         $vars->registrar_lock = "true";
                     }
 
-                    $vars->epp_code = (isset($response["auth_code"])) ? $response["auth_code"] : 'null';
+                    $getAuth = $domains->getAuthCode(array('order-id' => $data_domain['domain_id']));
+                    $this->processResponse($api, $getAuth);
+
+                    $auth_code = $getAuth->response();
+
+                    $vars->epp_code = ($auth_code) ? $auth_code : 'null';
                 }
             }
         } else {
