@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Liquid Module
  *
@@ -12,20 +11,13 @@
 class Liquid extends Module {
 
     /**
-     * @var string The version of this module
-     */
-    private static $version = "1.2.0";
-
-    /**
-     * @var string The authors of this module
-     */
-    private static $authors = array(array('name' => "JogjaCamp.", 'url' => "https://resellercamp.com"));
-
-    /**
      * Initializes the module
      */
     public function __construct ()
     {
+        // Load configuration required by this module
+        $this->loadConfig(dirname(__FILE__) . DS . 'config.json');
+
         // Load components required by this module
         Loader::loadComponents($this, array("Input"));
 
@@ -36,106 +28,21 @@ class Liquid extends Module {
     }
 
     /**
-     * Returns the name of this module
+     * Performs migration of data from $current_version (the current installed version)
+     * to the given file set version. Sets Input errors on failure, preventing
+     * the module from being upgraded.
      *
-     * @return string The common name of this module
+     * @param string $current_version The current installed version of this module
      */
-    public function getName ()
+    public function upgrade($current_version)
     {
-        return Language::_("Liquid.name", true);
-    }
-
-    /**
-     * Returns the version of this module
-     *
-     * @return string The current version of this module
-     */
-    public function getVersion ()
-    {
-        return self::$version;
-    }
-
-    /**
-     * Returns the name and URL for the authors of this module
-     *
-     * @return array A numerically indexed array that contains an array with key/value pairs for 'name' and 'url', representing the name and URL of the authors of this module
-     */
-    public function getAuthors ()
-    {
-        return self::$authors;
-    }
-
-    /**
-     * Returns the value used to identify a particular service
-     *
-     * @param stdClass $service A stdClass object representing the service
-     * @return string A value used to identify this service amongst other similar services
-     */
-    public function getServiceName ($service)
-    {
-        foreach ($service->fields as $field) {
-            if ($field->key == "domain-name")
-                return $field->value;
+        // Upgrade to 2.1.0
+        if (version_compare($current_version, '2.1.0', '<')) {
+            Cache::clearCache(
+                'tlds_prices',
+                Configure::get('Blesta.company_id') . DS . 'modules' . DS . 'liquid' . DS
+            );
         }
-        return null;
-    }
-
-    /**
-     * Returns a noun used to refer to a module row (e.g. "Server", "VPS", "Reseller Account", etc.)
-     *
-     * @return string The noun used to refer to a module row
-     */
-    public function moduleRowName ()
-    {
-        return Language::_("Liquid.module_row", true);
-    }
-
-    /**
-     * Returns a noun used to refer to a module row in plural form (e.g. "Servers", "VPSs", "Reseller Accounts", etc.)
-     *
-     * @return string The noun used to refer to a module row in plural form
-     */
-    public function moduleRowNamePlural ()
-    {
-        return Language::_("Liquid.module_row_plural", true);
-    }
-
-    /**
-     * Returns a noun used to refer to a module group (e.g. "Server Group", "Cloud", etc.)
-     *
-     * @return string The noun used to refer to a module group
-     */
-    public function moduleGroupName ()
-    {
-        return null;
-    }
-
-    /**
-     * Returns the key used to identify the primary field from the set of module row meta fields.
-     * This value can be any of the module row meta fields.
-     *
-     * @return string The key used to identify the primary field from the set of module row meta fields
-     */
-    public function moduleRowMetaKey ()
-    {
-        return "registrar";
-    }
-
-    /**
-     * Returns the value used to identify a particular package service which has
-     * not yet been made into a service. This may be used to uniquely identify
-     * an uncreated services of the same package (i.e. in an order form checkout)
-     *
-     * @param stdClass $package A stdClass object representing the selected package
-     * @param array $vars An array of user supplied info to satisfy the request
-     * @return string The value used to identify this package service
-     * @see Module::getServiceName()
-     */
-    public function getPackageServiceName ($packages, array $vars = null)
-    {
-        if (isset($vars['domain-name']))
-            return $vars['domain-name'];
-        return null;
     }
 
     /**
@@ -182,7 +89,7 @@ class Liquid extends Module {
         # TODO: Handle validation checks
         #
 
-                $tld = null;
+        $tld = null;
         $input_fields = array();
 
         if (isset($vars['domain-name'])) {
@@ -264,7 +171,6 @@ class Liquid extends Module {
                         if (isset($client->numbers) AND is_array($client->numbers)) {
                             foreach ($client->numbers as $v_telp) {
                                 $v_telp = (array) $v_telp;
-//                                                    if ($v_telp["type"] == "phone" AND $v_telp["location"] == "home") {
                                 $part = explode(".", $this->formatPhone($v_telp["number"], $client->country));
                                 if (empty($part[1])) {
                                     $tel_cc = "";
@@ -277,7 +183,6 @@ class Liquid extends Module {
 
                                 $vars[$key] = ltrim($tel_cc, "+");
                                 $vars['tel_no'] = ltrim($tel, "0");
-//                                                    }
                             }
                         }
                     } elseif ($key == "username")
@@ -384,10 +289,9 @@ class Liquid extends Module {
                 );
             }
             else {
-
                 #
                 # TODO: Create SSL cert
-            #
+                #
             }
         } elseif ($status != "pending" AND $status != "in_review") {
             if ($package->meta->type == "domain") {
@@ -574,8 +478,8 @@ class Liquid extends Module {
         } else {
             #
             # TODO: SSL Cert: Set cancelation date of service?
-        #
-            }
+            #
+        }
 
         return null;
     }
@@ -808,7 +712,7 @@ class Liquid extends Module {
      */
     public function deleteModuleRow ($module_row)
     {
-
+        // Nothing to do
     }
 
     /**
@@ -876,24 +780,6 @@ class Liquid extends Module {
     }
 
     /**
-     * Returns an array of key values for fields stored for a module, package,
-     * and service under this module, used to substitute those keys with their
-     * actual module, package, or service meta values in related emails.
-     *
-     * @return array A multi-dimensional array of key/value pairs where each key is one of 'module', 'package', or 'service' and each value is a numerically indexed array of key values that match meta fields under that category.
-     * @see Modules::addModuleRow()
-     * @see Modules::editModuleRow()
-     * @see Modules::addPackage()
-     * @see Modules::editPackage()
-     * @see Modules::addService()
-     * @see Modules::editService()
-     */
-    public function getEmailTags ()
-    {
-        return array('service' => array('domain-name'));
-    }
-
-    /**
      * Returns all fields to display to an admin attempting to add a service with the module
      *
      * @param stdClass $package A stdClass object representing the selected package
@@ -902,7 +788,6 @@ class Liquid extends Module {
      */
     public function getAdminAddFields ($package, $vars = null)
     {
-
         // Handle universal domain name
         if (isset($vars->domain))
             $vars->{'domain-name'} = $vars->domain;
@@ -1093,7 +978,6 @@ class Liquid extends Module {
             return array(
                 'tabWhois' => Language::_("Liquid.tab_whois.title", true),
                 'tabNameservers' => Language::_("Liquid.tab_nameservers.title", true),
-//				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
                 'tabChildname' => Language::_("Liquid.tab_childname.title", true),
                 'tabManagedns' => Language::_("Liquid.tab_managedns.title", true),
                 'tabDomainForwarding' => Language::_("Liquid.tab_domainforwarding.title", true),
@@ -1102,8 +986,8 @@ class Liquid extends Module {
         } else {
             #
             # TODO: Activate & uploads CSR, set field data, etc.
-        #
-                }
+            #
+        }
     }
 
     /**
@@ -1127,8 +1011,8 @@ class Liquid extends Module {
         } else {
             #
             # TODO: Activate & uploads CSR, set field data, etc.
-        #
-            }
+            #
+        }
     }
 
     /**
@@ -1323,7 +1207,6 @@ class Liquid extends Module {
 
         $contact_fields = Configure::get("Liquid.contact_fields");
         $fields = $this->serviceFieldsToObject($service->fields);
-//		$sections = array('registrant_contact', 'admin_contact', 'tech_contact', 'billing_contact');
         $sections = array('registrantcontact', 'admincontact', 'techcontact', 'billingcontact');
 
         $show_content = true;
@@ -1860,12 +1743,10 @@ class Liquid extends Module {
      */
     private function createCustomer ($module_row_id, $vars)
     {
-
         $row = $this->getModuleRow($module_row_id);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
         $api->loadCommand("liquid_customers");
         $customers = new LiquidCustomers($api);
-
 
         $response = $customers->signup($vars);
 
@@ -2039,8 +1920,6 @@ class Liquid extends Module {
             return true;
         }
         return false;
-
-//		return in_array($response->{$domain}->status, array("unknown", "available"));
     }
 
     /**
@@ -2068,7 +1947,6 @@ class Liquid extends Module {
                 ),
                 'valid_connection' => array(
                     'rule' => array(array($this, "validateConnection"), $vars['reseller_id'], isset($vars['sandbox']) ? $vars['sandbox'] : "false"),
-//					'message' => Language::_("Liquid.!error.key.valid_connection", true)
                     'message' => Language::_("Liquid.!error.key.valid_connection", true)
                 )
             )
@@ -2088,12 +1966,6 @@ class Liquid extends Module {
         $api = $this->getApi($reseller_id, $key, $sandbox == "true");
         $api->loadCommand("liquid_domains");
         $domains = new LiquidDomains($api);
-
-        // $check = $domains->available(array("domain" => "liquid.com"));
-
-        // if ($check->status() == "OK") {
-        //     return true;
-        // }
 
         // cek menggunakan domain .com
         $check = $domains->available(array("domain" => "liquid2017.com"));
@@ -2289,7 +2161,6 @@ class Liquid extends Module {
 
         if (($errors = $this->Services->errors())) {
             $this->parent->setMessage("error", $errors);
-//            echo $errors;
         }
         return true;
     }

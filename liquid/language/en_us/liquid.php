@@ -2,6 +2,7 @@
 
 // Basics
 $lang['Liquid.name'] = "Liquid";
+$lang['Liquid.description'] = 'Liquid is a domain registrar.';
 $lang['Liquid.module_row'] = "Account";
 $lang['Liquid.module_row_plural'] = "Accounts";
 
