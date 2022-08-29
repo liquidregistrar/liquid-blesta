@@ -1,0 +1,28 @@
+
+	<?php
+	$this->Form->create();
+	?>
+	<div class="pad">
+		<ul>
+			<?php
+			for ($i=0; $i<5; $i++) {
+			?>
+			<li>
+				<?php
+				$this->Form->label($this->_("Liquid.tab_nameserver.field_ns", true, $i+1), "ns" . ($i+1));
+				$this->Form->fieldText("ns[]", $this->Html->ifSet($vars->ns[$i]), array('id' => "ns" . ($i+1)));
+				?>
+			</li>
+			<?php
+			}
+			?>
+		</ul>
+	</div>
+	<div class="button_row">
+            <button class="btn btn-primary" type="submit" name="submit" value="add"  >
+                <i class="fa fa-plus-square"></i> Submit
+            </button>
+        </div>
+	<?php
+	$this->Form->end();
+	?>
