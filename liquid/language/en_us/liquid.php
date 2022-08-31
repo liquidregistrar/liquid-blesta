@@ -1,7 +1,13 @@
 <?php
+// Tooltips
+$lang['Liquid.!tooltip.row_meta.sandbox'] = 'If Sandbox is checked, you must define test/demo account credentials. Using your production account credentials with Sandbox checked will still perform live actions.';
+
+// Errors
+$lang['Liquid.!error.currency.not_exists'] = 'The reseller currency does not exists in this company.';
 
 // Basics
 $lang['Liquid.name'] = "Liquid";
+$lang['Liquid.description'] = "Liquid is a domain registrar.";
 $lang['Liquid.module_row'] = "Account";
 $lang['Liquid.module_row_plural'] = "Accounts";
 

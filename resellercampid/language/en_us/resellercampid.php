@@ -1,7 +1,13 @@
 <?php
+// Tooltips
+$lang['Resellercampid.!tooltip.row_meta.sandbox'] = 'If Sandbox is checked, you must define test/demo account credentials. Using your production account credentials with Sandbox checked will still perform live actions.';
+
+// Errors
+$lang['Resellercampid.!error.currency.not_exists'] = 'The reseller currency does not exists in this company.';
 
 // Basics
 $lang['Resellercampid.name'] = "Resellercampid";
+$lang['Resellercampid.description'] = "Resellercampid is a domain registrar.";
 $lang['Resellercampid.module_row'] = "Account";
 $lang['Resellercampid.module_row_plural'] = "Accounts";
 

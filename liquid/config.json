@@ -1,0 +1,28 @@
+{
+    "version": "2.1.0",
+    "type": "registrar",
+    "name": "Liquid.name",
+    "description": "Liquid.description",
+    "authors": [
+        {
+            "name": "JogjaCamp.",
+            "url": "https://resellercamp.com"
+        }
+    ],
+    "package": {
+        "name_key": "domain-name"
+    },
+    "service": {
+        "name_key": "domain-name"
+    },
+    "module": {
+        "row": "Liquid.module_row",
+        "rows": "Liquid.module_row_plural",
+        "row_key": "registrar"
+    },
+    "email_tags": {
+        "module": [],
+        "package": [],
+        "service": ["domain-name", "domain"]
+    }
+}

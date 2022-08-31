@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Liquid Module
  *
@@ -12,20 +11,13 @@
 class Liquid extends Module {
 
     /**
-     * @var string The version of this module
-     */
-    private static $version = "1.2.0";
-
-    /**
-     * @var string The authors of this module
-     */
-    private static $authors = array(array('name' => "JogjaCamp.", 'url' => "https://resellercamp.com"));
-
-    /**
      * Initializes the module
      */
     public function __construct ()
     {
+        // Load configuration required by this module
+        $this->loadConfig(dirname(__FILE__) . DS . 'config.json');
+
         // Load components required by this module
         Loader::loadComponents($this, array("Input"));
 
@@ -36,106 +28,21 @@ class Liquid extends Module {
     }
 
     /**
-     * Returns the name of this module
+     * Performs migration of data from $current_version (the current installed version)
+     * to the given file set version. Sets Input errors on failure, preventing
+     * the module from being upgraded.
      *
-     * @return string The common name of this module
+     * @param string $current_version The current installed version of this module
      */
-    public function getName ()
+    public function upgrade($current_version)
     {
-        return Language::_("Liquid.name", true);
-    }
-
-    /**
-     * Returns the version of this module
-     *
-     * @return string The current version of this module
-     */
-    public function getVersion ()
-    {
-        return self::$version;
-    }
-
-    /**
-     * Returns the name and URL for the authors of this module
-     *
-     * @return array A numerically indexed array that contains an array with key/value pairs for 'name' and 'url', representing the name and URL of the authors of this module
-     */
-    public function getAuthors ()
-    {
-        return self::$authors;
-    }
-
-    /**
-     * Returns the value used to identify a particular service
-     *
-     * @param stdClass $service A stdClass object representing the service
-     * @return string A value used to identify this service amongst other similar services
-     */
-    public function getServiceName ($service)
-    {
-        foreach ($service->fields as $field) {
-            if ($field->key == "domain-name")
-                return $field->value;
+        // Upgrade to 2.1.0
+        if (version_compare($current_version, '2.1.0', '<')) {
+            Cache::clearCache(
+                'tlds_prices',
+                Configure::get('Blesta.company_id') . DS . 'modules' . DS . 'liquid' . DS
+            );
         }
-        return null;
-    }
-
-    /**
-     * Returns a noun used to refer to a module row (e.g. "Server", "VPS", "Reseller Account", etc.)
-     *
-     * @return string The noun used to refer to a module row
-     */
-    public function moduleRowName ()
-    {
-        return Language::_("Liquid.module_row", true);
-    }
-
-    /**
-     * Returns a noun used to refer to a module row in plural form (e.g. "Servers", "VPSs", "Reseller Accounts", etc.)
-     *
-     * @return string The noun used to refer to a module row in plural form
-     */
-    public function moduleRowNamePlural ()
-    {
-        return Language::_("Liquid.module_row_plural", true);
-    }
-
-    /**
-     * Returns a noun used to refer to a module group (e.g. "Server Group", "Cloud", etc.)
-     *
-     * @return string The noun used to refer to a module group
-     */
-    public function moduleGroupName ()
-    {
-        return null;
-    }
-
-    /**
-     * Returns the key used to identify the primary field from the set of module row meta fields.
-     * This value can be any of the module row meta fields.
-     *
-     * @return string The key used to identify the primary field from the set of module row meta fields
-     */
-    public function moduleRowMetaKey ()
-    {
-        return "registrar";
-    }
-
-    /**
-     * Returns the value used to identify a particular package service which has
-     * not yet been made into a service. This may be used to uniquely identify
-     * an uncreated services of the same package (i.e. in an order form checkout)
-     *
-     * @param stdClass $package A stdClass object representing the selected package
-     * @param array $vars An array of user supplied info to satisfy the request
-     * @return string The value used to identify this package service
-     * @see Module::getServiceName()
-     */
-    public function getPackageServiceName ($packages, array $vars = null)
-    {
-        if (isset($vars['domain-name']))
-            return $vars['domain-name'];
-        return null;
     }
 
     /**
@@ -182,7 +89,7 @@ class Liquid extends Module {
         # TODO: Handle validation checks
         #
 
-                $tld = null;
+        $tld = null;
         $input_fields = array();
 
         if (isset($vars['domain-name'])) {
@@ -264,7 +171,6 @@ class Liquid extends Module {
                         if (isset($client->numbers) AND is_array($client->numbers)) {
                             foreach ($client->numbers as $v_telp) {
                                 $v_telp = (array) $v_telp;
-//                                                    if ($v_telp["type"] == "phone" AND $v_telp["location"] == "home") {
                                 $part = explode(".", $this->formatPhone($v_telp["number"], $client->country));
                                 if (empty($part[1])) {
                                     $tel_cc = "";
@@ -277,7 +183,6 @@ class Liquid extends Module {
 
                                 $vars[$key] = ltrim($tel_cc, "+");
                                 $vars['tel_no'] = ltrim($tel, "0");
-//                                                    }
                             }
                         }
                     } elseif ($key == "username")
@@ -315,7 +220,6 @@ class Liquid extends Module {
                 } elseif ($tld == ".co") {
                     $vars['eligibility_criteria'] = "co";
                 }
-
 
                 // Create customer if necessary
                 if (!$customer_id)
@@ -384,10 +288,9 @@ class Liquid extends Module {
                 );
             }
             else {
-
                 #
                 # TODO: Create SSL cert
-            #
+                #
             }
         } elseif ($status != "pending" AND $status != "in_review") {
             if ($package->meta->type == "domain") {
@@ -574,8 +477,8 @@ class Liquid extends Module {
         } else {
             #
             # TODO: SSL Cert: Set cancelation date of service?
-        #
-            }
+            #
+        }
 
         return null;
     }
@@ -808,7 +711,7 @@ class Liquid extends Module {
      */
     public function deleteModuleRow ($module_row)
     {
-
+        // Nothing to do
     }
 
     /**
@@ -831,7 +734,14 @@ class Liquid extends Module {
 
         // Set type of package
         $type = $fields->label(Language::_("Liquid.package_fields.type", true), "liquid_type");
-        $type->attach($fields->fieldSelect("meta[type]", $types, $this->Html->ifSet($vars->meta['type']), array('id' => "liquid_type")));
+        $type->attach(
+            $fields->fieldSelect(
+                "meta[type]",
+                $types,
+                (isset($vars->meta['type']) ? $vars->meta['type'] : null),
+                array('id' => "liquid_type")
+            )
+        );
         $fields->setField($type);
 
         // Set all TLD checkboxes
@@ -841,7 +751,15 @@ class Liquid extends Module {
         sort($tlds);
         foreach ($tlds as $tld) {
             $tld_label = $fields->label($tld, "tld_" . $tld);
-            $tld_options->attach($fields->fieldCheckbox("meta[tlds][]", $tld, (isset($vars->meta['tlds']) && in_array($tld, $vars->meta['tlds'])), array('id' => "tld_" . $tld), $tld_label));
+            $tld_options->attach(
+                $fields->fieldCheckbox(
+                    "meta[tlds][]",
+                    $tld,
+                    (isset($vars->meta['tlds']) && in_array($tld, $vars->meta['tlds'])),
+                    array('id' => "tld_" . $tld),
+                    $tld_label
+                )
+            );
         }
         $fields->setField($tld_options);
 
@@ -853,44 +771,26 @@ class Liquid extends Module {
         }
 
         $fields->setHtml("
-                        <script type=\"text/javascript\">
-                                $(document).ready(function() {
-                                        toggleTldOptions($('#liquid_type').val());
+            <script type=\"text/javascript\">
+                $(document).ready(function() {
+                    toggleTldOptions($('#liquid_type').val());
 
-                                        // Re-fetch module options to toggle fields
-                                        $('#liquid_type').change(function() {
-                                                toggleTldOptions($(this).val());
-                                        });
+                    // Re-fetch module options to toggle fields
+                    $('#liquid_type').change(function() {
+                        toggleTldOptions($(this).val());
+                    });
 
-                                        function toggleTldOptions(type) {
-                                                if (type == 'ssl')
-                                                        $('.liquid_tlds').hide();
-                                                else
-                                                        $('.liquid_tlds').show();
-                                        }
-                                });
-                        </script>
-                ");
+                    function toggleTldOptions(type) {
+                        if (type == 'ssl')
+                            $('.liquid_tlds').hide();
+                        else
+                            $('.liquid_tlds').show();
+                    }
+                });
+            </script>
+        ");
 
         return $fields;
-    }
-
-    /**
-     * Returns an array of key values for fields stored for a module, package,
-     * and service under this module, used to substitute those keys with their
-     * actual module, package, or service meta values in related emails.
-     *
-     * @return array A multi-dimensional array of key/value pairs where each key is one of 'module', 'package', or 'service' and each value is a numerically indexed array of key values that match meta fields under that category.
-     * @see Modules::addModuleRow()
-     * @see Modules::editModuleRow()
-     * @see Modules::addPackage()
-     * @see Modules::editPackage()
-     * @see Modules::addService()
-     * @see Modules::editService()
-     */
-    public function getEmailTags ()
-    {
-        return array('service' => array('domain-name'));
     }
 
     /**
@@ -902,7 +802,6 @@ class Liquid extends Module {
      */
     public function getAdminAddFields ($package, $vars = null)
     {
-
         // Handle universal domain name
         if (isset($vars->domain))
             $vars->{'domain-name'} = $vars->domain;
@@ -1093,7 +992,6 @@ class Liquid extends Module {
             return array(
                 'tabWhois' => Language::_("Liquid.tab_whois.title", true),
                 'tabNameservers' => Language::_("Liquid.tab_nameservers.title", true),
-//				'tabChildname' => Language::_("Liquid.tab_childname.title", true),
                 'tabChildname' => Language::_("Liquid.tab_childname.title", true),
                 'tabManagedns' => Language::_("Liquid.tab_managedns.title", true),
                 'tabDomainForwarding' => Language::_("Liquid.tab_domainforwarding.title", true),
@@ -1102,8 +1000,8 @@ class Liquid extends Module {
         } else {
             #
             # TODO: Activate & uploads CSR, set field data, etc.
-        #
-                }
+            #
+        }
     }
 
     /**
@@ -1127,8 +1025,8 @@ class Liquid extends Module {
         } else {
             #
             # TODO: Activate & uploads CSR, set field data, etc.
-        #
-            }
+            #
+        }
     }
 
     /**
@@ -1323,7 +1221,6 @@ class Liquid extends Module {
 
         $contact_fields = Configure::get("Liquid.contact_fields");
         $fields = $this->serviceFieldsToObject($service->fields);
-//		$sections = array('registrant_contact', 'admin_contact', 'tech_contact', 'billing_contact');
         $sections = array('registrantcontact', 'admincontact', 'techcontact', 'billingcontact');
 
         $show_content = true;
@@ -1860,12 +1757,10 @@ class Liquid extends Module {
      */
     private function createCustomer ($module_row_id, $vars)
     {
-
         $row = $this->getModuleRow($module_row_id);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
         $api->loadCommand("liquid_customers");
         $customers = new LiquidCustomers($api);
-
 
         $response = $customers->signup($vars);
 
@@ -2039,8 +1934,287 @@ class Liquid extends Module {
             return true;
         }
         return false;
+    }
 
-//		return in_array($response->{$domain}->status, array("unknown", "available"));
+    /**
+     * Gets the domain expiration date
+     *
+     * @param stdClass $service The service belonging to the domain to lookup
+     * @param string $format The format to return the expiration date in
+     * @return string The domain expiration date in UTC time in the given format
+     * @see Services::get()
+     */
+    public function getExpirationDate($service, $format = 'Y-m-d H:i:s')
+    {
+        Loader::loadHelpers($this, ['Date']);
+
+        $domain = $this->getServiceDomain($service);
+        $module_row_id = $service->module_row_id ?? null;
+
+        $row = $this->getModuleRow($module_row_id);
+        $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == 'true');
+        $api->loadCommand('liquid_domains');
+        $domains = new LiquidDomains($api);
+
+        $result = $domains->detailsByName(['domain-name' => $domain, 'options' => 'All']);
+        $this->processResponse($api, $result);
+
+        if ($result->status() != 'OK') {
+            return false;
+        }
+
+        $response = $result->response();
+
+        return $this->Date->format(
+            $format,
+            isset($response->endtime)
+                ? $response->endtime
+                : date('c')
+        );
+    }
+
+    /**
+     * Gets the domain name from the given service
+     *
+     * @param stdClass $service The service from which to extract the domain name
+     * @return string The domain name associated with the service
+     */
+    public function getServiceDomain($service)
+    {
+        if (isset($service->fields)) {
+            foreach ($service->fields as $service_field) {
+                if ($service_field->key == 'domain-name') {
+                    return $service_field->value;
+                }
+            }
+        }
+
+        return $this->getServiceName($service);
+    }
+
+    /**
+     * Get a list of the TLDs supported by the registrar module
+     *
+     * @param int $module_row_id The ID of the module row to fetch for the current module
+     * @return array A list of all TLDs supported by the registrar module
+     */
+    public function getTlds($module_row_id = null)
+    {
+        return Configure::get('Liquid.tlds');
+    }
+
+    /**
+     * Get a list of the TLD prices
+     *
+     * @param int $module_row_id The ID of the module row to fetch for the current module
+     * @return array A list of all TLDs and their pricing
+     *    [tld => [currency => [year# => ['register' => price, 'transfer' => price, 'renew' => price]]]]
+     */
+    public function getTldPricing($module_row_id = null)
+    {
+        return $this->getFilteredTldPricing($module_row_id);
+    }
+
+    /**
+     * Get a filtered list of the TLD prices
+     *
+     * @param int $module_row_id The ID of the module row to fetch for the current module
+     * @param array $filters A list of criteria by which to filter fetched pricings including but not limited to:
+     *
+     *  - tlds A list of tlds for which to fetch pricings
+     *  - currencies A list of currencies for which to fetch pricings
+     *  - terms A list of terms for which to fetch pricings
+     * @return array A list of all TLDs and their pricing
+     *    [tld => [currency => [year# => ['register' => price, 'transfer' => price, 'renew' => price]]]]
+     */
+    public function getFilteredTldPricing($module_row_id = null, $filters = [])
+    {
+        Loader::loadModels($this, ['Currencies']);
+
+        $row = $this->getModuleRow($module_row_id);
+        $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == 'true');
+
+        // Get all currencies
+        $currencies = [];
+        $company_currencies = $this->Currencies->getAll(Configure::get('Blesta.company_id'));
+        foreach ($company_currencies as $currency) {
+            $currencies[$currency->code] = $currency;
+        }
+
+        // Get TLD product mapping
+        $maping_cache = Cache::fetchCache(
+            'tlds_mapping',
+            Configure::get('Blesta.company_id') . DS . 'modules' . DS . 'liquid' . DS
+        );
+        if ($maping_cache) {
+            $tld_mapping = unserialize(base64_decode($maping_cache));
+        } else {
+            $tld_mapping = $this->getTldProductMapping($api);
+            $this->writeCache('tlds_mapping', $tld_mapping);
+        }
+
+        // Get TLD pricings
+        $pricing_cache = Cache::fetchCache(
+            'tlds_prices',
+            Configure::get('Blesta.company_id') . DS . 'modules' . DS . 'liquid' . DS
+        );
+        if ($pricing_cache) {
+            $product_pricings = unserialize(base64_decode($pricing_cache));
+        } else {
+            $product_pricings = $this->getTldProductPricings($api);
+            $this->writeCache('tlds_prices', $product_pricings);
+        }
+
+        // Get reseller details
+        $reseller_cache = Cache::fetchCache(
+            'reseller_details',
+            Configure::get('Blesta.company_id') . DS . 'modules' . DS . 'liquid' . DS
+        );
+        if ($reseller_cache) {
+            $details = unserialize(base64_decode($reseller_cache));
+        }
+        if (!isset($details)) {
+            $api->loadCommand('liquid_reseller');
+            $reseller = new LiquidReseller($api);
+
+            $response = $reseller->details($row->meta->reseller_id);
+            $this->processResponse($api, $response);
+            $details = $response->response();
+
+            $this->writeCache('reseller_details', $details);
+        }
+
+        // Validate if the reseller currency exists in the company
+        if (!isset($currencies[$details->parentselling_currency ?? 'USD'])) {
+            $this->Input->setErrors(['currency' => ['not_exists' => Language::_('Liquid.!error.currency.not_exists', true)]]);
+
+            return;
+        }
+
+        // Set TLD pricing
+        $tld_yearly_prices = [];
+        foreach ($product_pricings as $name => $pricing) {
+            if (isset($tld_mapping[$name])) {
+                foreach ($tld_mapping[$name] as $tld) {
+                    $tld_name = strtolower($tld['label']);
+                    $tld_yearly_prices[$tld_name] = [];
+
+                    // Filter by 'tlds'
+                    if (isset($filters['tlds']) && !in_array($tld_name, $filters['tlds'])) {
+                        continue;
+                    }
+
+                    // Convert prices to all currencies
+                    foreach ($currencies as $currency) {
+                        // Filter by 'currencies'
+                        if (isset($filters['currencies']) && !in_array($currency->code, $filters['currencies'])) {
+                            continue;
+                        }
+
+                        $tld_yearly_prices[$tld_name][$currency->code] = [];
+                        $register_price =  $this->Currencies->convert(
+                            $pricing[0]['addnewdomain'],
+                            $details->parentselling_currency ?? 'USD',
+                            $currency->code,
+                            Configure::get('Blesta.company_id')
+                        );
+                        $transfer_price = $this->Currencies->convert(
+                            $pricing[0]['addtransferdomain'],
+                            $details->parentselling_currency ?? 'USD',
+                            $currency->code,
+                            Configure::get('Blesta.company_id')
+                        );
+                        $renewal_price = $this->Currencies->convert(
+                            $pricing[0]['renewdomain'],
+                            $details->parentselling_currency ?? 'USD',
+                            $currency->code,
+                            Configure::get('Blesta.company_id')
+                        );
+                        foreach (range(1, 10) as $years) {
+                            // Filter by 'terms'
+                            if (isset($filters['terms']) && !in_array($years, $filters['terms'])) {
+                                continue;
+                            }
+
+                            $tld_yearly_prices[$tld_name][$currency->code][$years] = [
+                                'register' => $register_price * $years,
+                                'transfer' => $transfer_price * $years,
+                                'renew' => $renewal_price * $years
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+
+        return $tld_yearly_prices;
+    }
+
+    private function writeCache($cache_name, $content)
+    {
+        // Save the TLDs results to the cache
+        if (Configure::get('Caching.on') && is_writable(CACHEDIR)) {
+            try {
+                Cache::writeCache(
+                    $cache_name,
+                    base64_encode(serialize($content)),
+                    strtotime(Configure::get('Blesta.cache_length')) - time(),
+                    Configure::get('Blesta.company_id') . DS . 'modules' . DS . 'liquid' . DS
+                );
+            } catch (Exception $e) {
+                // Write to cache failed, so disable caching
+                Configure::set('Caching.on', false);
+            }
+        }
+    }
+
+    /**
+     * Gets a list of TLDs organized by product
+     *
+     * @param LiquidApi $api
+     * @return array A list of products and their associated TLDs
+     */
+    private function getTldProductMapping($api)
+    {
+        $api->loadCommand('liquid_products');
+        $products = new LiquidProducts($api);
+        $product_result = $products->getMappings();
+        $this->processResponse($api, $product_result);
+
+        // API request failed, return empty list
+        if (trim($product_result->status()) !== 'OK') {
+            return [];
+        }
+
+        // Format TLD list and organize by product
+        $tld_mapping = [];
+        $categories = $product_result->response();
+        foreach ($categories as $product_name => $tlds) {
+            $tld_mapping[$product_name] = $tlds;
+        }
+
+        return $tld_mapping;
+    }
+
+    /**
+     * Gets a list of TLDs product pricings
+     *
+     * @param LiquidApi $api
+     * @return stdClass A list of products and pricings
+     */
+    private function getTldProductPricings($api)
+    {
+        $api->loadCommand('liquid_products');
+        $common = new LiquidProducts($api);
+        $result = $common->getPricing();
+        $this->processResponse($api, $result);
+
+        if (trim($result->status()) !== 'OK') {
+            return [];
+        }
+        $response = $result->response();
+
+        return $response;
     }
 
     /**
@@ -2068,7 +2242,6 @@ class Liquid extends Module {
                 ),
                 'valid_connection' => array(
                     'rule' => array(array($this, "validateConnection"), $vars['reseller_id'], isset($vars['sandbox']) ? $vars['sandbox'] : "false"),
-//					'message' => Language::_("Liquid.!error.key.valid_connection", true)
                     'message' => Language::_("Liquid.!error.key.valid_connection", true)
                 )
             )
@@ -2088,12 +2261,6 @@ class Liquid extends Module {
         $api = $this->getApi($reseller_id, $key, $sandbox == "true");
         $api->loadCommand("liquid_domains");
         $domains = new LiquidDomains($api);
-
-        // $check = $domains->available(array("domain" => "liquid.com"));
-
-        // if ($check->status() == "OK") {
-        //     return true;
-        // }
 
         // cek menggunakan domain .com
         $check = $domains->available(array("domain" => "liquid2017.com"));
@@ -2289,7 +2456,6 @@ class Liquid extends Module {
 
         if (($errors = $this->Services->errors())) {
             $this->parent->setMessage("error", $errors);
-//            echo $errors;
         }
         return true;
     }
