@@ -1,0 +1,28 @@
+{
+    "version": "2.1.0",
+    "type": "registrar",
+    "name": "Resellercampid.name",
+    "description": "Resellercampid.description",
+    "authors": [
+        {
+            "name": "JogjaCamp.",
+            "url": "https://resellercamp.id"
+        }
+    ],
+    "package": {
+        "name_key": "domain-name"
+    },
+    "service": {
+        "name_key": "domain-name"
+    },
+    "module": {
+        "row": "Resellercampid.module_row",
+        "rows": "Resellercampid.module_row_plural",
+        "row_key": "registrar"
+    },
+    "email_tags": {
+        "module": [],
+        "package": [],
+        "service": ["domain-name", "domain"]
+    }
+}

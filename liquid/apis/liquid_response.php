@@ -66,17 +66,15 @@ class LiquidResponse {
      */
     public function errors ()
     {
-        if (isset($this->response->status) && strtolower($this->response->status) == "error")
+        if (isset($this->response->status) && strtolower($this->response->status) == "error") {
             return $this->response;
-        elseif (isset($this->response->status) && strtolower($this->response->status) == "failed")
+        } elseif (isset($this->response->status) && strtolower($this->response->status) == "failed") {
             return (object) array('message' => $this->response->actionstatusdesc);
-        elseif (!empty($this->response["message"])) {
+        } elseif (!empty($this->response["message"])) {
             $this->err_msg = $this->response["message"];
             return $this->response;
         } elseif (empty($this->response)) {
             return "Unable to request data from liquid server";
-//            } elseif (!is_array($this->response) === false) {
-//                return "Unable to request data from liquid serverx";
         }
 
         return false;
