@@ -1,4 +1,5 @@
 <?php
+use Blesta\Core\Util\Common\Traits\Container;
 
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . "resellercampid_response.php";
 
@@ -12,6 +13,8 @@ require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . "resellercampid_response.
  * @package resellercampid
  */
 class ResellercampidApi {
+    // Load traits
+    use Container;
 
     const SANDBOX_URL = "https://api.domainsas.com/";
     const LIVE_URL = "https://api.liqu.id/";
@@ -33,11 +36,6 @@ class ResellercampidApi {
     private $sandbox;
 
     /**
-     * @var boolean Debug Backtrace in apicall
-     */
-    private $debug_backtrace;
-
-    /**
      * @var array An array representing the last request made
      */
     private $last_request = array('url' => null, 'args' => null);
@@ -54,12 +52,15 @@ class ResellercampidApi {
      * @param string $key The key to use when connecting
      * @param boolean $sandbox Whether or not to process in sandbox mode (for testing)
      */
-    public function __construct ($reseller_id, $key, $sandbox = false, $debug_backtrace = array())
+    public function __construct ($reseller_id, $key, $sandbox = false)
     {
         $this->reseller_id = $reseller_id;
         $this->key = $key;
         $this->sandbox = $sandbox;
-        $this->debug_backtrace = $debug_backtrace;
+
+        // Initialize logger
+        $logger = $this->getFromContainer('logger');
+        $this->logger = $logger;
     }
 
     /**
@@ -142,6 +143,7 @@ class ResellercampidApi {
             $emp["code"] = "";
             $emp["message"] = "Unable to request data from resellercampid server";
             $response = json_encode($emp);
+            $this->logger->error(curl_error($ch));
         }
 
         if (strpos($header, "404 Not Found")) {
