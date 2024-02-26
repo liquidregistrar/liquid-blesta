@@ -8,7 +8,7 @@
  * @license http://www.blesta.com/license/ The Blesta License Agreement
  * @link http://www.blesta.com/ Blesta
  */
-class Resellercampid extends Module {
+class Resellercampid extends RegistrarModule {
 
     /**
      * Initializes the module
@@ -1916,10 +1916,9 @@ class Resellercampid extends Module {
      * @param string $domain The domain to lookup
      * @return boolean True if available, false otherwise
      */
-    public function checkAvailability ($domain)
+    public function checkAvailability ($domain, $module_row_id = null)
     {
-
-        $row = $this->getModuleRow();
+        $row = $this->getModuleRow($module_row_id);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
         $api->loadCommand("resellercampid_domains");
         $domains = new ResellercampidDomains($api);
