@@ -31,8 +31,8 @@
     },
     "features": {
         "dns_management": 1,
-        "email_forwarding": 1,
-        "id_protection": 1,
+        "email_forwarding": 0,
+        "id_protection": 0,
         "epp_code": 0
     }
 }
