@@ -8,7 +8,7 @@
  * @license http://www.blesta.com/license/ The Blesta License Agreement
  * @link http://www.blesta.com/ Blesta
  */
-class Resellercampid extends Module {
+class Resellercampid extends RegistrarModule {
 
     /**
      * Initializes the module
@@ -1916,10 +1916,9 @@ class Resellercampid extends Module {
      * @param string $domain The domain to lookup
      * @return boolean True if available, false otherwise
      */
-    public function checkAvailability ($domain)
+    public function checkAvailability ($domain, $module_row_id = null)
     {
-
-        $row = $this->getModuleRow();
+        $row = $this->getModuleRow($module_row_id);
         $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
         $api->loadCommand("resellercampid_domains");
         $domains = new ResellercampidDomains($api);
@@ -1956,7 +1955,7 @@ class Resellercampid extends Module {
         $api->loadCommand('resellercampid_domains');
         $domains = new ResellercampidDomains($api);
 
-        $result = $domains->detailsByName(['domain-name' => $domain, 'options' => 'All']);
+        $result = $domains->detailsByName(['domain_name' => $domain, 'options' => 'All']);
         $this->processResponse($api, $result);
 
         if ($result->status() != 'OK') {
@@ -1967,8 +1966,8 @@ class Resellercampid extends Module {
 
         return $this->Date->format(
             $format,
-            isset($response->endtime)
-                ? $response->endtime
+            isset($response["expiry_date"])
+                ? $response["expiry_date"]
                 : date('c')
         );
     }
@@ -2458,6 +2457,75 @@ class Resellercampid extends Module {
             $this->parent->setMessage("error", $errors);
         }
         return true;
+    }
+
+    /**
+     * Gets the Nameserver of a Registered domain name.
+     *
+     * @param array $vars An array of input params including:
+     * 	- domain The Registered domain name whose Nameserver you want to know.
+     * @return ResellercampidResponse
+     */
+    public function getDomainNameServers($domain, $module_row_id = null)
+    {
+        $row = $this->getModuleRow($module_row_id);
+        $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
+        $api->loadCommand("resellercampid_domains");
+        $domains = new ResellercampidDomains($api);
+        $nameservers = [];
+        $order_id = $this->getorderid($module_row_id, $domain);
+        if ($order_id == null) {
+            return false;
+        } else{
+            $result = $domains->details(array('domain_id' => $order_id, 'fields' => "ns"));
+            $this->processResponse($api, $result);
+
+            if ($result->status() != 'OK') {
+                return false;
+            }
+            $response = $result->response();
+
+            if (isset($response)) {
+                foreach ($response as $ns => $nameserver) {
+                    $nameservers[] = [
+                        'url' => trim($nameserver),
+                        'ips' => [gethostbyname(trim($nameserver))]
+                    ];
+                }
+            }
+        }
+        return $nameservers;
+    }
+
+    /**
+     * Set the Nameserver of a Registered domain name.
+     *
+     * @param array $vars An array of input params including:
+     * 	- domain The Registered domain name whose Nameserver you want to know.
+     * @return ResellercampidResponse
+     */
+    public function setDomainNameservers($domain, $module_row_id = null, array $vars = [])
+    {
+        $row = $this->getModuleRow($module_row_id);
+        $api = $this->getApi($row->meta->reseller_id, $row->meta->key, $row->meta->sandbox == "true");
+        $api->loadCommand("resellercampid_domains");
+        $domains = new ResellercampidDomains($api);
+
+        $order_id = $this->getorderid($module_row_id, $domain);
+
+        $ns = array();
+        foreach ($vars as $i => $nameserver) {
+            if ($nameserver != "")
+                $ns[] = $nameserver;
+        }
+
+        $ns_ = implode(",", $ns);
+        $result = $domains->modifyNs(array('domain_id' => $order_id, 'ns' => $ns_));
+        $this->processResponse($api, $result);
+
+        $response = $result->response();
+
+        return $response;
     }
 
 }
